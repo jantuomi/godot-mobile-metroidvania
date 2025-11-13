@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=7 format=4 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_pyidc"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_vvh5c"]
@@ -415,6 +415,12 @@ texture = ExtResource("1_pyidc")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_0e48y")
 
+[sub_resource type="Gradient" id="Gradient_pyidc"]
+colors = PackedColorArray(0, 0.9882353, 0, 1, 0, 0.9882353, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vvh5c"]
+gradient = SubResource("Gradient_pyidc")
+
 [node name="Root" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -426,3 +432,24 @@ position = Vector2(74, 60)
 collision_layer = 2
 speed = 70.0
 jump_strength = 320.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -15)
+
+[node name="TouchScreenButtonRight" type="TouchScreenButton" parent="Player/Camera2D"]
+position = Vector2(-64, 33)
+scale = Vector2(0.046874996, 11)
+texture_normal = SubResource("GradientTexture1D_vvh5c")
+action = "move_right"
+
+[node name="TouchScreenButtonJump" type="TouchScreenButton" parent="Player/Camera2D"]
+position = Vector2(72, 34)
+scale = Vector2(0.046874996, 11)
+texture_normal = SubResource("GradientTexture1D_vvh5c")
+action = "jump"
+
+[node name="TouchScreenButtonLeft" type="TouchScreenButton" parent="Player/Camera2D"]
+position = Vector2(-84, 33)
+scale = Vector2(0.046874996, 11)
+texture_normal = SubResource("GradientTexture1D_vvh5c")
+action = "move_left"
