@@ -7,3 +7,4 @@ func _ready() -> void:
 	$TextureRect.texture = texture
 	if not DisplayServer.is_touchscreen_available():
 		visible = false
+		#visible = true

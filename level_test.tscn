@@ -453,6 +453,7 @@ coyote_max = 10
 jump_held_coef = 0.8
 
 [node name="GameCamera" parent="Player" instance=ExtResource("4_6ih1o")]
+unique_name_in_owner = true
 process_callback = 0
 position_smoothing_speed = 3.0
 offset_amt = Vector2(40, 14)
@@ -461,4 +462,3 @@ offset_amt = Vector2(40, 14)
 script = ExtResource("8_hpvma")
 
 [node name="TouchScreenUI" parent="." instance=ExtResource("5_56xti")]
-position = Vector2(90, 64)
