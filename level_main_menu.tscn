@@ -9,15 +9,24 @@ script = ExtResource("1_rbk04")
 position = Vector2(96, 54)
 
 [node name="TestLevelButton" type="Button" parent="."]
-offset_left = 55.0
-offset_top = 47.0
-offset_right = 136.0
-offset_bottom = 78.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 76.0
+offset_top = 51.0
+offset_right = 157.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 text = "Test level"
 
 [node name="Label" type="Label" parent="."]
-offset_left = 53.0
-offset_top = 15.0
-offset_right = 141.0
-offset_bottom = 38.0
+offset_top = 24.0
+offset_right = 384.0
+offset_bottom = 47.0
+scale = Vector2(0.5, 0.5)
 text = "Main menu"
+horizontal_alignment = 1
