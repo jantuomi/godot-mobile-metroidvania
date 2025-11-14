@@ -8,6 +8,7 @@ extends CharacterBody2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var prev_dir: float = 0.0
+var jump_was_released: bool = true
 
 # coyote = 0 indicates on floor
 # coyote > 0 indicates frames since on floor
@@ -44,11 +45,15 @@ func _physics_process(delta: float):
 	else:
 		coyote += 1
 
-	var can_jump = coyote < coyote_max
+	var can_jump = coyote < coyote_max and jump_was_released
 	if Input.is_action_pressed("jump") and can_jump:
 		velocity.y = -jump_strength
 		# Force coyote time to expire to forbid double jumps
 		coyote = coyote_max
+		jump_was_released = false
+
+	if not Input.is_action_pressed("jump"):
+		jump_was_released = true
 	
 	var direction: float
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
