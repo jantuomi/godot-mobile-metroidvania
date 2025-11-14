@@ -39,6 +39,8 @@ func _physics_process(delta: float):
 	var can_jump = coyote < coyote_max
 	if Input.is_action_just_pressed("jump") and can_jump:
 		velocity.y = -jump_strength
+		# Force coyote time to expire to forbid double jumps
+		coyote = coyote_max
 	
 	var direction: float
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
