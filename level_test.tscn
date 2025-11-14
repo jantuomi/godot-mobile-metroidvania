@@ -1,14 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=8 format=4 uid="uid://cfj21o6wsd3hv"]
 
 [ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_56xti"]
 [ext_resource type="Script" uid="uid://b3xwng3dkn5s7" path="res://level_test.gd" id="1_mge0y"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_mge0y"]
-[ext_resource type="PackedScene" uid="uid://dwl0fylftkrn7" path="res://touch_screen_button.tscn" id="3_hpvma"]
-[ext_resource type="Texture2D" uid="uid://dxwflmdxikfiu" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0758.png" id="4_k6i1l"]
-[ext_resource type="Texture2D" uid="uid://bhpl1ew34plow" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0760.png" id="5_lmggl"]
-[ext_resource type="Texture2D" uid="uid://m46a5qu4rgui" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0757.png" id="6_25u55"]
+[ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="4_6ih1o"]
 [ext_resource type="Script" uid="uid://rjab5emlyx6" path="res://esc_listener.gd" id="8_hpvma"]
-[ext_resource type="Texture2D" uid="uid://dsetjcrrlp7gu" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0769.png" id="8_k6i1l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
 texture = ExtResource("1_56xti")
@@ -440,9 +436,6 @@ texture = ExtResource("1_56xti")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_0e48y")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6i1l"]
-size = Vector2(40, 26)
-
 [node name="LevelTest" type="Node2D"]
 script = ExtResource("1_mge0y")
 
@@ -458,29 +451,10 @@ jump_strength = 200.0
 coyote_max = 10
 jump_held_coef = 0.8
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -15)
-
-[node name="TouchScreenButtonRight" parent="Player/Camera2D" instance=ExtResource("3_hpvma")]
-position = Vector2(-36, 34)
-action = "move_right"
-texture = ExtResource("4_k6i1l")
-
-[node name="TouchScreenButtonLeft" parent="Player/Camera2D" instance=ExtResource("3_hpvma")]
-position = Vector2(-76, 34)
-action = "move_left"
-texture = ExtResource("5_lmggl")
-
-[node name="TouchScreenButtonJump" parent="Player/Camera2D" instance=ExtResource("3_hpvma")]
-position = Vector2(76, 34)
-action = "jump"
-texture = ExtResource("6_25u55")
-
-[node name="TouchScreenButtonMenu" parent="Player/Camera2D" instance=ExtResource("3_hpvma")]
-position = Vector2(76, -41)
-shape = SubResource("RectangleShape2D_k6i1l")
-action = "menu"
-texture = ExtResource("8_k6i1l")
+[node name="GameCamera" parent="Player" instance=ExtResource("4_6ih1o")]
+process_callback = 0
+position_smoothing_speed = 3.0
+offset_amt = Vector2(40, 14)
 
 [node name="EscListener" type="Node" parent="."]
 script = ExtResource("8_hpvma")
