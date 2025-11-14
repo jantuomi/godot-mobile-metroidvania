@@ -69,7 +69,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wtcfe")
+"texture": SubResource("AtlasTexture_0e48y")
 }],
 "loop": true,
 "name": &"idle",
@@ -109,6 +109,9 @@ position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_rj586")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+position = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
