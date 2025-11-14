@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=9 format=4 uid="uid://cfj21o6wsd3hv"]
 
 [ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_56xti"]
 [ext_resource type="Script" uid="uid://b3xwng3dkn5s7" path="res://level_test.gd" id="1_mge0y"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_mge0y"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="4_6ih1o"]
+[ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_56xti"]
 [ext_resource type="Script" uid="uid://rjab5emlyx6" path="res://esc_listener.gd" id="8_hpvma"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
@@ -458,3 +459,6 @@ offset_amt = Vector2(40, 14)
 
 [node name="EscListener" type="Node" parent="."]
 script = ExtResource("8_hpvma")
+
+[node name="TouchScreenUI" parent="." instance=ExtResource("5_56xti")]
+position = Vector2(90, 64)

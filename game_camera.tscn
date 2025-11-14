@@ -1,37 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfyvkc2qlcdac"]
+[gd_scene load_steps=2 format=3 uid="uid://dfyvkc2qlcdac"]
 
-[ext_resource type="PackedScene" uid="uid://dwl0fylftkrn7" path="res://touch_screen_button.tscn" id="1_kci6r"]
 [ext_resource type="Script" uid="uid://dul8m52uio8t5" path="res://game_camera.gd" id="1_sfxhn"]
-[ext_resource type="Texture2D" uid="uid://dxwflmdxikfiu" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0758.png" id="2_sfxhn"]
-[ext_resource type="Texture2D" uid="uid://bhpl1ew34plow" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0760.png" id="3_4qcmi"]
-[ext_resource type="Texture2D" uid="uid://m46a5qu4rgui" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0757.png" id="4_2jofw"]
-[ext_resource type="Texture2D" uid="uid://dsetjcrrlp7gu" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (Black)/tile_0769.png" id="5_5dmry"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6i1l"]
-size = Vector2(40, 26)
 
 [node name="GameCamera" type="Camera2D"]
 position_smoothing_enabled = true
 position_smoothing_speed = 16.0
 script = ExtResource("1_sfxhn")
-
-[node name="TouchScreenButtonRight" parent="." instance=ExtResource("1_kci6r")]
-position = Vector2(-36, 34)
-action = "move_right"
-texture = ExtResource("2_sfxhn")
-
-[node name="TouchScreenButtonLeft" parent="." instance=ExtResource("1_kci6r")]
-position = Vector2(-76, 34)
-action = "move_left"
-texture = ExtResource("3_4qcmi")
-
-[node name="TouchScreenButtonJump" parent="." instance=ExtResource("1_kci6r")]
-position = Vector2(76, 34)
-action = "jump"
-texture = ExtResource("4_2jofw")
-
-[node name="TouchScreenButtonMenu" parent="." instance=ExtResource("1_kci6r")]
-position = Vector2(76, -41)
-shape = SubResource("RectangleShape2D_k6i1l")
-action = "menu"
-texture = ExtResource("5_5dmry")
