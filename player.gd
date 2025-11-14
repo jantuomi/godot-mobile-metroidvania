@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed: float
 @export var jump_strength: float
 @export var coyote_max: int
+@export var jump_held_coef: float
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var prev_dir: float = 0.0
@@ -31,7 +32,13 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.set_animation("idle")
 
 func _physics_process(delta: float):
-	velocity.y += gravity * delta
+	var grav_coef = 1.0
+	if velocity.y < 0 and Input.is_action_pressed("jump"):
+		grav_coef = 1.0 + (jump_held_coef * velocity.y / jump_strength)
+	
+	#print_debug("1.0 + (", velocity.y, " / (", jump_held_coef, " * ", jump_strength, ")) = ", grav_coef)
+	velocity.y += grav_coef * gravity * delta
+
 	if is_on_floor():
 		coyote = 0
 	else:
