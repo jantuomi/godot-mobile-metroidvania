@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwl0fylftkrn7"]
+
+[ext_resource type="Script" uid="uid://d28xghvh1kwa5" path="res://touch_screen_button.gd" id="1_8gxd0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
+size = Vector2(40, 40)
+
+[node name="TouchScreenButtonRight" type="TouchScreenButton"]
+shape = SubResource("RectangleShape2D_l8v81")
+passby_press = true
+visibility_mode = 1
+script = ExtResource("1_8gxd0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+expand_mode = 1
