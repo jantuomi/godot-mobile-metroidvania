@@ -1,3 +1,4 @@
+class_name Root
 extends Node2D
 
 @export var initial_level: PackedScene
@@ -11,7 +12,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func change_level(level: PackedScene):
+func change_level(level_name: String):
+	var level = ResourceLoader.load("res://level_" + level_name + ".tscn")
 	var current_level = get_child(0)
 	remove_child(current_level)
 	

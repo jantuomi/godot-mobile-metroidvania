@@ -1,3 +1,23 @@
-[gd_scene format=3 uid="uid://cjdhfl70fgt6m"]
+[gd_scene load_steps=2 format=3 uid="uid://cjdhfl70fgt6m"]
+
+[ext_resource type="Script" uid="uid://dufnvsfxreqq8" path="res://level_main_menu.gd" id="1_rbk04"]
 
 [node name="MainMenu" type="Node2D"]
+script = ExtResource("1_rbk04")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(96, 54)
+
+[node name="TestLevelButton" type="Button" parent="."]
+offset_left = 55.0
+offset_top = 47.0
+offset_right = 136.0
+offset_bottom = 78.0
+text = "Test level"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 53.0
+offset_top = 15.0
+offset_right = 141.0
+offset_bottom = 38.0
+text = "Main menu"

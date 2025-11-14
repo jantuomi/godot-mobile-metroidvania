@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://cey3jxnpmommt"]
 
-[ext_resource type="PackedScene" uid="uid://cfj21o6wsd3hv" path="res://level_test.tscn" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://root.gd" id="1_pyidc"]
+[ext_resource type="PackedScene" uid="uid://cjdhfl70fgt6m" path="res://level_main_menu.tscn" id="2_pyidc"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_pyidc")
-initial_level = ExtResource("1_pq8q7")
+initial_level = ExtResource("2_pyidc")
