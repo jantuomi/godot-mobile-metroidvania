@@ -448,6 +448,7 @@ position = Vector2(90, 64)
 collision_layer = 2
 speed = 70.0
 jump_strength = 320.0
+coyote_max = 10
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -15)

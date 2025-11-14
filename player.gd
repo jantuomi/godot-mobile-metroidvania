@@ -2,9 +2,14 @@ extends CharacterBody2D
 
 @export var speed: float
 @export var jump_strength: float
+@export var coyote_max: int
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var prev_dir: float = 0.0
+
+# coyote = 0 indicates on floor
+# coyote > 0 indicates frames since on floor
+var coyote: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,8 +31,13 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float):
 	velocity.y += gravity * delta
+	if is_on_floor():
+		coyote = 0
+	else:
+		coyote += 1
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	var can_jump = coyote < coyote_max
+	if Input.is_action_just_pressed("jump") and can_jump:
 		velocity.y = -jump_strength
 	
 	var direction: float
