@@ -9,6 +9,7 @@ var save_state = ConfigFile.new()
 func _ready() -> void:
 	var room = initial_room.instantiate()
 	room.name = "active_room"
+	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(room)
 	
 	# Testing
@@ -32,11 +33,19 @@ func _change_room():
 	var current_room = get_node("active_room")
 	remove_child(current_room)
 	
+	# If the room hasn't loaded yet, busy loop until it is
+	while _transition_room == null:
+		await get_tree().create_timer(0.1).timeout
+
 	var next_room: Node = _transition_room
 	next_room.name = "active_room"
+	next_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(next_room)
 	
 	_transition_room = null
+	
+func set_paused(paused: bool):
+	get_tree().paused = paused
 
 func save():
 	save_state.save("user://save_state.cfg")

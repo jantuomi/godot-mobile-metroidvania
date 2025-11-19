@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dufnvsfxreqq8" path="res://room_main_menu.gd" id="1_rbk04"]
 
 [node name="MainMenu" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_rbk04")
 
 [node name="Camera2D" type="Camera2D" parent="."]
