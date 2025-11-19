@@ -8,6 +8,7 @@ var save_state = ConfigFile.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var room = initial_room.instantiate()
+	room.name = "active_room"
 	add_child(room)
 	
 	# Testing
@@ -20,10 +21,11 @@ func _ready() -> void:
 
 func change_room(room_name: String):
 	var room = ResourceLoader.load("res://room_" + room_name + ".tscn")
-	var current_room = get_child(0)
+	var current_room = get_node("active_room")
 	remove_child(current_room)
 	
-	var next_room = room.instantiate()
+	var next_room: Node = room.instantiate()
+	next_room.name = "active_room"
 	add_child(next_room)
 
 func save():
