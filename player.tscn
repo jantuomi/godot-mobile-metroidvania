@@ -85,13 +85,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0hol4")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_0e48y")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_epypp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0hol4")
 }],
 "loop": true,
 "name": &"walk",
@@ -109,6 +109,7 @@ position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_rj586")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.90102535
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
