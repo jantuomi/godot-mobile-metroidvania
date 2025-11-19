@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var top: Top = get_tree().root.get_node("Top")
+
 @export var speed: float
 @export var jump_strength: float
 @export var coyote_max: int
@@ -39,6 +41,8 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.set_animation("idle")
 
 func _physics_process(delta: float):
+	if not top.objects_active: return
+
 	var grav_coef = 1.0
 	if velocity.y < 0 and Input.is_action_pressed("jump"):
 		grav_coef = 1.0 + (jump_held_coef * velocity.y / jump_strength)
