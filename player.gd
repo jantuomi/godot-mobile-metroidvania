@@ -8,6 +8,9 @@ extends CharacterBody2D
 @export var coyote_max: int
 @export var jump_held_coef: float
 
+## float (-1.0 .. 1.0) or null
+var forced_input_x: Variant
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var prev_dir: float = 0.0
 var jump_was_released: bool = true
@@ -18,7 +21,7 @@ var coyote: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 	
 func get_facing() -> int:
 	if $AnimatedSprite2D.flip_h:
@@ -41,8 +44,6 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.set_animation("idle")
 
 func _physics_process(delta: float):
-	if not top.objects_active: return
-
 	var grav_coef = 1.0
 	if velocity.y < 0 and Input.is_action_pressed("jump"):
 		grav_coef = 1.0 + (jump_held_coef * velocity.y / jump_strength)
@@ -55,7 +56,7 @@ func _physics_process(delta: float):
 	else:
 		coyote += 1
 
-	var can_jump = coyote < coyote_max and jump_was_released
+	var can_jump = coyote < coyote_max and jump_was_released and forced_input_x == null
 	if Input.is_action_pressed("jump") and can_jump:
 		velocity.y = -jump_strength
 		# Force coyote time to expire to forbid double jumps
@@ -66,7 +67,9 @@ func _physics_process(delta: float):
 		jump_was_released = true
 	
 	var direction: float
-	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
+	if forced_input_x:
+		direction = forced_input_x
+	elif Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
 		# This is a fix to the stalled movement issue
 		# where the player stops if both x inputs are pressed at the same time.
 		# To fix it, we store the previous direction the player was moving in, and change
@@ -77,5 +80,26 @@ func _physics_process(delta: float):
 		prev_dir = direction
 	
 	velocity.x = direction * speed
-	# Move the character
+
 	move_and_slide()
+
+## dir: String or null
+func set_forced_input(dir: Variant):
+	if dir == null:
+		forced_input_x = null
+	elif dir == "LEFT":
+		forced_input_x = -1.0
+	elif dir == "JUMP_LEFT":
+		velocity.y = -jump_strength
+		forced_input_x = -1.0
+	elif dir == "RIGHT":
+		forced_input_x = 1.0
+	elif dir == "JUMP_RIGHT":
+		velocity.y = -jump_strength
+		forced_input_x = 1.0
+	elif dir == "JUMP":
+		velocity.y = -jump_strength
+		forced_input_x = 0.0
+	elif dir == "DROP":
+		velocity.y = 0.0
+		forced_input_x = 0.0
