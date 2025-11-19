@@ -18,15 +18,25 @@ func _ready() -> void:
 	save_state.save(save_state_path)
 	print(OS.get_data_dir())
 
+var _transition_room: Node
 
-func change_room(room_name: String):
+func transition_to_room(room_name: String):
+	# Start animation
+	# The animation calls _change_room at a specific time
+	$TransitionCanvas/AnimationPlayer.play("room_transition")
+
 	var room = ResourceLoader.load("res://room_" + room_name + ".tscn")
+	_transition_room = room.instantiate()
+
+func _change_room():
 	var current_room = get_node("active_room")
 	remove_child(current_room)
 	
-	var next_room: Node = room.instantiate()
+	var next_room: Node = _transition_room
 	next_room.name = "active_room"
 	add_child(next_room)
+	
+	_transition_room = null
 
 func save():
 	save_state.save("user://save_state.cfg")

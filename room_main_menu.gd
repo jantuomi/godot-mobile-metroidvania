@@ -11,4 +11,4 @@ func _process(_delta: float) -> void:
 	pass
 
 func _test_room_button_pressed():
-	top.change_room("test")
+	top.transition_to_room("test")

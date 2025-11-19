@@ -4,4 +4,4 @@ extends Node
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("menu"):
-		top.change_room("main_menu")
+		top.transition_to_room("main_menu")
