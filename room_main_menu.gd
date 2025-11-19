@@ -1,7 +1,7 @@
 class_name RoomMainMenu
 extends Node2D
 
-@onready var root: Root = get_tree().root.get_child(0)
+@onready var top: Top = get_tree().root.get_node("Top")
 
 func _ready() -> void:
 	$TestRoomButton.grab_focus.call_deferred()
@@ -11,4 +11,4 @@ func _process(_delta: float) -> void:
 	pass
 
 func _test_room_button_pressed():
-	root.change_room("test")
+	top.change_room("test")

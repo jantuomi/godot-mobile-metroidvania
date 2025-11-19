@@ -1,4 +1,4 @@
-class_name Root
+class_name Top
 extends Node2D
 
 @export var initial_room: PackedScene
