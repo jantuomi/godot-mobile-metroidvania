@@ -1,29 +1,22 @@
 class_name Top
 extends Node2D
 
-@export var initial_room: PackedScene
+const ROOM_MAIN_MENU: String = "res://room_main_menu.tscn"
+const ROOM_NEW_GAME: String = "res://room_test1.tscn"
 
 var active_room_name: String
-var save_state_path = "user://save_state.cfg"
-var save_state = ConfigFile.new()
 
 func _ready() -> void:
+	print("data_dir: \"%s\"" % OS.get_user_data_dir())
 	$Map.hide_map()
 	get_tree().call_group("ui_movement", "set_visible", false)
 	get_tree().call_group("ui_menu", "set_visible", false)
 
-	var room = initial_room.instantiate()
+	var room = preload(ROOM_MAIN_MENU).instantiate()
 	active_room_name = room.name
 	room.name = "ActiveRoom"
 	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(room)
-	
-	# Testing
-	save_state.load(save_state_path)
-	print("loaded test_item: ", save_state.get_value("items", "test_item"))
-	save_state.set_value("items", "test_item", true)
-	save_state.save(save_state_path)
-	print(OS.get_data_dir())
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("menu"):
@@ -31,9 +24,6 @@ func _process(_delta: float):
 			close_pause_menu()
 		elif active_room_name != "MainMenu":
 			open_pause_menu()
-
-func save():
-	save_state.save("user://save_state.cfg")
 
 func replace_active_room(new_room: Node, on_changed: Callable):
 	var current_room = get_node("ActiveRoom")
@@ -63,4 +53,25 @@ func open_pause_menu():
 func close_pause_menu():
 	get_tree().paused = false
 	$Map.hide_map()
-	
+
+# Save state logic
+
+@onready var save_state: ConfigFile = ConfigFile.new()
+const SAVE_PATH = "user://save_state.cfg"
+const SAVE_SECTION = "save"
+const SAVE_ACTIVE_ROOM_PATH = "ACTIVE_ROOM_PATH"
+const SAVE_LAST_DOOR_NAME   = "LAST_DOOR_NAME"
+
+func game_set(k: String, v: Variant):
+	save_state.set_value(SAVE_SECTION, k, v)
+
+func game_save():
+	save_state.save(SAVE_PATH)
+
+func game_load():
+	save_state.load(SAVE_PATH)
+	$TransitionManager.room_transition(
+		null,
+		save_state.get_value(SAVE_SECTION, SAVE_ACTIVE_ROOM_PATH, ROOM_NEW_GAME),
+		save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME)
+	)

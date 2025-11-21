@@ -23,6 +23,9 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 	var room = ResourceLoader.load(to_room_path)
 	_transition_room = room.instantiate()
 	_transition_door_name = door_name
+	
+	top.game_set(Top.SAVE_ACTIVE_ROOM_PATH, to_room_path)
+	top.game_set(Top.SAVE_LAST_DOOR_NAME, door_name)
 
 func _transition_start():
 	#print_debug("_transition_start")
@@ -44,6 +47,7 @@ func _on_room_changed():
 		player.set_forced_input(door.exit_towards)
 
 	$AnimationPlayer.play("room_trans_end")
+	top.game_save()
 	
 func _transition_end():
 	#print_debug("_transition_end")
