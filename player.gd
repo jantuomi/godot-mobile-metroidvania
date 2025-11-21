@@ -104,5 +104,4 @@ func set_forced_input(dir: Variant):
 		forced_input_x = 0.0
 		gravity = 0.0
 	elif dir == "DROP":
-		velocity.y = 0.0
 		forced_input_x = 0.0

@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2shuyjjq06p8"]
+
+[ext_resource type="Script" uid="uid://kfbrnj68jtyf" path="res://transition_manager.gd" id="1_xqma1"]
+
+[sub_resource type="Animation" id="Animation_58ij3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_edsjh"]
+resource_name = "room_trans_end"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_transition_end"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2exal"]
+resource_name = "room_trans_start"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_transition_start"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2exal"]
+_data = {
+&"RESET": SubResource("Animation_58ij3"),
+&"room_trans_end": SubResource("Animation_edsjh"),
+&"room_trans_start": SubResource("Animation_2exal")
+}
+
+[node name="TransitionManager" type="CanvasLayer"]
+script = ExtResource("1_xqma1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 192.0
+offset_bottom = 108.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ColorRect")
+libraries = {
+&"": SubResource("AnimationLibrary_2exal")
+}
+speed_scale = 3.0
