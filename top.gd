@@ -25,7 +25,10 @@ func _ready() -> void:
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("menu"):
-		on_esc_pressed()
+		if $Map.visible:
+			close_pause_menu()
+		elif active_room_name != "MainMenu":
+			open_pause_menu()
 
 func save():
 	save_state.save("user://save_state.cfg")
@@ -34,6 +37,13 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	var current_room = get_node("ActiveRoom")
 	remove_child(current_room)
 	current_room.queue_free()
+	
+	var next_is_main_menu = new_room.name == "MainMenu"
+	var touchscreen_ui_exists = has_node("TouchScreenUI")
+	if next_is_main_menu and touchscreen_ui_exists:
+		remove_child(get_node("TouchScreenUI"))
+	elif not next_is_main_menu and not touchscreen_ui_exists:
+		add_child(preload("res://touch_screen_ui.tscn").instantiate())
 	
 	active_room_name = new_room.name
 	new_room.name = "ActiveRoom"
@@ -47,16 +57,9 @@ func get_map() -> Map:
 func get_transition_manager() -> TransitionManager:
 	return $TransitionManager
 
-func on_esc_pressed():
-	if $Map.visible:
-		close_pause_menu()
-	elif active_room_name != "MainMenu":
-		open_pause_menu()
-
 func open_pause_menu():
 	get_tree().paused = true
 	$Map.show_map()
-	$Map.connect_close_map(close_pause_menu)
 
 func close_pause_menu():
 	get_tree().paused = false
