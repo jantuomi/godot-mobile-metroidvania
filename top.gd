@@ -9,6 +9,8 @@ var save_state = ConfigFile.new()
 
 func _ready() -> void:
 	$Map.hide_map()
+	get_tree().call_group("ui_movement", "set_visible", false)
+	get_tree().call_group("ui_menu", "set_visible", false)
 
 	var room = initial_room.instantiate()
 	active_room_name = room.name
@@ -37,13 +39,10 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	var current_room = get_node("ActiveRoom")
 	remove_child(current_room)
 	current_room.queue_free()
-	
-	var next_is_main_menu = new_room.name == "MainMenu"
-	var touchscreen_ui_exists = has_node("TouchScreenUI")
-	if next_is_main_menu and touchscreen_ui_exists:
-		remove_child(get_node("TouchScreenUI"))
-	elif not next_is_main_menu and not touchscreen_ui_exists:
-		add_child(preload("res://touch_screen_ui.tscn").instantiate())
+
+	var show_touchscreen_ui = (new_room.name != "MainMenu")
+	get_tree().call_group("ui_movement", "set_visible", show_touchscreen_ui)
+	get_tree().call_group("ui_menu", "set_visible", show_touchscreen_ui)
 	
 	active_room_name = new_room.name
 	new_room.name = "ActiveRoom"
@@ -64,3 +63,4 @@ func open_pause_menu():
 func close_pause_menu():
 	get_tree().paused = false
 	$Map.hide_map()
+	

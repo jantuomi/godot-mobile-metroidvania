@@ -1,56 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://cseqghymhiyqo"]
+[gd_scene load_steps=3 format=3 uid="uid://cseqghymhiyqo"]
 
 [ext_resource type="Script" uid="uid://dh0b4xa4f8h1o" path="res://map.gd" id="1_wijl4"]
 [ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="2_e0an3"]
-[ext_resource type="Texture2D" uid="uid://c1h4ev7ma1neg" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0200.png" id="3_e0an3"]
 
 [node name="Map" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_wijl4")
 
 [node name="Bg" type="ColorRect" parent="."]
+z_index = 1
 offset_right = 192.0
 offset_bottom = 108.0
 mouse_filter = 2
 color = Color(0, 0.019607844, 0.039215688, 0.81960785)
 
-[node name="RoomTest1" parent="." instance=ExtResource("2_e0an3")]
-offset_left = 84.0
-offset_top = 48.0
-offset_right = 92.0
-offset_bottom = 53.0
+[node name="Rooms" type="CanvasGroup" parent="."]
+z_index = 3
 
-[node name="Line2D" type="Line2D" parent="RoomTest1"]
-position = Vector2(7.275, 2.5)
-points = PackedVector2Array(0.7251587, 0.15686035, 2.7251587, 0.15686035)
-width = 1.0
+[node name="RoomTest1" parent="Rooms" instance=ExtResource("2_e0an3")]
+offset_left = 63.0
+offset_top = 41.0
+offset_right = 79.0
+offset_bottom = 51.0
 
-[node name="Line2D2" type="Line2D" parent="RoomTest1"]
-position = Vector2(3.2749996, 7.5)
-points = PackedVector2Array(0.7251587, 0.15686035, 0.7249985, -2.5)
-width = 1.0
+[node name="Line2D" type="Line2D" parent="Rooms/RoomTest1"]
+z_index = -1
+points = PackedVector2Array(8, 19, 8, 5, 30, 5)
+width = 2.0
 
-[node name="RoomTest3" parent="." instance=ExtResource("2_e0an3")]
-offset_left = 84.0
+[node name="RoomTest2" parent="Rooms" instance=ExtResource("2_e0an3")]
+offset_left = 83.0
+offset_top = 41.0
+offset_right = 99.0
+offset_bottom = 51.0
+
+[node name="RoomTest3" parent="Rooms" instance=ExtResource("2_e0an3")]
+offset_left = 63.0
 offset_top = 55.0
-offset_right = 92.0
-offset_bottom = 60.0
-
-[node name="RoomTest2" parent="." instance=ExtResource("2_e0an3")]
-offset_left = 94.0
-offset_top = 48.0
-offset_right = 102.0
-offset_bottom = 53.0
-
-[node name="UnpauseButton" type="Button" parent="."]
-offset_left = 188.0
-offset_top = 105.0
-offset_right = 212.0
-offset_bottom = 129.0
-rotation = 3.1415927
-mouse_default_cursor_shape = 2
-action_mode = 0
-icon = ExtResource("3_e0an3")
-flat = true
-
-[connection signal="pressed" from="UnpauseButton" to="." method="_on_unpause_button_pressed"]
+offset_right = 79.0
+offset_bottom = 65.0

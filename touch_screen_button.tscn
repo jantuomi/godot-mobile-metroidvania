@@ -10,6 +10,8 @@ shape = SubResource("RectangleShape2D_l8v81")
 passby_press = true
 visibility_mode = 1
 script = ExtResource("1_8gxd0")
+inactive_color = Color(0.54509807, 0.6666667, 1, 0.5019608)
+active_color = Color(0, 0.77254903, 0.7764706, 0.5019608)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -8.0
@@ -17,3 +19,8 @@ offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 expand_mode = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="TextureRect"]
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="released" from="." to="." method="_on_released"]

@@ -26,6 +26,11 @@ window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 
+[global_group]
+
+ui_movement=""
+ui_menu=""
+
 [input]
 
 move_right={

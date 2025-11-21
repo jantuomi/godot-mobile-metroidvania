@@ -1,10 +1,15 @@
 extends TouchScreenButton
 
 @export var texture: Texture2D
-@export var desktop_visible: bool
+@export var inactive_color: Color
+@export var active_color: Color
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$TextureRect.texture = texture
-	if not DisplayServer.is_touchscreen_available():
-		visible = desktop_visible
+	$TextureRect/CanvasModulate.color = inactive_color
+
+func _on_pressed() -> void:
+	$TextureRect/CanvasModulate.color = active_color
+
+func _on_released() -> void:
+	$TextureRect/CanvasModulate.color = inactive_color
