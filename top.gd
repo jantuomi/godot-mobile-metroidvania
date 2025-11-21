@@ -30,3 +30,9 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	new_room.connect("tree_entered", on_changed)
 	new_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(new_room)
+
+func get_map() -> Map:
+	return $Map
+	
+func get_transition_manager() -> TransitionManager:
+	return $TransitionManager

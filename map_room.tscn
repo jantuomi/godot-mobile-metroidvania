@@ -1,7 +1,11 @@
-[gd_scene format=3 uid="uid://clm2kocuhjqbb"]
+[gd_scene load_steps=2 format=3 uid="uid://clm2kocuhjqbb"]
+
+[ext_resource type="Script" uid="uid://b1mxftq1jboum" path="res://map_room.gd" id="1_oc81s"]
 
 [node name="MapRoom" type="ColorRect"]
 offset_left = 68.0
 offset_top = 57.0
 offset_right = 76.0
 offset_bottom = 62.0
+color = Color(0.7490196, 0.76862746, 0.8901961, 1)
+script = ExtResource("1_oc81s")

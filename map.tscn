@@ -1,3 +1,44 @@
-[gd_scene format=3 uid="uid://cseqghymhiyqo"]
+[gd_scene load_steps=3 format=3 uid="uid://cseqghymhiyqo"]
+
+[ext_resource type="Script" uid="uid://dh0b4xa4f8h1o" path="res://map.gd" id="1_wijl4"]
+[ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="2_e0an3"]
 
 [node name="Map" type="CanvasLayer"]
+script = ExtResource("1_wijl4")
+inactive_color = Color(0.747755, 0.7671235, 0.89114594, 1)
+active_color = Color(0, 0.77254903, 0.7764706, 1)
+
+[node name="Bg" type="ColorRect" parent="."]
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 29.0
+offset_bottom = 23.0
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="RoomTest1" parent="." instance=ExtResource("2_e0an3")]
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 15.0
+offset_bottom = 11.0
+
+[node name="Line2D" type="Line2D" parent="RoomTest1"]
+position = Vector2(7.275, 2.5)
+points = PackedVector2Array(0.7251587, 0.15686035, 2.7251587, 0.15686035)
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="RoomTest1"]
+position = Vector2(3.2749996, 7.5)
+points = PackedVector2Array(0.7251587, 0.15686035, 0.7249985, -2.5)
+width = 1.0
+
+[node name="RoomTest3" parent="." instance=ExtResource("2_e0an3")]
+offset_left = 7.0
+offset_top = 13.0
+offset_right = 15.0
+offset_bottom = 18.0
+
+[node name="RoomTest2" parent="." instance=ExtResource("2_e0an3")]
+offset_left = 17.0
+offset_top = 6.0
+offset_right = 25.0
+offset_bottom = 11.0
