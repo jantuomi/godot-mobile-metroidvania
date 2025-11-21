@@ -468,7 +468,7 @@ script = ExtResource("4_gyred")
 [node name="DoorLeft" parent="." instance=ExtResource("6_0kik6")]
 position = Vector2(-28, 88)
 scale = Vector2(1, 4)
-target_room = "test1"
-target_door = "DoorMiddle"
 exit_towards = "RIGHT"
 enter_towards = "LEFT"
+target_room = "res://room_test1.tscn"
+target_door = "DoorMiddle"

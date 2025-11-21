@@ -4,49 +4,73 @@ extends Area2D
 
 @onready var top: Top = get_tree().root.get_node("Top")
 
-@export var target_room: String:
-	set(v):
-		target_room = v
-		update_configuration_warnings()
-
-@export var target_door: String:
-	set(v):
-		target_door = v
-		update_configuration_warnings()
+var _target_room: Variant
+var _target_door: Variant
 
 @export_enum("LEFT", "RIGHT", "JUMP_LEFT", "JUMP_RIGHT", "DROP") var exit_towards: String
 @export_enum("LEFT", "RIGHT", "JUMP", "DROP") var enter_towards: String
 
-func _ready():
-	update_configuration_warnings()
+func _set(property, val):
+	if property == "target_room":
+		_target_room = val
+		if not ResourceLoader.exists(_target_room):
+			_target_door = null
+		update_configuration_warnings()
+		notify_property_list_changed()
+	elif property == "target_door":
+		_target_door = val
+		update_configuration_warnings()
+		notify_property_list_changed()
+	
+func _get(property):
+	if property == "target_room":
+		return _target_room
+	elif property == "target_door":
+		return _target_door
 
 func _on_body_entered(_player: Player) -> void:
-	top.room_transition(self, to_room_path(target_room), target_door)
+	if not Engine.is_editor_hint():
+		top.room_transition(self, _target_room, _target_door)
+	
+func _get_property_list() -> Array[Dictionary]:
+	var rooms: PackedStringArray = []
+	for res_name in ResourceLoader.list_directory("."):
+		if res_name.begins_with("room_") and res_name.ends_with(".tscn"):
+			rooms.append("res://" + res_name)
+	
+	var props: Array[Dictionary] = [{
+		"name": "target_room",
+		"type": TYPE_STRING,
+		"hint": PROPERTY_HINT_ENUM,
+		"hint_string": ",".join(rooms)
+	}]
+	if _target_room and _target_room != "":
+		var options: PackedStringArray = []
+		if not ResourceLoader.exists(_target_room): return props
+		var packed: PackedScene = ResourceLoader.load(_target_room)
+		var state = packed.get_state()
+		for idx in range(state.get_node_count()):
+			var node_name = state.get_node_name(idx)
+			if node_name.begins_with("Door"):
+				options.append(node_name)
+			
+		#print(options)
+		props.append({
+			"name": "target_door",
+			"type": TYPE_STRING,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": ",".join(options)
+		})
+
+	return props
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
-	var room_path: String
-	if target_room:
-		room_path = to_room_path(target_room)
-	if not target_room:
-		warnings.append("target_room is not defined")
-	elif not ResourceLoader.exists(room_path):
-		warnings.append("target_room \"%s\" does not exist" % room_path)
 
-	if not target_door:
+	if not _target_room:
+		warnings.append("target_room is not defined")
+	
+	if not _target_door:
 		warnings.append("target_door is not defined")
-	elif target_room:
-		var packed: PackedScene = ResourceLoader.load(room_path)
-		var state = packed.get_state()
-		var found = false
-		for idx in range(state.get_node_count()):
-			if state.get_node_name(idx) == target_door:
-				found = true
-				break
-		if not found:
-			warnings.append("target_door \"%s\" does not exist in the target room" % target_door)
 
 	return warnings
-
-func to_room_path(room_name: String):
-	return "res://room_" + room_name + ".tscn"

@@ -471,15 +471,15 @@ script = ExtResource("4_8b75i")
 [node name="DoorMiddle" parent="." instance=ExtResource("6_lfjh7")]
 position = Vector2(430, 170)
 scale = Vector2(1, 4)
-target_room = "test2"
-target_door = "DoorLeft"
 exit_towards = "LEFT"
 enter_towards = "RIGHT"
+target_room = "res://room_test2.tscn"
+target_door = "DoorLeft"
 
 [node name="DoorLeft" parent="." instance=ExtResource("6_lfjh7")]
 position = Vector2(-16, 111)
 scale = Vector2(4, 1)
-target_room = "test3"
-target_door = "DoorUp"
 exit_towards = "JUMP_RIGHT"
 enter_towards = "DROP"
+target_room = "res://room_test3.tscn"
+target_door = "DoorUp"

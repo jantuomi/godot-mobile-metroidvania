@@ -468,7 +468,7 @@ script = ExtResource("4_bplq6")
 [node name="DoorUp" parent="." instance=ExtResource("6_i21us")]
 position = Vector2(96, 20)
 scale = Vector2(4, 1)
-target_room = "test1"
-target_door = "DoorLeft"
 exit_towards = "DROP"
 enter_towards = "JUMP"
+target_room = "res://room_test1.tscn"
+target_door = "DoorLeft"
