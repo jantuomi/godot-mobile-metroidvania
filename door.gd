@@ -20,7 +20,7 @@ extends Area2D
 func _ready():
 	update_configuration_warnings()
 
-func _on_body_entered(player: Player) -> void:
+func _on_body_entered(_player: Player) -> void:
 	top.room_transition(self, to_room_path(target_room), target_door)
 
 func _get_configuration_warnings() -> PackedStringArray:
