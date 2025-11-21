@@ -50,6 +50,8 @@ func _physics_process(delta: float):
 	
 	#print_debug("1.0 + (", velocity.y, " / (", jump_held_coef, " * ", jump_strength, ")) = ", grav_coef)
 	velocity.y += grav_coef * gravity * delta
+	if velocity.y > jump_strength:
+		velocity.y = jump_strength
 
 	if is_on_floor():
 		coyote = 0
@@ -67,7 +69,7 @@ func _physics_process(delta: float):
 		jump_was_released = true
 	
 	var direction: float
-	if forced_input_x:
+	if forced_input_x != null:
 		direction = forced_input_x
 	elif Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
 		# This is a fix to the stalled movement issue
@@ -85,21 +87,23 @@ func _physics_process(delta: float):
 
 ## dir: String or null
 func set_forced_input(dir: Variant):
+	var jump_coef = 1.3
 	if dir == null:
 		forced_input_x = null
 	elif dir == "LEFT":
 		forced_input_x = -1.0
 	elif dir == "JUMP_LEFT":
-		velocity.y = -jump_strength
+		velocity.y = -jump_coef * jump_strength
 		forced_input_x = -1.0
 	elif dir == "RIGHT":
 		forced_input_x = 1.0
 	elif dir == "JUMP_RIGHT":
-		velocity.y = -jump_strength
+		velocity.y = -jump_coef * jump_strength
 		forced_input_x = 1.0
 	elif dir == "JUMP":
 		velocity.y = -jump_strength
 		forced_input_x = 0.0
+		gravity = 0.0
 	elif dir == "DROP":
 		velocity.y = 0.0
 		forced_input_x = 0.0
