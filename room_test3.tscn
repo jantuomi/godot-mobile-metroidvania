@@ -458,7 +458,7 @@ position_smoothing_speed = 3.0
 offset_amt = Vector2(40, 14)
 
 [node name="DoorUp" parent="." instance=ExtResource("6_i21us")]
-position = Vector2(96, 20)
+position = Vector2(96, 10)
 scale = Vector2(4, 1)
 exit_towards = "DROP"
 enter_towards = "JUMP"
