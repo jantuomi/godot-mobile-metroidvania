@@ -7,4 +7,4 @@ func _ready() -> void:
 
 func _test_room_button_pressed():
 	var top: Top = get_tree().root.get_node("Top")
-	top.transition_to_room("res://room_test1.tscn", null)
+	top.room_transition(null, "res://room_test1.tscn", null)

@@ -11,7 +11,7 @@ var _transition_door_name: Variant # String or null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var room = initial_room.instantiate()
-	room.name = "active_room"
+	room.name = "ActiveRoom"
 	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(room)
 	
@@ -25,23 +25,27 @@ func _ready() -> void:
 func is_transitioning() -> bool:
 	return _transition_room != null
 
-func transition_to_room(room_path: String, door_name: Variant):
+func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 	# Do not transition if there is already a transition in process
 	if _transition_room != null:
 		#print_debug("Tried to transition to ", room_name, " but a transition was already in process")
 		return
 
+	if from_door:
+		var player: Player = get_node("ActiveRoom").find_child("Player")
+		player.set_forced_input(from_door.enter_towards)
+
 	# Start animation
 	# The animation calls _change_room at a specific time
 	$TransitionCanvas/AnimationPlayer.play("room_trans_start")
 
-	var room = ResourceLoader.load(room_path)
+	var room = ResourceLoader.load(to_room_path)
 	_transition_room = room.instantiate()
 	_transition_door_name = door_name
 
 func _transition_start():
-	print_debug("_transition_start")
-	var current_room = get_node("active_room")
+	#print_debug("_transition_start")
+	var current_room = get_node("ActiveRoom")
 	remove_child(current_room)
 	current_room.queue_free()
 	
@@ -50,15 +54,15 @@ func _transition_start():
 		await get_tree().create_timer(0.1).timeout
 
 	var next_room: Node = _transition_room
-	next_room.name = "active_room"
+	next_room.name = "ActiveRoom"
 	#next_room.connect("ready", _on_room_changed)
 	next_room.connect("tree_entered", _on_room_changed)
 	next_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(next_room)
 	
 func _on_room_changed():
-	print_debug("_on_room_changed")
-	var room = get_node("active_room")
+	#print_debug("_on_room_changed")
+	var room = get_node("ActiveRoom")
 	var player: Player = room.find_child("Player")
 	if _transition_door_name:
 		var door: Door = room.find_child(_transition_door_name)
@@ -68,11 +72,11 @@ func _on_room_changed():
 	$TransitionCanvas/AnimationPlayer.play("room_trans_end")
 	
 func _transition_end():
-	print_debug("_transition_end")
+	#print_debug("_transition_end")
 	_transition_room = null
 	_transition_door_name = null
 	
-	var room = get_node("active_room")
+	var room = get_node("ActiveRoom")
 	var player: Player = room.find_child("Player")
 	if player:
 		player.set_forced_input(null)

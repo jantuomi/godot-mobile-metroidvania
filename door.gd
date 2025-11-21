@@ -2,6 +2,8 @@
 class_name Door
 extends Area2D
 
+@onready var top: Top = get_tree().root.get_node("Top")
+
 @export var target_room: String:
 	set(v):
 		target_room = v
@@ -19,10 +21,7 @@ func _ready():
 	update_configuration_warnings()
 
 func _on_body_entered(player: Player) -> void:
-	var top: Top = get_tree().root.get_node("Top")
-	if not top.is_transitioning():
-		player.set_forced_input(enter_towards)
-		top.transition_to_room(to_room_path(target_room), target_door)
+	top.room_transition(self, to_room_path(target_room), target_door)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []

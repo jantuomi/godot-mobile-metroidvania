@@ -85,7 +85,6 @@ func _physics_process(delta: float):
 
 	move_and_slide()
 
-## dir: String or null
 func set_forced_input(dir: Variant):
 	var jump_coef = 1.3
 	if dir == null:
