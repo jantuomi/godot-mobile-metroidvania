@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://cm4xqhbvyndt1"]
+[gd_scene load_steps=8 format=4 uid="uid://cm4xqhbvyndt1"]
 
 [ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_otugw"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_0kik6"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="3_vjuef"]
-[ext_resource type="Script" uid="uid://rjab5emlyx6" path="res://esc_listener.gd" id="4_gyred"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_a1hvs"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_0kik6"]
 
@@ -459,9 +458,6 @@ unique_name_in_owner = true
 process_callback = 0
 position_smoothing_speed = 3.0
 offset_amt = Vector2(40, 14)
-
-[node name="EscListener" type="Node" parent="."]
-script = ExtResource("4_gyred")
 
 [node name="TouchScreenUI" parent="." instance=ExtResource("5_a1hvs")]
 

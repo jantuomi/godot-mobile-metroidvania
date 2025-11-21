@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v81"]
 size = Vector2(40, 40)
 
-[node name="TouchScreenButtonRight" type="TouchScreenButton"]
+[node name="TouchScreenButton" type="TouchScreenButton"]
 shape = SubResource("RectangleShape2D_l8v81")
 passby_press = true
 visibility_mode = 1
