@@ -5,11 +5,13 @@ extends TouchScreenButton
 @export var active_color: Color
 
 func _ready() -> void:
+	connect("pressed", _on_pressed)
+	connect("released", _on_released)
 	$TextureRect.texture = texture
-	$TextureRect/CanvasModulate.color = inactive_color
+	$TextureRect.modulate = inactive_color
 
 func _on_pressed() -> void:
-	$TextureRect/CanvasModulate.color = active_color
+	$TextureRect.modulate = active_color
 
 func _on_released() -> void:
-	$TextureRect/CanvasModulate.color = inactive_color
+	$TextureRect.modulate = inactive_color
