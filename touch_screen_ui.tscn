@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cciwccvljuuyq"]
+[gd_scene load_steps=8 format=3 uid="uid://cciwccvljuuyq"]
 
 [ext_resource type="PackedScene" uid="uid://dwl0fylftkrn7" path="res://touch_screen_button.tscn" id="1_e48dh"]
 [ext_resource type="Texture2D" uid="uid://80qwkqluar71" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0758.png" id="2_e48dh"]
@@ -6,10 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://dubf0an7e4r8q" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0757.png" id="4_e48dh"]
 [ext_resource type="Texture2D" uid="uid://jc43kdg6konu" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0769.png" id="5_e48dh"]
 
+[sub_resource type="GDScript" id="GDScript_e48dh"]
+script/source = "extends CanvasLayer
+
+@export var visible_on_desktop: bool
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	if not DisplayServer.is_touchscreen_available():
+		visible = visible_on_desktop
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6i1l"]
 size = Vector2(40, 26)
 
 [node name="TouchScreenUI" type="CanvasLayer"]
+script = SubResource("GDScript_e48dh")
+visible_on_desktop = true
 
 [node name="TouchScreenButtonRight" parent="." groups=["ui_movement"] instance=ExtResource("1_e48dh")]
 position = Vector2(60, 88)
