@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://8ucucqeioxqr"]
+
+[ext_resource type="Texture2D" uid="uid://ckoc3bw4l1j87" path="res://assets/frobert/frobert.png" id="1_ijty2"]
+[ext_resource type="Texture2D" uid="uid://d0fpe2qp8rr4t" path="res://assets/frobert/frobert_normal_auto.png" id="2_ijty2"]
+
+[resource]
+diffuse_texture = ExtResource("1_ijty2")
+normal_texture = ExtResource("2_ijty2")

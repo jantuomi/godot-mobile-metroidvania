@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=9 format=4 uid="uid://cfj21o6wsd3hv"]
 
 [ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_ubxha"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_qglt1"]
@@ -437,6 +437,14 @@ texture = ExtResource("1_ubxha")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_0e48y")
 
+[sub_resource type="Gradient" id="Gradient_dri7h"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m3rqw"]
+gradient = SubResource("Gradient_dri7h")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="RoomTest1" type="Node2D"]
 process_mode = 1
 
@@ -473,3 +481,31 @@ exit_towards = "JUMP_RIGHT"
 enter_towards = "DROP"
 target_room = "res://room_test3.tscn"
 target_door = "DoorUp"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.20854908, 0.12776822, 0.042044938, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(62.000008, 61.000008)
+scale = Vector2(6.859375, 6.375)
+color = Color(0.99945337, 0.8187886, 0.8147719, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_m3rqw")
+height = 50.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(179, -9)
+scale = Vector2(6.859375, 6.375)
+color = Color(0.99945337, 0.8187886, 0.8147719, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_m3rqw")
+height = 50.0
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(113, -70)
+color = Color(0.8901961, 0.9137255, 0.9098039, 1)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 3.1
+height = 0.28
