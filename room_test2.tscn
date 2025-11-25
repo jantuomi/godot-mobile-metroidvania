@@ -442,12 +442,13 @@ sources/1 = SubResource("TileSetAtlasSource_0e48y")
 process_mode = 1
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
+modulate = Color(0.7, 0.7, 0.7, 1)
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(16, 16)
 repeat_times = 24
 
 [node name="TextureRect" type="TextureRect" parent="Parallax2D"]
-self_modulate = Color(0.20181876, 0.19135976, 0.31574363, 1)
+self_modulate = Color(0.20784314, 0.21568628, 0.3882353, 1)
 offset_right = 16.0
 offset_bottom = 16.0
 texture = ExtResource("1_0kik6")
