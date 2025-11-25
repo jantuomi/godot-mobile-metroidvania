@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://clm2kocuhjqbb"]
 
 [ext_resource type="Script" uid="uid://b1mxftq1jboum" path="res://map_room.gd" id="1_oc81s"]
-[ext_resource type="Texture2D" uid="uid://bkfsgbkx3t3oe" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0241.png" id="2_vqn3c"]
+[ext_resource type="Texture2D" uid="uid://bkfsgbkx3t3oe" path="res://assets.bak/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0241.png" id="2_vqn3c"]
 
 [node name="MapRoom" type="ColorRect"]
 offset_right = 16.0
 offset_bottom = 10.0
 script = ExtResource("1_oc81s")
-inactive_color = Color(0.7490196, 0.76862746, 0.8901961, 1)
-active_color = Color(0.5463331, 0.66674966, 1, 1)
+inactive_color = Color(0.21960784, 0.5294118, 0.44313726, 1)
+active_color = Color(0.3529412, 0.61960787, 0.36078432, 1)
 
 [node name="PlayerIcon" type="TextureRect" parent="."]
 layout_mode = 0
