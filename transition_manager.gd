@@ -1,12 +1,11 @@
 class_name TransitionManager
 extends CanvasLayer
 
-@onready var top: Top = get_tree().root.get_node("Top")
-
 var _transition_room: Node
 var _transition_door_name: Variant # String or null
 
 func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
+	var top: Top = get_tree().root.get_node("Top")
 	# Do not transition if there is already a transition in process
 	if _transition_room != null:
 		#print_debug("Tried to transition to ", room_name, " but a transition was already in process")
@@ -28,6 +27,7 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 	top.game_set(Top.SAVE_LAST_DOOR_NAME, door_name)
 
 func _transition_start():
+	var top: Top = get_tree().root.get_node("Top")
 	#print_debug("_transition_start")
 	
 	# If the room hasn't loaded yet, loop until it is
@@ -38,6 +38,7 @@ func _transition_start():
 	top.replace_active_room(_transition_room, _on_room_changed)
 	
 func _on_room_changed():
+	var top: Top = get_tree().root.get_node("Top")
 	#print_debug("_on_room_changed")
 	var room = top.get_node("ActiveRoom")
 	var player: Player = room.find_child("Player")
@@ -50,6 +51,7 @@ func _on_room_changed():
 	top.game_save()
 	
 func _transition_end():
+	var top: Top = get_tree().root.get_node("Top")
 	#print_debug("_transition_end")
 	_transition_room = null
 	_transition_door_name = null

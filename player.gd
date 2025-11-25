@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var top: Top = get_tree().root.get_node("Top")
-
 @export var speed: float
 @export var jump_strength: float
 @export var coyote_max: int

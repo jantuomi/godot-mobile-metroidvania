@@ -1,7 +1,6 @@
 class_name Map
 extends CanvasLayer
 
-@onready var top: Top = get_tree().root.get_node("Top")
 var active_map_room: MapRoom
 
 func _ready():

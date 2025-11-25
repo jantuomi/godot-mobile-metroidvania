@@ -2,8 +2,6 @@
 class_name Door
 extends Area2D
 
-@onready var top: Top = get_tree().root.get_node("Top")
-
 var _target_room: Variant
 var _target_door: Variant
 
@@ -30,6 +28,7 @@ func _get(property):
 
 func _on_body_entered(_player: Player) -> void:
 	if not Engine.is_editor_hint():
+		var top: Top = get_tree().root.get_node("Top")
 		top.get_transition_manager().room_transition(self, _target_room, _target_door)
 	
 func _get_property_list() -> Array[Dictionary]:

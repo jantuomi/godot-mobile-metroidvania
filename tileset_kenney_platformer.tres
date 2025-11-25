@@ -1,11 +1,10 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://0cd30n67d6k5"]
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://0cd30n67d6k5"]
 
-[ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets.bak/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_a0n5x"]
-[ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="2_at7kb"]
+[ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets.bak/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="2_at7kb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
 resource_name = "solid trans"
-texture = ExtResource("1_a0n5x")
+texture = ExtResource("2_at7kb")
 1:0/0 = 0
 1:0/0/modulate = Color(0.84705883, 0.58431375, 0.26666668, 1)
 2:0/0 = 0
