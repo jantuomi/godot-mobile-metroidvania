@@ -1,18 +1,28 @@
 [gd_scene load_steps=6 format=3 uid="uid://cey3jxnpmommt"]
 
+[ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
-[ext_resource type="PackedScene" uid="uid://cjdhfl70fgt6m" path="res://room_main_menu.tscn" id="2_58ij3"]
 [ext_resource type="PackedScene" uid="uid://c2shuyjjq06p8" path="res://transition_manager.tscn" id="3_2exal"]
 [ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://map.tscn" id="3_58ij3"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
 
 [node name="Top" type="Node2D"]
 process_mode = 3
+material = ExtResource("1_edsjh")
 script = ExtResource("1_on2c2")
-initial_room = ExtResource("2_58ij3")
 
 [node name="TransitionManager" parent="." instance=ExtResource("3_2exal")]
 
 [node name="Map" parent="." instance=ExtResource("3_58ij3")]
 
 [node name="TouchScreenUI" parent="." instance=ExtResource("5_edsjh")]
+
+[node name="PaletterShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PaletterShader"]
+material = ExtResource("1_edsjh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
