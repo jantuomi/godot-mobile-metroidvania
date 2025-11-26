@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=12 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
-[ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://map.tscn" id="3_58ij3"]
 [ext_resource type="Script" uid="uid://cph2apstgper1" path="res://palette_shader.gd" id="5_ch5ua"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
 [ext_resource type="Script" uid="uid://civ5a43u5151a" path="res://transition_player.gd" id="6_ch5ua"]
+[ext_resource type="Script" uid="uid://dh0b4xa4f8h1o" path="res://pause_menu.gd" id="6_ql50d"]
+[ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="7_ql50d"]
 
 [sub_resource type="Animation" id="Animation_58ij3"]
 length = 0.001
@@ -146,8 +147,6 @@ process_mode = 3
 material = ExtResource("1_edsjh")
 script = ExtResource("1_on2c2")
 
-[node name="Map" parent="." instance=ExtResource("3_58ij3")]
-
 [node name="TouchScreenUI" parent="." instance=ExtResource("5_edsjh")]
 
 [node name="TransitionPlayer" type="AnimationPlayer" parent="."]
@@ -157,7 +156,46 @@ libraries = {
 speed_scale = 3.0
 script = ExtResource("6_ch5ua")
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("6_ql50d")
+
+[node name="Bg" type="ColorRect" parent="PauseMenu"]
+offset_right = 192.0
+offset_bottom = 108.0
+mouse_filter = 2
+color = Color(0, 0.019607844, 0.039215688, 0.88235295)
+
+[node name="Map" type="CanvasGroup" parent="PauseMenu"]
+
+[node name="RoomTest1" parent="PauseMenu/Map" instance=ExtResource("7_ql50d")]
+offset_left = 63.0
+offset_top = 41.0
+offset_right = 79.0
+offset_bottom = 51.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Line2D" type="Line2D" parent="PauseMenu/Map/RoomTest1"]
+z_index = -1
+points = PackedVector2Array(8, 19, 8, 5, 30, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="RoomTest2" parent="PauseMenu/Map" instance=ExtResource("7_ql50d")]
+offset_left = 83.0
+offset_top = 41.0
+offset_right = 99.0
+offset_bottom = 51.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RoomTest3" parent="PauseMenu/Map" instance=ExtResource("7_ql50d")]
+offset_left = 63.0
+offset_top = 55.0
+offset_right = 79.0
+offset_bottom = 65.0
+metadata/_edit_use_anchors_ = true
+
 [node name="PaletteShader" type="CanvasLayer" parent="."]
+layer = 10
 script = ExtResource("5_ch5ua")
 
 [node name="ColorRect" type="ColorRect" parent="PaletteShader"]

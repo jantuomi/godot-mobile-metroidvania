@@ -34,7 +34,7 @@ func _transition_start():
 	while _transition_room == null:
 		await get_tree().create_timer(0.1).timeout
 
-	top.get_map().set_active_name(_transition_room.name)
+	top.get_pause_menu().set_room_name(_transition_room.name)
 	top.replace_active_room(_transition_room, _on_room_changed)
 	
 func _on_room_changed():

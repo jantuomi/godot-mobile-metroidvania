@@ -8,7 +8,7 @@ var active_room_name: String
 
 func _ready() -> void:
 	print("data_dir: \"%s\"" % OS.get_user_data_dir())
-	$Map.hide_map()
+	$PauseMenu.deactivate()
 	get_tree().call_group("ui_movement", "set_visible", false)
 	get_tree().call_group("ui_menu", "set_visible", false)
 
@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("menu"):
-		if $Map.visible:
+		if $PauseMenu.visible:
 			close_pause_menu()
 		elif active_room_name != "MainMenu":
 			open_pause_menu()
@@ -40,19 +40,19 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	new_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(new_room)
 
-func get_map() -> Map:
-	return $Map
+func get_pause_menu() -> PauseMenu:
+	return $PauseMenu
 	
 func get_transition_player() -> TransitionPlayer:
 	return $TransitionPlayer
 
 func open_pause_menu():
 	get_tree().paused = true
-	$Map.show_map()
+	$PauseMenu.activate()
 
 func close_pause_menu():
 	get_tree().paused = false
-	$Map.hide_map()
+	$PauseMenu.deactivate()
 
 # Save state logic
 
