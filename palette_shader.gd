@@ -1,8 +1,7 @@
 class_name PaletteShader
 extends CanvasLayer
 
-# Set by TransitionPlayer animation
-var brightness: float = 0.3
+@export_range(-1, 1) var brightness: float = 0.0
 
-func _process(_delta: float) -> void:
+func notify_brightness_changed():
 	$ColorRect.material.set_shader_parameter("brightness", brightness)
