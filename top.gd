@@ -43,8 +43,8 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 func get_map() -> Map:
 	return $Map
 	
-func get_transition_manager() -> TransitionManager:
-	return $TransitionManager
+func get_transition_player() -> TransitionPlayer:
+	return $TransitionPlayer
 
 func open_pause_menu():
 	get_tree().paused = true
@@ -70,7 +70,7 @@ func game_save():
 
 func game_load():
 	save_state.load(SAVE_PATH)
-	$TransitionManager.room_transition(
+	$TransitionPlayer.room_transition(
 		null,
 		save_state.get_value(SAVE_SECTION, SAVE_ACTIVE_ROOM_PATH, ROOM_NEW_GAME),
 		save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME)

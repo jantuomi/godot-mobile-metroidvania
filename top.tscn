@@ -1,23 +1,112 @@
-[gd_scene load_steps=6 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=11 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
-[ext_resource type="PackedScene" uid="uid://c2shuyjjq06p8" path="res://transition_manager.tscn" id="3_2exal"]
 [ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://map.tscn" id="3_58ij3"]
+[ext_resource type="Script" uid="uid://cph2apstgper1" path="res://palette_shader.gd" id="5_ch5ua"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
+[ext_resource type="Script" uid="uid://civ5a43u5151a" path="res://transition_player.gd" id="6_ch5ua"]
+
+[sub_resource type="Animation" id="Animation_58ij3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PaletteShader:brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_edsjh"]
+resource_name = "room_trans_end"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_transition_end"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PaletteShader:brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0, 0.30000000000000004]
+}
+
+[sub_resource type="Animation" id="Animation_2exal"]
+resource_name = "room_trans_start"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TransitionPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_transition_start"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PaletteShader:brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.30000000000000004, -1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2exal"]
+_data = {
+&"RESET": SubResource("Animation_58ij3"),
+&"room_trans_end": SubResource("Animation_edsjh"),
+&"room_trans_start": SubResource("Animation_2exal")
+}
 
 [node name="Top" type="Node2D"]
 process_mode = 3
 material = ExtResource("1_edsjh")
 script = ExtResource("1_on2c2")
 
-[node name="TransitionManager" parent="." instance=ExtResource("3_2exal")]
-
 [node name="Map" parent="." instance=ExtResource("3_58ij3")]
 
 [node name="TouchScreenUI" parent="." instance=ExtResource("5_edsjh")]
 
+[node name="TransitionPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2exal")
+}
+speed_scale = 3.0
+script = ExtResource("6_ch5ua")
+
 [node name="PaletteShader" type="CanvasLayer" parent="."]
+script = ExtResource("5_ch5ua")
 
 [node name="ColorRect" type="ColorRect" parent="PaletteShader"]
 material = ExtResource("1_edsjh")

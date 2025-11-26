@@ -1,5 +1,5 @@
-class_name TransitionManager
-extends CanvasLayer
+class_name TransitionPlayer
+extends AnimationPlayer
 
 var _transition_room: Node
 var _transition_door_name: Variant # String or null
@@ -17,7 +17,7 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 
 	# Start animation
 	# The animation calls _change_room at a specific time
-	$AnimationPlayer.play("room_trans_start")
+	play("room_trans_start")
 
 	var room = ResourceLoader.load(to_room_path)
 	_transition_room = room.instantiate()
@@ -47,7 +47,7 @@ func _on_room_changed():
 		player.position = door.position
 		player.set_forced_input(door.exit_towards)
 
-	$AnimationPlayer.play("room_trans_end")
+	play("room_trans_end")
 	top.game_save()
 	
 func _transition_end():
