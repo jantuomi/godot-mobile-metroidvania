@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=7 format=4 uid="uid://cfj21o6wsd3hv"]
 
-[ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.bak/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_m3rqw"]
+[ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_m3rqw"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_qglt1"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="3_mrrx3"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_lfjh7"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="7_qglt1"]
+
+[sub_resource type="Curve2D" id="Curve2D_m3rqw"]
+bake_interval = 1.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 104, 72, 0, 0, 0, 0, 120, 3, 0, 0, 0, 0, 176, -28, 0, 0, 0, 0, 223, -43, 0, 0, 0, 0, 271, -53, 0, 0, 0, 0, 317, -83, 0, 0, 0, 0, 341, -128, 0, 0, 0, 0, 368, -159, 0, 0, 0, 0, 407, -167, 0, 0, 0, 0, 433, -152, 0, 0, 0, 0, 439, -125, 0, 0, 0, 0, 440, -65)
+}
+point_count = 12
 
 [node name="RoomTest1" type="Node2D"]
 process_mode = 1
@@ -64,3 +71,6 @@ scroll_scale = Vector2(1.3, 1)
 [node name="TileMapLayer" type="TileMapLayer" parent="FgParallax"]
 tile_map_data = PackedByteArray("AAAFAPv/AQATAAAAAAAFAPz/AQATAAAAAAAFAP3/AQATAAAAAAAFAP7/AQATAAAAAAAFAP//AQATAAAAAAAFAAAAAQATAAAAAAAFAAEAAQATAAAAAAAFAAIAAQATAAEAAAAKAAoAAQAPAAEAAAAKAAkAAQAPAAEAAAAKAAgAAQAPAAEAAAAKAAcAAQAPAAEAAAAKAAYAAQAPAAEAAAAKAAUAAQAPAAEAAAAKAAQAAQAPAAEAAAAKAAMAAQAPAAAAAAAJAPv/AQATAAAAAAAJAPz/AQATAAAAAAAJAP3/AQATAAAAAAAJAP7/AQATAAAAAAAJAP//AQATAAAAAAAJAAAAAQAOAAAAAAA=")
 tile_set = ExtResource("7_qglt1")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_m3rqw")

@@ -5,9 +5,23 @@ extends CharacterBody2D
 @export var jump_strength: float
 @export var coyote_max: int
 @export var jump_held_coef: float
+@export var curve_speed: float
 
 ## float (-1.0 .. 1.0) or null
 var forced_input_x: Variant
+var curve_t: float = 0
+var followed_curve: Curve2D
+enum {
+	MOVEMENT_NORMAL,
+	MOVEMENT_FORCED,
+	MOVEMENT_CURVE,
+}
+var movement_type = MOVEMENT_NORMAL
+var movement_handlers = {
+	MOVEMENT_NORMAL: _movement_normal,
+	MOVEMENT_FORCED: _movement_forced,
+	MOVEMENT_CURVE: _movement_curve,
+}
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var prev_dir: float = 0.0
@@ -42,52 +56,18 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.set_animation("idle")
 
 func _physics_process(delta: float):
-	var grav_coef = 1.0
-	if velocity.y < 0 and Input.is_action_pressed("jump"):
-		grav_coef = 1.0 + (jump_held_coef * velocity.y / jump_strength)
-	
-	#print_debug("1.0 + (", velocity.y, " / (", jump_held_coef, " * ", jump_strength, ")) = ", grav_coef)
-	velocity.y += grav_coef * gravity * delta
-	if velocity.y > jump_strength:
-		velocity.y = jump_strength
-
-	if is_on_floor():
-		coyote = 0
-	else:
-		coyote += 1
-
-	var can_jump = coyote < coyote_max and jump_was_released and forced_input_x == null
-	if Input.is_action_pressed("jump") and can_jump:
-		velocity.y = -jump_strength
-		# Force coyote time to expire to forbid double jumps
-		coyote = coyote_max
-		jump_was_released = false
-
-	if not Input.is_action_pressed("jump"):
-		jump_was_released = true
-	
-	var direction: float
-	if forced_input_x != null:
-		direction = forced_input_x
-	elif Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
-		# This is a fix to the stalled movement issue
-		# where the player stops if both x inputs are pressed at the same time.
-		# To fix it, we store the previous direction the player was moving in, and change
-		# the direction when both buttons are held. This is what the player wants nearly always.
-		direction = -prev_dir
-	else:
-		direction = Input.get_axis("move_left", "move_right")
-		prev_dir = direction
-	
-	velocity.x = direction * speed
-
-	move_and_slide()
+	movement_handlers[movement_type].call(delta)
 
 func set_forced_input(dir: Variant):
 	var jump_coef = 1.3
 	if dir == null:
+		movement_type = MOVEMENT_NORMAL
 		forced_input_x = null
-	elif dir == "LEFT":
+		return
+
+	movement_type = MOVEMENT_FORCED
+	#movement_type = MOVEMENT_CURVE
+	if dir == "LEFT":
 		forced_input_x = -1.0
 	elif dir == "JUMP_LEFT":
 		velocity.y = -jump_coef * jump_strength
@@ -103,3 +83,66 @@ func set_forced_input(dir: Variant):
 		gravity = 0.0
 	elif dir == "DROP":
 		forced_input_x = 0.0
+
+func _movement_normal(delta: float):
+	var grav_coef = 1.0
+	if velocity.y < 0 and Input.is_action_pressed("jump"):
+		grav_coef = 1.0 + (jump_held_coef * velocity.y / jump_strength)
+	
+	velocity.y += grav_coef * gravity * delta
+	if velocity.y > jump_strength:
+		velocity.y = jump_strength
+
+	if is_on_floor():
+		coyote = 0
+	else:
+		coyote += 1
+
+	var can_jump = coyote < coyote_max and jump_was_released
+	if Input.is_action_pressed("jump") and can_jump:
+		velocity.y = -jump_strength
+		# Force coyote time to expire to forbid double jumps
+		coyote = coyote_max
+		jump_was_released = false
+
+	if not Input.is_action_pressed("jump"):
+		jump_was_released = true
+	
+	var direction: float
+	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
+		# This is a fix to the stalled movement issue
+		# where the player stops if both x inputs are pressed at the same time.
+		# To fix it, we store the previous direction the player was moving in, and change
+		# the direction when both buttons are held. This is what the player wants nearly always.
+		direction = -prev_dir
+	else:
+		direction = Input.get_axis("move_left", "move_right")
+		prev_dir = direction
+	
+	velocity.x = direction * speed
+
+	move_and_slide()
+
+func _movement_forced(delta: float):
+	velocity.y += gravity * delta
+	if velocity.y > jump_strength:
+		velocity.y = jump_strength
+
+	velocity.x = forced_input_x * speed
+
+	move_and_slide()
+
+func follow_curve(curve: Curve2D):
+	movement_type = MOVEMENT_CURVE
+	followed_curve = curve
+	curve_t = 0
+
+func _movement_curve(delta: float):
+	#print_debug("t:", curve_t)
+	curve_t += curve_speed * delta
+	if curve_t >= 1.0:
+		movement_type = MOVEMENT_NORMAL
+		followed_curve = null
+		return
+
+	position = followed_curve.sample_baked(curve_t * followed_curve.get_baked_length(), true)
