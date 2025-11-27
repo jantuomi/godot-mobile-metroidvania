@@ -107,7 +107,6 @@ speed = 70.0
 jump_strength = 200.0
 coyote_max_ms = 100.0
 jump_held_coef = 0.8
-curve_speed = 0.1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)

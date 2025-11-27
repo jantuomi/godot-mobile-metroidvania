@@ -5,12 +5,13 @@ extends CharacterBody2D
 @export var jump_strength: float
 @export var coyote_max_ms: float
 @export var jump_held_coef: float
-@export var curve_speed: float
 
 ## float (-1.0 .. 1.0) or null
 var forced_input_x: Variant
 var curve_t: float = 0
 var followed_curve: Curve2D
+var curve_speed: float
+var curve_dir: int
 enum {
 	MOVEMENT_NORMAL,
 	MOVEMENT_FORCED,
@@ -99,8 +100,6 @@ func _movement_normal(delta: float):
 		coyote += delta
 
 	var can_jump = coyote < (coyote_max_ms * 0.001) and jump_was_released
-	if Input.is_action_just_pressed("jump"):
-		print_debug("coyote:", coyote, ", max:", coyote_max_ms * 0.001)
 	if Input.is_action_pressed("jump") and can_jump:
 		velocity.y = -jump_strength
 		# Force coyote time to expire to forbid double jumps
@@ -134,17 +133,32 @@ func _movement_forced(delta: float):
 
 	move_and_slide()
 
-func follow_curve(curve: Curve2D):
-	movement_type = MOVEMENT_CURVE
-	followed_curve = curve
-	curve_t = 0
+func follow_curve(curve: Curve2D, speed: float, reverse: bool):
+	if movement_type != MOVEMENT_CURVE:
+		movement_type = MOVEMENT_CURVE
+		followed_curve = curve
+		curve_speed = speed
+		if reverse:
+			curve_dir = -1
+			curve_t = 1
+		else:
+			curve_dir = 1
+			curve_t = 0
 
 func _movement_curve(delta: float):
-	#print_debug("t:", curve_t)
-	curve_t += curve_speed * delta
-	if curve_t >= 1.0:
+	curve_t += curve_dir * curve_speed * delta
+	var finished: bool
+	if curve_dir == 1:
+		finished = curve_t >= 1.0
+	else:
+		finished = curve_t <= 0.0
+	
+	var new_position = followed_curve.sample_baked(curve_t * followed_curve.get_baked_length(), true)
+	velocity = (new_position - position) / delta
+
+	if finished:
 		movement_type = MOVEMENT_NORMAL
 		followed_curve = null
 		return
 
-	position = followed_curve.sample_baked(curve_t * followed_curve.get_baked_length(), true)
+	position = new_position
