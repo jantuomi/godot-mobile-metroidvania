@@ -156,8 +156,9 @@ libraries = {
 speed_scale = 3.0
 script = ExtResource("6_ch5ua")
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
+[node name="PauseMenu" type="CanvasLayer" parent="." node_paths=PackedStringArray("pages")]
 script = ExtResource("6_ql50d")
+pages = [NodePath("Map"), NodePath("Status"), NodePath("System")]
 
 [node name="Bg" type="ColorRect" parent="PauseMenu"]
 offset_right = 192.0
@@ -194,6 +195,34 @@ offset_right = 79.0
 offset_bottom = 65.0
 metadata/_edit_use_anchors_ = true
 
+[node name="Status" type="CanvasGroup" parent="PauseMenu"]
+visible = false
+scale = Vector2(0.25, 0.25)
+
+[node name="Label" type="Label" parent="PauseMenu/Status"]
+offset_left = 320.0
+offset_top = 192.0
+offset_right = 411.0
+offset_bottom = 215.0
+text = "Status page"
+
+[node name="System" type="CanvasGroup" parent="PauseMenu"]
+scale = Vector2(0.25, 0.25)
+
+[node name="QuitButton" type="Button" parent="PauseMenu/System"]
+offset_left = 300.0
+offset_top = 172.0
+offset_right = 455.0
+offset_bottom = 203.0
+text = "Quit to main menu"
+
+[node name="AutosavedAgoText" type="Label" parent="PauseMenu/System"]
+offset_left = 296.0
+offset_top = 208.0
+offset_right = 460.0
+offset_bottom = 231.0
+text = "Autosaved TODO ago"
+
 [node name="PaletteShader" type="CanvasLayer" parent="."]
 layer = 10
 script = ExtResource("5_ch5ua")
@@ -205,3 +234,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2

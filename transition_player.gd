@@ -5,6 +5,8 @@ var _transition_room: Node
 var _transition_door_name: Variant # String or null
 
 func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
+	print_debug("to_room_path: %s" % to_room_path)
+
 	var top: Top = get_tree().root.get_node("Top")
 	# Do not transition if there is already a transition in process
 	if _transition_room != null:
@@ -23,8 +25,9 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 	_transition_room = room.instantiate()
 	_transition_door_name = door_name
 	
-	top.game_set(Top.SAVE_ACTIVE_ROOM_PATH, to_room_path)
-	top.game_set(Top.SAVE_LAST_DOOR_NAME, door_name)
+	if to_room_path != Top.ROOM_MAIN_MENU:
+		top.game_set(Top.SAVE_ACTIVE_ROOM_PATH, to_room_path)
+		top.game_set(Top.SAVE_LAST_DOOR_NAME, door_name)
 
 func _transition_start():
 	var top: Top = get_tree().root.get_node("Top")

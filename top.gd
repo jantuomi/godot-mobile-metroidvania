@@ -42,16 +42,14 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 
 func get_pause_menu() -> PauseMenu:
 	return $PauseMenu
-	
+
 func get_transition_player() -> TransitionPlayer:
 	return $TransitionPlayer
 
 func open_pause_menu():
-	get_tree().paused = true
 	$PauseMenu.activate()
 
 func close_pause_menu():
-	get_tree().paused = false
 	$PauseMenu.deactivate()
 
 # Save state logic
@@ -70,8 +68,6 @@ func game_save():
 
 func game_load():
 	save_state.load(SAVE_PATH)
-	$TransitionPlayer.room_transition(
-		null,
-		save_state.get_value(SAVE_SECTION, SAVE_ACTIVE_ROOM_PATH, ROOM_NEW_GAME),
-		save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME)
-	)
+	var save_active_room_path = save_state.get_value(SAVE_SECTION, SAVE_ACTIVE_ROOM_PATH, ROOM_NEW_GAME)
+	var save_last_door_name = save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME, "DoorLeft")
+	$TransitionPlayer.room_transition(null, save_active_room_path, save_last_door_name)
