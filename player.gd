@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @export var speed: float
 @export var jump_strength: float
-@export var coyote_max: int
+@export var coyote_max_ms: float
 @export var jump_held_coef: float
 @export var curve_speed: float
 
@@ -28,8 +28,8 @@ var prev_dir: float = 0.0
 var jump_was_released: bool = true
 
 # coyote = 0 indicates on floor
-# coyote > 0 indicates frames since on floor
-var coyote: int = 0
+# coyote > 0 indicates seconds since on floor
+var coyote: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -96,13 +96,15 @@ func _movement_normal(delta: float):
 	if is_on_floor():
 		coyote = 0
 	else:
-		coyote += 1
+		coyote += delta
 
-	var can_jump = coyote < coyote_max and jump_was_released
+	var can_jump = coyote < (coyote_max_ms * 0.001) and jump_was_released
+	if Input.is_action_just_pressed("jump"):
+		print_debug("coyote:", coyote, ", max:", coyote_max_ms * 0.001)
 	if Input.is_action_pressed("jump") and can_jump:
 		velocity.y = -jump_strength
 		# Force coyote time to expire to forbid double jumps
-		coyote = coyote_max
+		coyote = coyote_max_ms
 		jump_was_released = false
 
 	if not Input.is_action_pressed("jump"):

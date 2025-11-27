@@ -103,6 +103,10 @@ size = Vector2(6, 6)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("2_onrkg")
+speed = 70.0
+jump_strength = 200.0
+coyote_max_ms = 100.0
+jump_held_coef = 0.8
 curve_speed = 0.1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
