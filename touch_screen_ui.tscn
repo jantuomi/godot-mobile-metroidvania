@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cciwccvljuuyq"]
+[gd_scene load_steps=11 format=3 uid="uid://cciwccvljuuyq"]
 
 [ext_resource type="PackedScene" uid="uid://dwl0fylftkrn7" path="res://touch_screen_button.tscn" id="1_e48dh"]
-[ext_resource type="Texture2D" uid="uid://80qwkqluar71" path="res://assets.bak/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0758.png" id="2_e48dh"]
-[ext_resource type="Texture2D" uid="uid://dcmysr8ayphbq" path="res://assets.bak/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0760.png" id="3_e48dh"]
-[ext_resource type="Texture2D" uid="uid://dubf0an7e4r8q" path="res://assets.bak/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0757.png" id="4_e48dh"]
-[ext_resource type="Texture2D" uid="uid://jc43kdg6konu" path="res://assets.bak/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0769.png" id="5_e48dh"]
+[ext_resource type="Texture2D" uid="uid://80qwkqluar71" path="res://assets.untracked/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0758.png" id="2_e48dh"]
+[ext_resource type="Texture2D" uid="uid://dcmysr8ayphbq" path="res://assets.untracked/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0760.png" id="3_e48dh"]
+[ext_resource type="Texture2D" uid="uid://dubf0an7e4r8q" path="res://assets.untracked/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0757.png" id="4_e48dh"]
+[ext_resource type="Texture2D" uid="uid://jc43kdg6konu" path="res://assets.untracked/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0769.png" id="5_e48dh"]
+[ext_resource type="Texture2D" uid="uid://dindlpuux8i18" path="res://assets/kenney_1-bit-input-prompts-pixel-16/Tiles (White)/tile_0506.png" id="5_v5djr"]
 
 [sub_resource type="GDScript" id="GDScript_e48dh"]
 script/source = "extends CanvasLayer
@@ -16,6 +17,12 @@ func _ready() -> void:
 	if not DisplayServer.is_touchscreen_available():
 		visible = visible_on_desktop
 "
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e48dh"]
+size = Vector2(40, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5djr"]
+size = Vector2(40, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6i1l"]
 size = Vector2(40, 26)
@@ -38,9 +45,18 @@ inactive_color = Color(0.54509807, 0.6666667, 1, 0.5019608)
 active_color = Color(0, 0.77254903, 0.7764706, 0.5019608)
 
 [node name="TouchScreenButtonJump" parent="." groups=["ui_movement"] instance=ExtResource("1_e48dh")]
-position = Vector2(172, 88)
+position = Vector2(172, 93)
+shape = SubResource("RectangleShape2D_e48dh")
 action = "jump"
 texture = ExtResource("4_e48dh")
+inactive_color = Color(0.54509807, 0.6666667, 1, 0.5019608)
+active_color = Color(0, 0.77254903, 0.7764706, 0.5019608)
+
+[node name="TouchScreenButtonAction" parent="." groups=["ui_action"] instance=ExtResource("1_e48dh")]
+position = Vector2(172, 63)
+shape = SubResource("RectangleShape2D_v5djr")
+action = "action"
+texture = ExtResource("5_v5djr")
 inactive_color = Color(0.54509807, 0.6666667, 1, 0.5019608)
 active_color = Color(0, 0.77254903, 0.7764706, 0.5019608)
 

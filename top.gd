@@ -14,6 +14,7 @@ func _ready() -> void:
 	$PauseMenu.deactivate()
 	get_tree().call_group("ui_movement", "set_visible", false)
 	get_tree().call_group("ui_menu", "set_visible", false)
+	get_tree().call_group("ui_action", "set_visible", false)
 
 	var room = preload(ROOM_MAIN_MENU).instantiate()
 	active_room_name = room.name
@@ -36,6 +37,7 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	var show_touchscreen_ui = (new_room.name != "MainMenu")
 	get_tree().call_group("ui_movement", "set_visible", show_touchscreen_ui)
 	get_tree().call_group("ui_menu", "set_visible", show_touchscreen_ui)
+	get_tree().call_group("ui_action", "set_visible", show_touchscreen_ui)
 	
 	active_room_name = new_room.name
 	new_room.name = "ActiveRoom"

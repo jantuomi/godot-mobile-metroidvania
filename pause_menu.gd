@@ -11,7 +11,7 @@ func _ready():
 	$System/QuitButton.connect("pressed", _on_quit_button_pressed)
 
 func _process(_delta: float):
-	if visible and Input.is_action_just_pressed("jump"):
+	if visible and Input.is_action_just_pressed("action"):
 		active_page_index = (active_page_index + 1) % pages.size()
 		refresh_page()
 

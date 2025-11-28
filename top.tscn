@@ -148,8 +148,6 @@ process_mode = 3
 material = ExtResource("1_edsjh")
 script = ExtResource("1_on2c2")
 
-[node name="TouchScreenUI" parent="." instance=ExtResource("5_edsjh")]
-
 [node name="TransitionPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_2exal")
@@ -223,6 +221,8 @@ offset_top = 208.0
 offset_right = 460.0
 offset_bottom = 231.0
 text = "Autosaved TODO ago"
+
+[node name="TouchScreenUI" parent="." instance=ExtResource("5_edsjh")]
 
 [node name="PaletteShader" type="CanvasLayer" parent="."]
 layer = 10
