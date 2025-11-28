@@ -25,6 +25,7 @@ enum MovementType {
 	NORMAL,
 	FORCED,
 	CURVE,
+	HANG_TWEEN,
 	HANGING,
 }
 var movement_type = MovementType.NORMAL
@@ -118,26 +119,37 @@ func set_movement_curve(curve: Curve2D, speed: float, reverse: bool):
 func set_movement_hanging(target: Node2D, hang_dist: float):
 	if movement_type == MovementType.HANGING: return
 	
-	movement_type = MovementType.HANGING
-	movement_handler = _movement_hanging
-	
 	hanging_t = 0
 	hanging_L = hang_dist
 	hanging_target = target
 	
-	var hyp = target.global_position - global_position
-	# if player is above the hook, we need to snap to horizontal
-	if hyp.y > 0: hyp.y = 0
-
-	hanging_theta0 = atan2(-hyp.y, hyp.x) - PI/2
-	if hanging_theta0 < -PI: hanging_theta0 += 2*PI
-	print_debug("hyp: ", hyp, ", hanging_theta0: ", hanging_theta0)
-	
+	# Add tongue line
 	hanging_line2D = Line2D.new()
 	hanging_line2D.width = 2
 	hanging_line2D.add_point(Vector2.ZERO)
 	hanging_line2D.add_point(Vector2.ZERO) # set in movement handler
 	target.add_child(hanging_line2D)
+	
+	var hyp = target.global_position - global_position
+	var sign_x = sign(hyp.x)
+	var angle_below_horiz = 15
+	var angle_below_horiz_r = deg_to_rad(angle_below_horiz)
+	var tweening_target_point = hanging_target.global_position \
+		- Vector2(sign_x * hanging_L * cos(angle_below_horiz_r),
+				  -hanging_L * sin(angle_below_horiz_r))
+
+	# if player is above the hook, we need to tween to horizontal
+	if tweening_target_point.y - global_position.y > 0:
+		movement_type = MovementType.HANG_TWEEN
+		movement_handler = _movement_hang_tween
+		return
+
+	movement_type = MovementType.HANGING
+	movement_handler = _movement_hanging
+
+	hanging_theta0 = atan2(-hyp.y, hyp.x) - PI/2
+	if hanging_theta0 < -PI: hanging_theta0 += 2*PI
+	print_debug("hyp: ", hyp, ", hanging_theta0: ", hanging_theta0)
 #endregion
 
 #region movement handlers
@@ -199,7 +211,7 @@ func _movement_curve(delta: float):
 		finished = curve_t >= 1.0
 	else:
 		finished = curve_t <= 0.0
-	
+
 	var new_position = curve_target.sample_baked(curve_t * curve_target.get_baked_length(), true)
 	velocity = (new_position - position) / delta
 
@@ -227,6 +239,32 @@ func _movement_hanging(delta: float):
 	global_position.y = hanging_target.global_position.y + hanging_L * cos(theta)
 	
 	hanging_line2D.points[1] = global_position - hanging_target.global_position
+
+func _movement_hang_tween(delta: float):
+	var tween_speed = jump_strength
+	var hyp = hanging_target.global_position - global_position
+	var sign_x = sign(hyp.x)
+	
+	var angle_below_horiz = 15
+	var angle_below_horiz_r = deg_to_rad(angle_below_horiz)
+	var tweening_target_point = hanging_target.global_position \
+		- Vector2(sign_x * hanging_L * cos(angle_below_horiz_r),
+				  -hanging_L * sin(angle_below_horiz_r))
+	
+	var tween_hyp = tweening_target_point - global_position
+	var tween_dir: Vector2 = tween_hyp.normalized()
+	var v: Vector2 = tween_dir * tween_speed
+	var s: Vector2 = v * delta
+
+	if tween_hyp.length() < s.length():
+		movement_type = MovementType.HANGING
+		movement_handler = _movement_hanging
+		hanging_theta0 = deg_to_rad(-sign_x * (90 - angle_below_horiz))
+	else:
+		position += s
+	
+	hanging_line2D.points[1] = global_position - hanging_target.global_position
+	pass
 #endregion
 
 func handle_action_input():
