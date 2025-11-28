@@ -124,8 +124,14 @@ func set_movement_hanging(target: Node2D, hang_dist: float):
 	hanging_t = 0
 	hanging_L = hang_dist
 	hanging_target = target
-	var theta0_sign = sign(global_position.x - target.global_position.x)
-	hanging_theta0 = deg_to_rad(theta0_sign * 30)
+	
+	var hyp = target.global_position - global_position
+	# if player is above the hook, we need to snap to horizontal
+	if hyp.y > 0: hyp.y = 0
+
+	hanging_theta0 = atan2(-hyp.y, hyp.x) - PI/2
+	if hanging_theta0 < -PI: hanging_theta0 += 2*PI
+	print_debug("hyp: ", hyp, ", hanging_theta0: ", hanging_theta0)
 	
 	hanging_line2D = Line2D.new()
 	hanging_line2D.width = 2
