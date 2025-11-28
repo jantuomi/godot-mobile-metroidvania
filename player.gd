@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var jump_strength: float
 @export var coyote_max_ms: float
 @export var jump_held_coef: float
+@export var hook_distance_max: float
 
 ## float (-1.0 .. 1.0) or null
 var forced_input_x: Variant
@@ -14,10 +15,17 @@ var curve_target: Curve2D
 var curve_speed: float
 var curve_dir: int
 
+var hanging_target: HookHanging
+var hanging_t: float
+var hanging_L: float
+var hanging_theta0: float
+var hanging_line2D: Line2D
+
 enum MovementType {
 	NORMAL,
 	FORCED,
 	CURVE,
+	HANGING,
 }
 var movement_type = MovementType.NORMAL
 var movement_handler: Callable = _movement_normal
@@ -106,6 +114,24 @@ func set_movement_curve(curve: Curve2D, speed: float, reverse: bool):
 	else:
 		curve_dir = 1
 		curve_t = 0
+
+func set_movement_hanging(target: Node2D, hang_dist: float):
+	if movement_type == MovementType.HANGING: return
+	
+	movement_type = MovementType.HANGING
+	movement_handler = _movement_hanging
+	
+	hanging_t = 0
+	hanging_L = hang_dist
+	hanging_target = target
+	var theta0_sign = sign(global_position.x - target.global_position.x)
+	hanging_theta0 = deg_to_rad(theta0_sign * 30)
+	
+	hanging_line2D = Line2D.new()
+	hanging_line2D.width = 2
+	hanging_line2D.add_point(Vector2.ZERO)
+	hanging_line2D.add_point(Vector2.ZERO) # set in movement handler
+	target.add_child(hanging_line2D)
 #endregion
 
 #region movement handlers
@@ -132,6 +158,9 @@ func _movement_normal(delta: float):
 
 	if not Input.is_action_pressed("jump"):
 		jump_was_released = true
+		
+	if Input.is_action_just_pressed("action"):
+		handle_action_input()
 	
 	var direction: float
 	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
@@ -174,4 +203,35 @@ func _movement_curve(delta: float):
 		return
 
 	position = new_position
+	
+func _movement_hanging(delta: float):
+	hanging_t += delta
+
+	if Input.is_action_just_pressed("jump"):
+		velocity.y = -jump_strength
+		# Force coyote time to expire to forbid double jumps
+		coyote = coyote_max_ms
+		jump_was_released = false
+		hanging_line2D.queue_free()
+		set_movement_normal()
+
+	var omega = sqrt(gravity / hanging_L)
+	var theta = hanging_theta0 * cos(hanging_t * omega)
+	global_position.x = hanging_target.global_position.x + hanging_L * sin(theta)
+	global_position.y = hanging_target.global_position.y + hanging_L * cos(theta)
+	
+	hanging_line2D.points[1] = global_position - hanging_target.global_position
 #endregion
+
+func handle_action_input():
+	var hooks = get_tree().get_nodes_in_group("hook_hanging")
+	for hook_any in hooks:
+		if not hook_any is HookHanging:
+			print_debug("hook is not HookHanging!", hook_any)
+			continue
+
+		var hook: HookHanging = hook_any
+		var dist = (hook.global_position - global_position).length()
+		print_debug("found hook: ", hook, ", dist: ", dist)
+		if dist < hook_distance_max:
+			set_movement_hanging(hook, hook.hang_distance)

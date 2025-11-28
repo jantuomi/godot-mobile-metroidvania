@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=9 format=4 uid="uid://cfj21o6wsd3hv"]
 
 [ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_m3rqw"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_qglt1"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="3_mrrx3"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_lfjh7"]
+[ext_resource type="Texture2D" uid="uid://bhtovawtfqev3" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0006.png" id="6_ubxha"]
+[ext_resource type="Script" uid="uid://b5vux357w0ou2" path="res://hook_hanging.gd" id="7_mrrx3"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="7_qglt1"]
 
 [sub_resource type="Curve2D" id="Curve2D_m3rqw"]
@@ -36,6 +38,7 @@ tile_set = ExtResource("7_qglt1")
 [node name="Player" parent="." instance=ExtResource("2_qglt1")]
 position = Vector2(87, 91)
 collision_layer = 2
+hook_distance_max = 100.0
 
 [node name="GameCamera" parent="Player" instance=ExtResource("3_mrrx3")]
 unique_name_in_owner = true
@@ -70,3 +73,9 @@ tile_set = ExtResource("7_qglt1")
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_m3rqw")
+
+[node name="HookHanging" type="Sprite2D" parent="." groups=["hook_hanging"]]
+position = Vector2(226, -4)
+texture = ExtResource("6_ubxha")
+script = ExtResource("7_mrrx3")
+hang_distance = 50.0

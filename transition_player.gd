@@ -15,7 +15,7 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 
 	if from_door:
 		var player: Player = top.get_node("ActiveRoom").find_child("Player")
-		player.set_forced_input(from_door.enter_towards)
+		player.set_movement_forced(from_door.enter_towards)
 
 	# Start animation
 	# The animation calls _change_room at a specific time
