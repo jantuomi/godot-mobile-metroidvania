@@ -5,13 +5,21 @@ var target: HookHanging
 var t: float
 var L: float
 var theta0: float
-var line2D: Line2D
+var last_theta: float
+var w: float
+var tongue: Line2D
+
+var travel_from: Vector2
+var travel_to: Vector2
+
+var T_mlem: float = 0.2
+var T_travel: float = 0.1
 
 enum S { MLEMING, TRAVELING, HANGING }
 var state: S = S.MLEMING
 
 func _to_string() -> String:
-	return "PlayerStateHanging (%s)" % S.keys()[state]
+	return "PlayerStateHanging %s, θ₀ = %f" % [S.keys()[state], theta0]
 
 static func can_hang_from(p: Player, target: HookHanging) -> bool:
 	var d = target.global_position - p.global_position
@@ -24,35 +32,19 @@ func initialize(p: Player, h_target: HookHanging, h_dist: float):
 	t = 0
 	L = h_dist
 	target = h_target
+	w = sqrt(p.gravity / L) * 0.8
 	
-	# Add tongue line
-	line2D = Line2D.new()
-	line2D.width = 2
-	line2D.add_point(Vector2.ZERO)
-	line2D.add_point(Vector2.ZERO) # set in movement handler
-	target.add_child(line2D)
-	
-	var hyp = target.global_position - p.global_position
-	var sign_x = sign(hyp.x)
-	var angle_below_horiz = 15
-	var angle_below_horiz_r = deg_to_rad(angle_below_horiz)
-	var tweening_target_point = target.global_position \
-		- Vector2(sign_x * L * cos(angle_below_horiz_r),
-				  -L * sin(angle_below_horiz_r))
+	var d = target.global_position - p.global_position
+	var flip = d.x < 0
+	p.get_node("AnimatedSprite2D").flip_h = flip
+	d
+	state = S.MLEMING
 
-	# if player is above the hook, we need to tween to horizontal
-	if tweening_target_point.y - p.global_position.y > 0:
-		state = S.TRAVELING
-		return
-
-	state = S.HANGING
-
-	theta0 = atan2(-hyp.y, hyp.x) - PI/2
-	if theta0 < -PI: theta0 += 2*PI
-	print_debug("hyp: ", hyp, ", theta0: ", theta0)
-
-func _handle(_p: Player, _delta: float):
-	pass
+func _handle(p: Player, _delta: float):
+	if Input.is_action_just_pressed("move_left"):
+		p.get_node("AnimatedSprite2D").flip_h = true
+	if Input.is_action_just_pressed("move_right"):
+		p.get_node("AnimatedSprite2D").flip_h = false
 
 func _handle_physics(p: Player, delta: float):
 	match state:
@@ -62,43 +54,62 @@ func _handle_physics(p: Player, delta: float):
 		_: print_debug("_handle_physics: unknown state %s" % str(state))
 		
 func _mlem(p: Player, delta: float):
-	pass
+	t += delta
+	var d = target.global_position - p.global_position
+	
+	# Add tongue line
+	if not tongue:
+		tongue = Line2D.new()
+		tongue.width = 2
+		tongue.add_point(-d)
+		tongue.add_point(-d)
+		target.add_child(tongue)
+	
+	# Update one end to be at player
+	tongue.points[0] = -d
+	tongue.points[1] = (t / T_mlem - 1) * d
+
+	if t >= T_mlem:
+		tongue.points[1] = Vector2.ZERO
+		state = S.TRAVELING
+		travel_from = p.global_position
+		travel_to = target.global_position - d.normalized() * L
+		t = 0
 
 func _travel(p: Player, delta: float):
-	var tween_speed = p.jump_strength
-	var hyp = target.global_position - p.global_position
-	var sign_x = sign(hyp.x)
+	t += delta
+	p.global_position = travel_from + (t / T_travel) * (travel_to - travel_from)
 	
-	var angle_below_horiz = 15
-	var angle_below_horiz_r = deg_to_rad(angle_below_horiz)
-	var tweening_target_point = target.global_position \
-		- Vector2(sign_x * L * cos(angle_below_horiz_r),
-				  -L * sin(angle_below_horiz_r))
-	
-	var tween_hyp = tweening_target_point - p.global_position
-	var tween_dir: Vector2 = tween_hyp.normalized()
-	var v: Vector2 = tween_dir * tween_speed
-	var s: Vector2 = v * delta
+	var d = target.global_position - p.global_position
+	tongue.points[0] = -d
 
-	if tween_hyp.length() < s.length():
+	# If we're traveling in the right direction, then travel
+	if t >= T_travel:
+		p.global_position = travel_to
 		state = S.HANGING
-		theta0 = deg_to_rad(-sign_x * (90 - angle_below_horiz))
-	else:
-		p.position += s
-	
-	line2D.points[1] = p.global_position - target.global_position
+		theta0 = atan2(-d.y, -d.x) - PI / 2
+		if theta0 > PI: theta0 -= 2 * PI
+		if theta0 < -PI: theta0 += 2 * PI
+		last_theta = theta0
+		t = 0
 
 func _hang(p: Player, delta: float):
+	var d = target.global_position - p.global_position
+	tongue.points[0] = -d
+	
 	t += delta
 
 	if Input.is_action_just_pressed("jump"):
 		p.velocity.y = -p.jump_strength
-		line2D.queue_free()
+		tongue.queue_free()
 		p.set_movement_normal()
 
-	var omega = sqrt(p.gravity / L)
-	var theta = theta0 * cos(t * omega)
-	p.global_position.x = target.global_position.x + L * sin(theta)
-	p.global_position.y = target.global_position.y + L * cos(theta)
+	var theta = theta0 * cos(t * w)
 	
-	line2D.points[1] = p.global_position - target.global_position
+	if sign(theta) != sign(last_theta) and abs(theta0) > PI / 2:
+		theta0 = sign(theta0) * PI / 2
+	
+	p.global_position.x = target.global_position.x + L * cos(theta + PI / 2)
+	p.global_position.y = target.global_position.y + L * sin(theta + PI / 2)
+	
+	last_theta = theta

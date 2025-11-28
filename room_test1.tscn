@@ -38,7 +38,6 @@ tile_set = ExtResource("7_qglt1")
 [node name="Player" parent="." instance=ExtResource("2_qglt1")]
 position = Vector2(87, 91)
 collision_layer = 2
-hook_distance_max = 100.0
 
 [node name="GameCamera" parent="Player" instance=ExtResource("3_mrrx3")]
 unique_name_in_owner = true
