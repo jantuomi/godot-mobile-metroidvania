@@ -61,19 +61,20 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float):
 	movement_handler.call(delta)
+
+#region movement type setters
+func set_movement_normal():
+	movement_type = MovementType.NORMAL
+	movement_handler = _movement_normal
 	
-func set_movement_type(type: MovementType):
-	movement_type = type
-	movement_handler = movement_handlers[type]
+func set_movement_forced(dir: String):
+	if movement_type == MovementType.FORCED: return
 
-func set_forced_input(dir: Variant):
+	movement_type = MovementType.FORCED
+	movement_handler = _movement_forced
+
 	var jump_coef = 1.3
-	if dir == null:
-		set_movement_type(MovementType.NORMAL)
-		forced_input_x = null
-		return
 
-	set_movement_type(MovementType.FORCED)
 	if dir == "LEFT":
 		forced_input_x = -1.0
 	elif dir == "JUMP_LEFT":
@@ -91,6 +92,23 @@ func set_forced_input(dir: Variant):
 	elif dir == "DROP":
 		forced_input_x = 0.0
 
+func set_movement_curve(curve: Curve2D, speed: float, reverse: bool):
+	if movement_type == MovementType.CURVE: return
+
+	movement_type = MovementType.CURVE
+	movement_handler = _movement_curve
+
+	curve_target = curve
+	curve_speed = speed
+	if reverse:
+		curve_dir = -1
+		curve_t = 1
+	else:
+		curve_dir = 1
+		curve_t = 0
+#endregion
+
+#region movement handlers
 func _movement_normal(delta: float):
 	var grav_coef = 1.0
 	if velocity.y < 0 and Input.is_action_pressed("jump"):
@@ -139,18 +157,6 @@ func _movement_forced(delta: float):
 
 	move_and_slide()
 
-func follow_curve(curve: Curve2D, speed: float, reverse: bool):
-	if movement_type != MovementType.CURVE:
-		set_movement_type(MovementType.CURVE)
-		curve_target = curve
-		curve_speed = speed
-		if reverse:
-			curve_dir = -1
-			curve_t = 1
-		else:
-			curve_dir = 1
-			curve_t = 0
-
 func _movement_curve(delta: float):
 	curve_t += curve_dir * curve_speed * delta
 	var finished: bool
@@ -163,8 +169,9 @@ func _movement_curve(delta: float):
 	velocity = (new_position - position) / delta
 
 	if finished:
-		set_movement_type(MovementType.NORMAL)
+		set_movement_normal()
 		curve_target = null
 		return
 
 	position = new_position
+#endregion

@@ -48,7 +48,7 @@ func _on_room_changed():
 	if _transition_door_name:
 		var door: Door = room.find_child(_transition_door_name)
 		player.position = door.position
-		player.set_forced_input(door.exit_towards)
+		player.set_movement_forced(door.exit_towards)
 
 	play("room_trans_end")
 	top.game_save()
@@ -62,4 +62,4 @@ func _transition_end():
 	var room = top.get_node("ActiveRoom")
 	var player: Player = room.find_child("Player")
 	if player:
-		player.set_forced_input(null)
+		player.set_movement_normal()
