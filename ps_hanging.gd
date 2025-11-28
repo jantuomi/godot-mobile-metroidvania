@@ -7,12 +7,18 @@ var L: float
 var theta0: float
 var line2D: Line2D
 
-var tweening: bool
+enum S { MLEMING, TRAVELING, HANGING }
+var state: S = S.MLEMING
 
 func _to_string() -> String:
-	var s = "PlayerStateHanging"
-	if tweening: s += " (tweening)"
-	return s
+	return "PlayerStateHanging (%s)" % S.keys()[state]
+
+static func can_hang_from(p: Player, target: HookHanging) -> bool:
+	var d = target.global_position - p.global_position
+	var angle = atan2(d.y, d.x)
+	var revs = floor(angle / (2 * PI))
+	angle -= revs * 2 * PI
+	return angle > deg_to_rad(135) or angle < deg_to_rad(45)
 
 func initialize(p: Player, h_target: HookHanging, h_dist: float):
 	t = 0
@@ -36,10 +42,10 @@ func initialize(p: Player, h_target: HookHanging, h_dist: float):
 
 	# if player is above the hook, we need to tween to horizontal
 	if tweening_target_point.y - p.global_position.y > 0:
-		tweening = true
+		state = S.TRAVELING
 		return
 
-	tweening = false
+	state = S.HANGING
 
 	theta0 = atan2(-hyp.y, hyp.x) - PI/2
 	if theta0 < -PI: theta0 += 2*PI
@@ -49,27 +55,16 @@ func _handle(_p: Player, _delta: float):
 	pass
 
 func _handle_physics(p: Player, delta: float):
-	if tweening:
-		_movement_hang_tween(p, delta)
-	else:
-		_movement_hanging(p, delta)
+	match state:
+		S.MLEMING:	 _mlem(p, delta)
+		S.TRAVELING: _travel(p, delta)
+		S.HANGING:   _hang(p, delta)
+		_: print_debug("_handle_physics: unknown state %s" % str(state))
+		
+func _mlem(p: Player, delta: float):
+	pass
 
-func _movement_hanging(p: Player, delta: float):
-	t += delta
-
-	if Input.is_action_just_pressed("jump"):
-		p.velocity.y = -p.jump_strength
-		line2D.queue_free()
-		p.set_movement_normal()
-
-	var omega = sqrt(p.gravity / L)
-	var theta = theta0 * cos(t * omega)
-	p.global_position.x = target.global_position.x + L * sin(theta)
-	p.global_position.y = target.global_position.y + L * cos(theta)
-	
-	line2D.points[1] = p.global_position - target.global_position
-
-func _movement_hang_tween(p: Player, delta: float):
+func _travel(p: Player, delta: float):
 	var tween_speed = p.jump_strength
 	var hyp = target.global_position - p.global_position
 	var sign_x = sign(hyp.x)
@@ -86,10 +81,24 @@ func _movement_hang_tween(p: Player, delta: float):
 	var s: Vector2 = v * delta
 
 	if tween_hyp.length() < s.length():
-		tweening = false
+		state = S.HANGING
 		theta0 = deg_to_rad(-sign_x * (90 - angle_below_horiz))
 	else:
 		p.position += s
 	
 	line2D.points[1] = p.global_position - target.global_position
-	pass
+
+func _hang(p: Player, delta: float):
+	t += delta
+
+	if Input.is_action_just_pressed("jump"):
+		p.velocity.y = -p.jump_strength
+		line2D.queue_free()
+		p.set_movement_normal()
+
+	var omega = sqrt(p.gravity / L)
+	var theta = theta0 * cos(t * omega)
+	p.global_position.x = target.global_position.x + L * sin(theta)
+	p.global_position.y = target.global_position.y + L * cos(theta)
+	
+	line2D.points[1] = p.global_position - target.global_position

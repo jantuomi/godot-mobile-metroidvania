@@ -43,6 +43,7 @@ func set_movement_curve(curve: Curve2D, c_speed: float, c_reverse: bool):
 
 func set_movement_hanging(target: Node2D, hang_dist: float):
 	if state is PlayerStateHanging: return
+	if not PlayerStateHanging.can_hang_from(self, target): return
 
 	var psh: PlayerStateHanging = PlayerStateHanging.new()
 	psh.initialize(self, target, hang_dist)
