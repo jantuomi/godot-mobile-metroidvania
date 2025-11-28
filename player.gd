@@ -8,20 +8,23 @@ extends CharacterBody2D
 
 ## float (-1.0 .. 1.0) or null
 var forced_input_x: Variant
+
 var curve_t: float = 0
-var followed_curve: Curve2D
+var curve_target: Curve2D
 var curve_speed: float
 var curve_dir: int
-enum {
-	MOVEMENT_NORMAL,
-	MOVEMENT_FORCED,
-	MOVEMENT_CURVE,
+
+enum MovementType {
+	NORMAL,
+	FORCED,
+	CURVE,
 }
-var movement_type = MOVEMENT_NORMAL
+var movement_type = MovementType.NORMAL
+var movement_handler: Callable = _movement_normal
 var movement_handlers = {
-	MOVEMENT_NORMAL: _movement_normal,
-	MOVEMENT_FORCED: _movement_forced,
-	MOVEMENT_CURVE: _movement_curve,
+	MovementType.NORMAL: _movement_normal,
+	MovementType.FORCED: _movement_forced,
+	MovementType.CURVE: _movement_curve,
 }
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -57,17 +60,20 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.set_animation("idle")
 
 func _physics_process(delta: float):
-	movement_handlers[movement_type].call(delta)
+	movement_handler.call(delta)
+	
+func set_movement_type(type: MovementType):
+	movement_type = type
+	movement_handler = movement_handlers[type]
 
 func set_forced_input(dir: Variant):
 	var jump_coef = 1.3
 	if dir == null:
-		movement_type = MOVEMENT_NORMAL
+		set_movement_type(MovementType.NORMAL)
 		forced_input_x = null
 		return
 
-	movement_type = MOVEMENT_FORCED
-	#movement_type = MOVEMENT_CURVE
+	set_movement_type(MovementType.FORCED)
 	if dir == "LEFT":
 		forced_input_x = -1.0
 	elif dir == "JUMP_LEFT":
@@ -134,9 +140,9 @@ func _movement_forced(delta: float):
 	move_and_slide()
 
 func follow_curve(curve: Curve2D, speed: float, reverse: bool):
-	if movement_type != MOVEMENT_CURVE:
-		movement_type = MOVEMENT_CURVE
-		followed_curve = curve
+	if movement_type != MovementType.CURVE:
+		set_movement_type(MovementType.CURVE)
+		curve_target = curve
 		curve_speed = speed
 		if reverse:
 			curve_dir = -1
@@ -153,12 +159,12 @@ func _movement_curve(delta: float):
 	else:
 		finished = curve_t <= 0.0
 	
-	var new_position = followed_curve.sample_baked(curve_t * followed_curve.get_baked_length(), true)
+	var new_position = curve_target.sample_baked(curve_t * curve_target.get_baked_length(), true)
 	velocity = (new_position - position) / delta
 
 	if finished:
-		movement_type = MOVEMENT_NORMAL
-		followed_curve = null
+		set_movement_type(MovementType.NORMAL)
+		curve_target = null
 		return
 
 	position = new_position
