@@ -6,6 +6,9 @@ var target: Curve2D
 var speed: float
 var dir: int
 
+func _to_string() -> String:
+	return "PlayerStateCurve"
+
 func initialize(_p: Player, c_target: Curve2D, c_speed: float, c_reverse: bool):
 	target = c_target
 	speed = c_speed

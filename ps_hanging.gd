@@ -9,6 +9,11 @@ var line2D: Line2D
 
 var tweening: bool
 
+func _to_string() -> String:
+	var s = "PlayerStateHanging"
+	if tweening: s += " (tweening)"
+	return s
+
 func initialize(p: Player, h_target: HookHanging, h_dist: float):
 	t = 0
 	L = h_dist

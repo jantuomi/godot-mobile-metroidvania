@@ -1,19 +1,21 @@
 class_name Player
 extends CharacterBody2D
 
+var debug_info: DebugInfo
+
 @export var speed: float
 @export var jump_strength: float
 @export var coyote_max_ms: float
 @export var jump_held_coef: float
 @export var hook_distance_max: float
 
-var state: PlayerState
+var state: PlayerState = PlayerStateInit.new()
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	debug_info = get_tree().root.get_node_or_null("Top/DebugInfo")
 	
 func get_facing() -> int:
 	if $AnimatedSprite2D.flip_h:
@@ -24,6 +26,7 @@ func get_facing() -> int:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	state._handle(self, delta)
+	if debug_info: debug_info.player_state = state
 
 func _physics_process(delta: float):
 	state._handle_physics(self, delta)

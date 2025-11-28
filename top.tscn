@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=13 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://civ5a43u5151a" path="res://transition_player.gd" id="6_ch5ua"]
 [ext_resource type="Script" uid="uid://dh0b4xa4f8h1o" path="res://pause_menu.gd" id="6_ql50d"]
 [ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="7_ql50d"]
+[ext_resource type="Script" uid="uid://bwdk675n1q0dh" path="res://debug_info.gd" id="8_7c27k"]
 
 [sub_resource type="Animation" id="Animation_58ij3"]
 length = 0.001
@@ -235,3 +236,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="DebugInfo" type="CanvasLayer" parent="."]
+scale = Vector2(0.125, 0.125)
+transform = Transform2D(0.125, 0, 0, 0.125, 0, 0)
+script = ExtResource("8_7c27k")
+
+[node name="Label" type="Label" parent="DebugInfo"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "debug info"

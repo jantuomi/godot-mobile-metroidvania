@@ -7,6 +7,9 @@ const ROOM_NEW_GAME: String = "res://room_test1.tscn"
 var active_room_name: String
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		$DebugInfo.queue_free()
+
 	print("data_dir: \"%s\"" % OS.get_user_data_dir())
 	$PauseMenu.deactivate()
 	get_tree().call_group("ui_movement", "set_visible", false)

@@ -4,6 +4,9 @@ extends PlayerState
 var input_x: float
 var jump_coef = 1.3
 
+func _to_string() -> String:
+	return "PlayerStateForced"
+
 func initialize(p: Player, dir: String):
 	if dir == "LEFT":
 		input_x = -1.0

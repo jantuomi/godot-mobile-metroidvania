@@ -7,6 +7,9 @@ var jump_was_released: bool = true
 var coyote: float = 10000
 var prev_dir: float = 0.0
 
+func _to_string() -> String:
+	return "PlayerStateNormal"
+
 func _handle(p: Player, _delta: float):
 	var as2d = p.get_node("AnimatedSprite2D")
 	if p.velocity.x > 0:
