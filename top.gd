@@ -5,13 +5,17 @@ const ROOM_MAIN_MENU: String = "res://room_main_menu.tscn"
 const ROOM_NEW_GAME: String = "res://room_test1.tscn"
 
 var active_room_name: String
+var pause_menu: PauseMenu
 
 func _ready() -> void:
 	if not OS.is_debug_build():
 		$DebugInfo.queue_free()
 
 	print("data_dir: \"%s\"" % OS.get_user_data_dir())
-	$PauseMenu.deactivate()
+
+	pause_menu = $PauseMenu
+	remove_child.call_deferred(pause_menu)
+
 	get_tree().call_group("ui_movement", "set_visible", false)
 	get_tree().call_group("ui_menu", "set_visible", false)
 	get_tree().call_group("ui_action", "set_visible", false)
@@ -24,10 +28,7 @@ func _ready() -> void:
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("menu"):
-		if $PauseMenu.visible:
-			close_pause_menu()
-		elif active_room_name != "MainMenu":
-			open_pause_menu()
+		handle_pause()
 
 func replace_active_room(new_room: Node, on_changed: Callable):
 	var current_room = get_node("ActiveRoom")
@@ -45,17 +46,14 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	new_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(new_room)
 
-func get_pause_menu() -> PauseMenu:
-	return $PauseMenu
-
 func get_transition_player() -> TransitionPlayer:
 	return $TransitionPlayer
 
-func open_pause_menu():
-	$PauseMenu.activate()
-
-func close_pause_menu():
-	$PauseMenu.deactivate()
+func handle_pause():
+	if pause_menu.is_inside_tree():
+		remove_child.call_deferred(pause_menu)
+	else:
+		add_child.call_deferred(pause_menu)
 
 # Save state logic
 
