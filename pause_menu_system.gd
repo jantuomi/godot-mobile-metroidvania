@@ -10,4 +10,4 @@ func _on_quit_button_pressed() -> void:
 	var top: Top = menu.get_parent()
 	
 	top.get_transition_player().room_transition(null, "res://room_main_menu.tscn", null)
-	top.handle_pause()
+	top.toggle_pause()

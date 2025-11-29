@@ -28,7 +28,7 @@ func _ready() -> void:
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("menu"):
-		handle_pause()
+		toggle_pause()
 
 func replace_active_room(new_room: Node, on_changed: Callable):
 	var current_room = get_node("ActiveRoom")
@@ -49,7 +49,7 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 func get_transition_player() -> TransitionPlayer:
 	return $TransitionPlayer
 
-func handle_pause():
+func toggle_pause():
 	if pause_menu.is_inside_tree():
 		remove_child.call_deferred(pause_menu)
 	else:
