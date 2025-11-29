@@ -6,10 +6,9 @@ var target: Curve2D
 var speed: float
 var dir: int
 
-func _to_string() -> String:
-	return "PlayerStateCurve"
-
-func initialize(_p: Player, c_target: Curve2D, c_speed: float, c_reverse: bool):
+func _init(pl: Player, c_target: Curve2D, c_speed: float, c_reverse: bool):
+	super(pl)
+	
 	target = c_target
 	speed = c_speed
 	if c_reverse:
@@ -19,10 +18,13 @@ func initialize(_p: Player, c_target: Curve2D, c_speed: float, c_reverse: bool):
 		dir = 1
 		t = 0
 
-func _handle(_p: Player, _delta: float):
+func _to_string() -> String:
+	return "PlayerStateCurve"
+
+func _handle(_delta: float):
 	pass
 
-func _handle_physics(p: Player, delta: float):
+func _handle_physics(delta: float):
 	t += dir * speed * delta
 	var finished: bool
 	if dir == 1:

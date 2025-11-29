@@ -10,21 +10,20 @@ var prev_dir: float = 0.0
 func _to_string() -> String:
 	return "PlayerStateNormal"
 
-func _handle(p: Player, _delta: float):
-	var as2d = p.get_node("AnimatedSprite2D")
+func _handle(_delta: float):
 	if p.velocity.x > 0:
-		as2d.flip_h = false
+		p.anim_sp.flip_h = false
 	elif p.velocity.x < 0:
-		as2d.flip_h = true
+		p.anim_sp.flip_h = true
 	
 	if not p.is_on_floor():
-		as2d.set_animation("jump")
+		p.anim_sp.set_animation("jump")
 	elif abs(p.velocity.x) > 0.0:
-		as2d.set_animation("walk")
+		p.anim_sp.set_animation("walk")
 	else:
-		as2d.set_animation("idle")
+		p.anim_sp.set_animation("idle")
 
-func _handle_physics(p: Player, delta: float):
+func _handle_physics(delta: float):
 	var grav_coef = 1.0
 	if p.velocity.y < 0 and Input.is_action_pressed("jump"):
 		grav_coef = 1.0 + (p.jump_held_coef * p.velocity.y / p.jump_strength)

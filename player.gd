@@ -7,7 +7,9 @@ extends CharacterBody2D
 @export var jump_held_coef: float
 @export var hook_distance_max: float
 
-var state: PlayerState = PlayerStateInit.new()
+var state: PlayerState = PlayerStateInit.new(self)
+@onready var anim_sp: AnimatedSprite2D = $AnimatedSprite2D
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func get_facing() -> int:
@@ -18,36 +20,30 @@ func get_facing() -> int:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	state._handle(self, delta)
+	state._handle(delta)
 
 func _physics_process(delta: float):
-	state._handle_physics(self, delta)
+	state._handle_physics(delta)
 
 #region movement type setters
 func set_movement_normal():
-	state = PlayerStateNormal.new()
+	state = PlayerStateNormal.new(self)
 	
 func set_movement_forced(dir: String):
 	if state is PlayerStateForced: return
-	
-	var psf: PlayerStateForced = PlayerStateForced.new()
-	psf.initialize(self, dir)
-	state = psf
+
+	state = PlayerStateForced.new(self, dir)
 
 func set_movement_curve(curve: Curve2D, c_speed: float, c_reverse: bool):
 	if state is PlayerStateCurve: return
 
-	var psc: PlayerStateCurve = PlayerStateCurve.new()
-	psc.initialize(self, curve, c_speed, c_reverse)
-	state = psc
+	state = PlayerStateCurve.new(self, curve, c_speed, c_reverse)
 
 func set_movement_hanging(target: Node2D, hang_dist: float):
 	if state is PlayerStateHanging: return
 	if not PlayerStateHanging.can_hang_from(self, target): return
 
-	var psh: PlayerStateHanging = PlayerStateHanging.new()
-	psh.initialize(self, target, hang_dist)
-	state = psh
+	state = PlayerStateHanging.new(self, target, hang_dist)
 #endregion
 
 func handle_action_input():

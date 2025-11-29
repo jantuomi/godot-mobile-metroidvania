@@ -18,42 +18,40 @@ var T_travel: float = 0.1
 enum S { MLEMING, TRAVELING, HANGING }
 var state: S = S.MLEMING
 
+func _init(pl: Player, h_target: HookHanging, h_dist: float) -> void:
+	super(pl)
+
+	t = 0
+	L = h_dist
+	target = h_target
+	w = sqrt(p.gravity / L) * 0.8
+
+	state = S.MLEMING
+
 func _to_string() -> String:
 	return "PlayerStateHanging %s, θ₀ = %f" % [S.keys()[state], theta0]
 
-static func can_hang_from(p: Player, target: HookHanging) -> bool:
-	var d = target.global_position - p.global_position
+static func can_hang_from(pl: Player, c_target: HookHanging) -> bool:
+	var d = c_target.global_position - pl.global_position
 	var angle = atan2(d.y, d.x)
 	var revs = floor(angle / (2 * PI))
 	angle -= revs * 2 * PI
 	return angle > deg_to_rad(135) or angle < deg_to_rad(45)
 
-func initialize(p: Player, h_target: HookHanging, h_dist: float):
-	t = 0
-	L = h_dist
-	target = h_target
-	w = sqrt(p.gravity / L) * 0.8
-	
-	var d = target.global_position - p.global_position
-	var flip = d.x < 0
-	p.get_node("AnimatedSprite2D").flip_h = flip
-	d
-	state = S.MLEMING
-
-func _handle(p: Player, _delta: float):
+func _handle(_delta: float):
 	if Input.is_action_just_pressed("move_left"):
-		p.get_node("AnimatedSprite2D").flip_h = true
+		p.anim_sp.flip_h = true
 	if Input.is_action_just_pressed("move_right"):
-		p.get_node("AnimatedSprite2D").flip_h = false
+		p.anim_sp.flip_h = false
 
-func _handle_physics(p: Player, delta: float):
+func _handle_physics(delta: float):
 	match state:
-		S.MLEMING:	 _mlem(p, delta)
-		S.TRAVELING: _travel(p, delta)
-		S.HANGING:   _hang(p, delta)
+		S.MLEMING:	 _mlem(delta)
+		S.TRAVELING: _travel(delta)
+		S.HANGING:   _hang(delta)
 		_: print_debug("_handle_physics: unknown state %s" % str(state))
 		
-func _mlem(p: Player, delta: float):
+func _mlem(delta: float):
 	t += delta
 	var d = target.global_position - p.global_position
 	
@@ -76,7 +74,7 @@ func _mlem(p: Player, delta: float):
 		travel_to = target.global_position - d.normalized() * L
 		t = 0
 
-func _travel(p: Player, delta: float):
+func _travel(delta: float):
 	t += delta
 	p.global_position = travel_from + (t / T_travel) * (travel_to - travel_from)
 	
@@ -93,7 +91,7 @@ func _travel(p: Player, delta: float):
 		last_theta = theta0
 		t = 0
 
-func _hang(p: Player, delta: float):
+func _hang(delta: float):
 	var d = target.global_position - p.global_position
 	tongue.points[0] = -d
 	

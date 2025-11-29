@@ -4,8 +4,8 @@ extends PlayerState
 func _to_string() -> String:
 	return "PlayerStateInit"
 
-func _handle(_p: Player, _delta: float):
+func _handle(_delta: float):
 	pass
 
-func _handle_physics(_p: Player, _delta: float):
+func _handle_physics(_delta: float):
 	pass
