@@ -36,7 +36,7 @@ func _handle_physics(delta: float):
 	p.velocity = (new_position - p.position) / delta
 
 	if finished:
-		p.set_movement_normal()
+		p.request_state_normal()
 		return
 
 	p.position = new_position

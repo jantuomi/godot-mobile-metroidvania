@@ -15,6 +15,8 @@ var travel_to: Vector2
 var T_mlem: float = 0.2
 var T_travel: float = 0.1
 
+var swing_force: float = 0.2
+
 enum S { MLEMING, TRAVELING, HANGING }
 var state: S = S.MLEMING
 
@@ -24,12 +26,15 @@ func _init(pl: Player, h_target: HookHanging, h_dist: float) -> void:
 	t = 0
 	L = h_dist
 	target = h_target
-	w = sqrt(p.gravity / L) * 0.8
+	w = sqrt(p.gravity / L) * 0.7
+	
+	var dx = target.global_position.x - pl.global_position.x
+	pl.anim_sp.flip_h = dx < 0
 
 	state = S.MLEMING
 
 func _to_string() -> String:
-	return "PlayerStateHanging %s, θ₀ = %f" % [S.keys()[state], theta0]
+	return "PlayerStateHanging %s, θ₀ = %f, θ = %f" % [S.keys()[state], theta0, last_theta]
 
 static func can_hang_from(pl: Player, c_target: HookHanging) -> bool:
 	var d = c_target.global_position - pl.global_position
@@ -100,12 +105,23 @@ func _hang(delta: float):
 	if Input.is_action_just_pressed("jump"):
 		p.velocity.y = -p.jump_strength
 		tongue.queue_free()
-		p.set_movement_normal()
+		p.request_state_normal()
 
 	var theta = theta0 * cos(t * w)
+
+	# Allow player to add momentum by moving toward the swing direction
+	var dtheta = theta - last_theta
+	var momentum = Input.get_axis("move_right", "move_left")
+	var momentum_dir = sign(momentum) * sign(dtheta)
+	theta0 += momentum_dir * sign(theta0) * swing_force * delta
+
+	# Limit max swinging height to horizontal by
+	# lerping theta0 to 90deg at the bottom of the swing
+	if abs(theta0) > PI / 2 and abs(theta) < PI / 8:
+		theta0 = lerp(theta0, sign(theta0) * PI / 2, 0.8)
 	
-	if sign(theta) != sign(last_theta) and abs(theta0) > PI / 2:
-		theta0 = sign(theta0) * PI / 2
+	#if sign(theta) != sign(last_theta) and abs(theta0) > PI / 2:
+	#	theta0 = sign(theta0) * PI / 2
 	
 	p.global_position.x = target.global_position.x + L * cos(theta + PI / 2)
 	p.global_position.y = target.global_position.y + L * sin(theta + PI / 2)

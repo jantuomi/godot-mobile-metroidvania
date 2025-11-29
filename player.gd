@@ -12,12 +12,6 @@ var state: PlayerState = PlayerStateInit.new(self)
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func get_facing() -> int:
-	if $AnimatedSprite2D.flip_h:
-		return -1
-	else:
-		return 1
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	state._handle(delta)
@@ -25,26 +19,30 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float):
 	state._handle_physics(delta)
 
-#region movement type setters
-func set_movement_normal():
+func request_state_normal():
 	state = PlayerStateNormal.new(self)
 	
-func set_movement_forced(dir: String):
+func request_state_forced(dir: String):
 	if state is PlayerStateForced: return
 
 	state = PlayerStateForced.new(self, dir)
 
-func set_movement_curve(curve: Curve2D, c_speed: float, c_reverse: bool):
+func request_state_curve(curve: Curve2D, c_speed: float, c_reverse: bool):
 	if state is PlayerStateCurve: return
 
 	state = PlayerStateCurve.new(self, curve, c_speed, c_reverse)
 
-func set_movement_hanging(target: Node2D, hang_dist: float):
+func request_state_hanging(target: Node2D, hang_dist: float):
 	if state is PlayerStateHanging: return
 	if not PlayerStateHanging.can_hang_from(self, target): return
 
 	state = PlayerStateHanging.new(self, target, hang_dist)
-#endregion
+
+func get_facing() -> int:
+	if anim_sp.flip_h:
+		return -1
+	else:
+		return 1
 
 func handle_action_input():
 	var hooks = get_tree().get_nodes_in_group("hook_hanging")
@@ -57,4 +55,4 @@ func handle_action_input():
 		var dist = (hook.global_position - global_position).length()
 		print_debug("found hook: ", hook, ", dist: ", dist)
 		if dist < hook_distance_max:
-			set_movement_hanging(hook, hook.hang_distance)
+			request_state_hanging(hook, hook.hang_distance)

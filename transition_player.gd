@@ -15,7 +15,7 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 
 	if from_door:
 		var player: Player = top.get_node("ActiveRoom").find_child("Player")
-		player.set_movement_forced(from_door.enter_towards)
+		player.request_state_forced(from_door.enter_towards)
 
 	# Start animation
 	# The animation calls _change_room at a specific time
@@ -48,7 +48,7 @@ func _on_room_changed():
 	if _transition_door_name:
 		var door: Door = room.find_child(_transition_door_name)
 		player.position = door.position
-		player.set_movement_forced(door.exit_towards)
+		player.request_state_forced(door.exit_towards)
 
 	play("room_trans_end")
 	top.game_save()
@@ -62,4 +62,4 @@ func _transition_end():
 	var room = top.get_node("ActiveRoom")
 	var player: Player = room.find_child("Player")
 	if player:
-		player.set_movement_normal()
+		player.request_state_normal()
