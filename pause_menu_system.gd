@@ -1,9 +1,13 @@
 class_name PauseMenuSystem
 extends PauseMenuPage
 
-func _on_tree_entered() -> void:
-	$QuitButton.grab_focus.call_deferred()
+func _ready():
 	$QuitButton.connect("pressed", _on_quit_button_pressed)
+
+func _on_tree_entered() -> void:
+	if is_node_ready():
+		$QuitButton.grab_focus.call_deferred()
+		
 
 func _on_quit_button_pressed() -> void:
 	var menu: PauseMenu = get_parent()

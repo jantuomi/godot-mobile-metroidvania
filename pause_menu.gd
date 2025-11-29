@@ -1,7 +1,7 @@
 class_name PauseMenu
 extends CanvasLayer
 
-var active_page_index: int
+var active_page_index: int = -1
 var pages: Array[PauseMenuPage] = []
 
 func _ready():
@@ -34,8 +34,9 @@ func get_map() -> PauseMenuMap:
 	return null
 
 func set_page(i: int):
-	var prev_page = pages[active_page_index]
-	remove_child.call_deferred(prev_page)
+	if active_page_index != -1:
+		var prev_page = pages[active_page_index]
+		remove_child.call_deferred(prev_page)
 	
 	active_page_index = i
 	add_child.call_deferred(pages[i])
