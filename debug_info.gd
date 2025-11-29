@@ -11,13 +11,8 @@ func _update():
 	
 	text += "FPS: %d\n" % Engine.get_frames_per_second()
 	
-	var room: Node = get_tree().root.get_node_or_null("Top/ActiveRoom")
-	var player: Player
-	if room: player = room.find_child("Player")
-
-	if room:
-		text += "Room: %s\n" % room.scene_file_path
-	if player:
-		text += "%s\n" % player.state.to_string()
+	var nodes = get_tree().get_nodes_in_group("debug_info")
+	for node in nodes:
+		text += node._debug_info()
 
 	$Label.text = text

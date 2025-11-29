@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=10 format=4 uid="uid://cfj21o6wsd3hv"]
 
 [ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_m3rqw"]
+[ext_resource type="Script" uid="uid://cbhily4o7e2r3" path="res://room.gd" id="1_mrrx3"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_qglt1"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="3_mrrx3"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_lfjh7"]
@@ -15,8 +16,9 @@ _data = {
 }
 point_count = 12
 
-[node name="RoomTest1" type="Node2D"]
+[node name="RoomTest1" type="Node2D" groups=["debug_info"]]
 process_mode = 1
+script = ExtResource("1_mrrx3")
 
 [node name="BgParallax" type="Parallax2D" parent="."]
 modulate = Color(0.7, 0.7, 0.7, 1)

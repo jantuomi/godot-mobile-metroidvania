@@ -12,6 +12,9 @@ var state: PlayerState = PlayerStateInit.new(self)
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _debug_info():
+	return "%s\n" % state.to_string()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	state._handle(delta)
@@ -53,6 +56,6 @@ func handle_action_input():
 
 		var hook: HookHanging = hook_any
 		var dist = (hook.global_position - global_position).length()
-		print_debug("found hook: ", hook, ", dist: ", dist)
+		#print_debug("found hook: ", hook, ", dist: ", dist)
 		if dist < hook_distance_max:
 			request_state_hanging(hook, hook.hang_distance)

@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=4 uid="uid://cm4xqhbvyndt1"]
+[gd_scene load_steps=7 format=4 uid="uid://cm4xqhbvyndt1"]
 
-[ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.bak/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_0kik6"]
+[ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_0kik6"]
+[ext_resource type="Script" uid="uid://cbhily4o7e2r3" path="res://room.gd" id="1_vjuef"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_0kik6"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="2_otugw"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="3_vjuef"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_0kik6"]
 
-[node name="RoomTest2" type="Node2D"]
+[node name="RoomTest2" type="Node2D" groups=["debug_info"]]
 process_mode = 1
+script = ExtResource("1_vjuef")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 modulate = Color(0.7, 0.7, 0.7, 1)
@@ -28,10 +30,6 @@ tile_set = ExtResource("2_otugw")
 
 [node name="Player" parent="." instance=ExtResource("2_0kik6")]
 collision_layer = 2
-speed = 70.0
-jump_strength = 200.0
-coyote_max = 10
-jump_held_coef = 0.8
 
 [node name="GameCamera" parent="Player" instance=ExtResource("3_vjuef")]
 unique_name_in_owner = true

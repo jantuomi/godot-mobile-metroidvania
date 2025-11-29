@@ -1,5 +1,5 @@
 class_name RoomMainMenu
-extends Node2D
+extends Room
 
 func _ready() -> void:
 	$PlayButton.grab_focus.call_deferred()

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dufnvsfxreqq8" path="res://room_main_menu.gd" id="1_rbk04"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="2_ftmdk"]
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Node2D" groups=["debug_info"]]
 process_mode = 1
 script = ExtResource("1_rbk04")
 

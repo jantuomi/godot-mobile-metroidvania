@@ -32,6 +32,7 @@ ui_movement=""
 ui_menu=""
 hook_hanging=""
 ui_action=""
+debug_info=""
 
 [input]
 

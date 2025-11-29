@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://3o7g1rxy06sb"]
+[gd_scene load_steps=11 format=4 uid="uid://3o7g1rxy06sb"]
 
 [ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_pwspw"]
+[ext_resource type="Script" uid="uid://cbhily4o7e2r3" path="res://room.gd" id="1_w1h0g"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="2_bml3v"]
-[ext_resource type="Texture2D" uid="uid://jokhiukm54o2" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0185.png" id="2_mtemi"]
+[ext_resource type="Texture2D" uid="uid://jokhiukm54o2" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0185.png" id="2_mtemi"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="2_pwspw"]
 [ext_resource type="Script" uid="uid://b77ngd0fnqxi5" path="res://computer.gd" id="3_bml3v"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="3_w1h0g"]
@@ -17,8 +18,9 @@ _data = {
 }
 point_count = 6
 
-[node name="RoomTest3" type="Node2D"]
+[node name="RoomTest3" type="Node2D" groups=["debug_info"]]
 process_mode = 1
+script = ExtResource("1_w1h0g")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 modulate = Color(0.7, 0.7, 0.7, 1)
