@@ -50,12 +50,8 @@ func get_facing() -> int:
 func handle_action_input():
 	var hooks = get_tree().get_nodes_in_group("hook_hanging")
 	for hook_any in hooks:
-		if not hook_any is HookHanging:
-			print_debug("hook is not HookHanging!", hook_any)
-			continue
-
+		assert(hook_any is HookHanging, "hook is not a Hook")
 		var hook: HookHanging = hook_any
 		var dist = (hook.global_position - global_position).length()
-		#print_debug("found hook: ", hook, ", dist: ", dist)
 		if dist < hook_distance_max:
 			request_state_hanging(hook, hook.hang_distance)

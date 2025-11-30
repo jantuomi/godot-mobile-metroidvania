@@ -54,7 +54,7 @@ func _handle_physics(delta: float):
 		S.MLEMING:	 _mlem(delta)
 		S.TRAVELING: _travel(delta)
 		S.HANGING:   _hang(delta)
-		_: print_debug("_handle_physics: unknown state %s" % str(state))
+		_: assert(false, "unknown state %s" % str(state))
 		
 func _mlem(delta: float):
 	t += delta
