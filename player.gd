@@ -9,15 +9,25 @@ extends CharacterBody2D
 
 var state: PlayerState = PlayerStateInit.new(self)
 @onready var anim_sp: AnimatedSprite2D = $AnimatedSprite2D
+@onready var tree: SceneTree = get_tree()
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _debug_info():
 	return "%s\n" % state.to_string()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	state._handle(delta)
+
+	for hook_any in tree.get_nodes_in_group("hook_hanging"):
+		assert(hook_any is HookHanging, "hook is not HookHanging")
+		var hook: HookHanging = hook_any
+		var is_camera_target: bool = hook.is_in_group("camera_target")
+		var is_close: bool = ((hook.global_position - global_position).length() < 100)
+		if not is_camera_target and is_close:
+			hook.add_to_group("camera_target")
+		elif is_camera_target and not is_close:
+			hook.remove_from_group("camera_target")
 
 func _physics_process(delta: float):
 	state._handle_physics(delta)
@@ -50,7 +60,7 @@ func get_facing() -> int:
 func handle_action_input():
 	var hooks = get_tree().get_nodes_in_group("hook_hanging")
 	for hook_any in hooks:
-		assert(hook_any is HookHanging, "hook is not a Hook")
+		assert(hook_any is HookHanging, "hook is not HookHanging")
 		var hook: HookHanging = hook_any
 		var dist = (hook.global_position - global_position).length()
 		if dist < hook_distance_max:

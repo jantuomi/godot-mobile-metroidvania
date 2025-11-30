@@ -33,6 +33,7 @@ ui_menu=""
 hook_hanging=""
 ui_action=""
 debug_info=""
+camera_target=""
 
 [input]
 
