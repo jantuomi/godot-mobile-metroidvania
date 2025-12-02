@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ver3yfceq5p"]
+
+[ext_resource type="Script" uid="uid://cgrmj81r5dxuq" path="res://trigger_button.gd" id="1_p11m3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88b48"]
+size = Vector2(16, 16)
+
+[node name="TriggerButton" type="Node2D"]
+script = ExtResource("1_p11m3")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_88b48")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(1, 0, 1, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+scale = Vector2(0.25, 0.25)
+text = "button"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_player_entered"]
