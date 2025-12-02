@@ -108,6 +108,8 @@ jump_strength = 200.0
 coyote_max_ms = 100.0
 jump_held_coef = 0.8
 hook_distance_max = 80.0
+camera_offset_look = 40.0
+camera_offset_jump = 14.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)

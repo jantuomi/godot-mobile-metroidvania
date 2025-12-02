@@ -7,6 +7,9 @@ extends CharacterBody2D
 @export var jump_held_coef: float
 @export var hook_distance_max: float
 
+@export var camera_offset_look: float
+@export var camera_offset_jump: float
+
 var state: PlayerState = PlayerStateInit.new(self)
 @onready var anim_sp: AnimatedSprite2D = $AnimatedSprite2D
 @onready var tree: SceneTree = get_tree()
@@ -15,6 +18,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _debug_info():
 	return "%s\n" % state.to_string()
+
+func _camera_target() -> Vector2:
+	var oy: float = 0
+	if not is_on_floor():
+		oy = camera_offset_jump
+	return global_position + Vector2(get_facing() * camera_offset_look, oy)
 
 func _process(delta: float) -> void:
 	state._handle(delta)

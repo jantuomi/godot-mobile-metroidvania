@@ -24,7 +24,7 @@ script = ExtResource("1_mrrx3")
 modulate = Color(0.7, 0.7, 0.7, 1)
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(16, 16)
-repeat_times = 24
+repeat_times = 30
 
 [node name="TextureRect" type="TextureRect" parent="BgParallax"]
 self_modulate = Color(0.20784314, 0.21568628, 0.3882353, 1)
@@ -39,9 +39,7 @@ tile_set = ExtResource("7_qglt1")
 
 [node name="GameCamera" parent="." instance=ExtResource("3_mrrx3")]
 position = Vector2(87, 91)
-process_callback = 0
 position_smoothing_speed = 3.0
-offset_amt = Vector2(40, 14)
 
 [node name="Player" parent="." instance=ExtResource("2_qglt1")]
 position = Vector2(87, 91)
