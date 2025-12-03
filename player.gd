@@ -41,6 +41,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float):
 	state._handle_physics(delta)
 
+func request_state_init():
+	state = PlayerStateInit.new(self)
+
 func request_state_normal():
 	state = PlayerStateNormal.new(self)
 	

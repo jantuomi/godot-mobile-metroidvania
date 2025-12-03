@@ -1,3 +1,4 @@
+class_name GameCamera
 extends Camera2D
 
 @onready var tree: SceneTree = get_tree()
