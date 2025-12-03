@@ -32,7 +32,9 @@ func _process(delta: float) -> void:
 		assert(hook_any is HookHanging, "hook is not HookHanging")
 		var hook: HookHanging = hook_any
 		var is_camera_target: bool = hook.is_in_group("camera_target")
-		var is_close: bool = ((hook.global_position - global_position).length() < 100)
+		var player_not_much_higher = (hook.global_position.y - global_position.y) < 30
+		var is_close: bool = ((hook.global_position - global_position).length() < 100) and player_not_much_higher
+
 		if not is_camera_target and is_close:
 			hook.add_to_group("camera_target")
 		elif is_camera_target and not is_close:

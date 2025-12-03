@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvpmt6tqgj0qk"]
+
+[ext_resource type="Texture2D" uid="uid://bhtovawtfqev3" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0006.png" id="1_3neak"]
+[ext_resource type="Script" uid="uid://b5vux357w0ou2" path="res://hook_hanging.gd" id="2_yumhl"]
+
+[node name="HookHanging" type="Sprite2D" groups=["camera_target", "hook_hanging"]]
+texture = ExtResource("1_3neak")
+script = ExtResource("2_yumhl")
+hang_distance = 50.0
