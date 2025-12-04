@@ -16,7 +16,10 @@ func _process(_delta: float) -> void:
 	if targets.size() == 0: return
 
 	for target in targets:
-		pos += target._camera_target()
+		if target.has_method("_camera_target"):
+			pos += target._camera_target()
+		else:
+			pos += target.global_position
 		n += 1
 
 	global_position = pos / n

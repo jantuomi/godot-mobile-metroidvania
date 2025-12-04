@@ -75,6 +75,7 @@ action={
 2d_physics/layer_3="Door"
 2d_physics/layer_4="Computer"
 2d_physics/layer_5="TriggerButton"
+2d_physics/layer_6="NPCArea"
 
 [rendering]
 
