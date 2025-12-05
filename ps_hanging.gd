@@ -12,19 +12,20 @@ var tongue: Line2D
 var travel_from: Vector2
 var travel_to: Vector2
 
-var T_mlem: float = 0.2
-var T_travel: float = 0.1
+static var T_mlem: float = 0.2
+static var T_travel: float = 0.1
 
-var swing_force: float = 0.2
+static var swing_force: float = 0.2
+static var hook_distance_max: float = 80
 
 enum S { MLEMING, TRAVELING, HANGING }
 var state: S = S.MLEMING
 
-func _init(pl: Player, h_target: HookHanging, h_dist: float) -> void:
+func _init(pl: Player, h_target: HookHanging) -> void:
 	super(pl)
 
 	t = 0
-	L = h_dist
+	L = h_target.hang_distance
 	target = h_target
 	w = sqrt(p.gravity / L) * 0.7
 	
@@ -41,7 +42,10 @@ static func can_hang_from(pl: Player, c_target: HookHanging) -> bool:
 	var angle = atan2(d.y, d.x)
 	var revs = floor(angle / (2 * PI))
 	angle -= revs * 2 * PI
-	return angle > deg_to_rad(135) or angle < deg_to_rad(45)
+	
+	var is_close = d.length() < hook_distance_max
+	var is_ok_angle = angle > deg_to_rad(135) or angle < deg_to_rad(45)
+	return is_close and is_ok_angle
 
 func _handle(_delta: float):
 	if Input.is_action_just_pressed("move_left"):

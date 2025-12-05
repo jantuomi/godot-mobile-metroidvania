@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://cfj21o6wsd3hv"]
+[gd_scene load_steps=10 format=4 uid="uid://cfj21o6wsd3hv"]
 
 [ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="1_m3rqw"]
 [ext_resource type="Script" uid="uid://cbhily4o7e2r3" path="res://room.gd" id="1_mrrx3"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_lfjh7"]
 [ext_resource type="PackedScene" uid="uid://cvpmt6tqgj0qk" path="res://hook_hanging.tscn" id="7_mrrx3"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="7_qglt1"]
+[ext_resource type="PackedScene" uid="uid://4a6yx5iho8tg" path="res://zoop_point.tscn" id="8_mrrx3"]
 
 [sub_resource type="Curve2D" id="Curve2D_m3rqw"]
 bake_interval = 1.0
@@ -74,3 +75,7 @@ curve = SubResource("Curve2D_m3rqw")
 
 [node name="HookHanging" parent="." instance=ExtResource("7_mrrx3")]
 position = Vector2(226, 7)
+
+[node name="ZoopPoint" parent="." instance=ExtResource("8_mrrx3")]
+position = Vector2(40, 56)
+orientation = "right"

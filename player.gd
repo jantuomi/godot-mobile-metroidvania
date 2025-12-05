@@ -5,7 +5,6 @@ extends CharacterBody2D
 @export var jump_strength: float
 @export var coyote_max_ms: float
 @export var jump_held_coef: float
-@export var hook_distance_max: float
 
 @export var camera_offset_look: float
 @export var camera_offset_jump: float
@@ -28,17 +27,18 @@ func _camera_target() -> Vector2:
 func _process(delta: float) -> void:
 	state._handle(delta)
 
-	for hook_any in tree.get_nodes_in_group("hook_hanging"):
-		assert(hook_any is HookHanging, "hook is not HookHanging")
-		var hook: HookHanging = hook_any
-		var is_camera_target: bool = hook.is_in_group("camera_target")
-		var player_not_much_higher = (hook.global_position.y - global_position.y) < 30
-		var is_close: bool = ((hook.global_position - global_position).length() < 100) and player_not_much_higher
+	var look_at_nodes: Array[Node2D] = []
+	look_at_nodes.append_array(tree.get_nodes_in_group("hook_hanging"))
+	look_at_nodes.append_array(tree.get_nodes_in_group("zoop_points"))
+	for look_at_node in look_at_nodes:
+		var is_camera_target: bool = look_at_node.is_in_group("camera_target")
+		var player_not_much_higher = (look_at_node.global_position.y - global_position.y) < 30
+		var is_close: bool = ((look_at_node.global_position - global_position).length() < 100) and player_not_much_higher
 
 		if not is_camera_target and is_close:
-			hook.add_to_group("camera_target")
+			look_at_node.add_to_group("camera_target")
 		elif is_camera_target and not is_close:
-			hook.remove_from_group("camera_target")
+			look_at_node.remove_from_group("camera_target")
 
 func _physics_process(delta: float):
 	state._handle_physics(delta)
@@ -59,11 +59,18 @@ func request_state_curve(curve: Curve2D, c_speed: float, c_reverse: bool):
 
 	state = PlayerStateCurve.new(self, curve, c_speed, c_reverse)
 
-func request_state_hanging(target: Node2D, hang_dist: float):
+func request_state_hanging(target: Node2D):
 	if state is PlayerStateHanging: return
 	if not PlayerStateHanging.can_hang_from(self, target): return
 
-	state = PlayerStateHanging.new(self, target, hang_dist)
+	state = PlayerStateHanging.new(self, target)
+
+func request_state_zooping(target: ZoopPoint) -> bool:
+	if state is PlayerStateZooping: return false
+	if not PlayerStateZooping.can_zoop_to(self, target): return false
+
+	state = PlayerStateZooping.new(self, target)
+	return true
 
 func get_facing() -> int:
 	if anim_sp.flip_h:
@@ -74,8 +81,10 @@ func get_facing() -> int:
 func handle_action_input():
 	var hooks = get_tree().get_nodes_in_group("hook_hanging")
 	for hook_any in hooks:
-		assert(hook_any is HookHanging, "hook is not HookHanging")
-		var hook: HookHanging = hook_any
-		var dist = (hook.global_position - global_position).length()
-		if dist < hook_distance_max:
-			request_state_hanging(hook, hook.hang_distance)
+		var hook: HookHanging = hook_any as HookHanging
+		if request_state_hanging(hook): return
+
+	var zoops = get_tree().get_nodes_in_group("zoop_points")
+	for zoop_any in zoops:
+		var zoop: ZoopPoint = zoop_any as ZoopPoint
+		if request_state_zooping(zoop): return

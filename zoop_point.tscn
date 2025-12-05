@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://4a6yx5iho8tg"]
+
+[ext_resource type="Texture2D" uid="uid://yev1qskwf73" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0012.png" id="1_jig5b"]
+[ext_resource type="Script" uid="uid://xk5p3so7xf3a" path="res://zoop_point.gd" id="2_p0qu3"]
+
+[node name="ZoopPoint" type="Node2D" groups=["zoop_points"]]
+script = ExtResource("2_p0qu3")
+speed = 70.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5707964
+texture = ExtResource("1_jig5b")
