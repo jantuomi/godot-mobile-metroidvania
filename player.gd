@@ -12,11 +12,13 @@ extends CharacterBody2D
 var state: PlayerState = PlayerStateInit.new(self)
 @onready var anim_sp: AnimatedSprite2D = $AnimatedSprite2D
 @onready var tree: SceneTree = get_tree()
+@onready var top: Top = tree.root.get_node("Top") as Top
+@onready var inventory: Inventory = top.inventory
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _debug_info():
-	return "%s\n" % state.to_string()
+	return "%s\ngot zoop: %s\ngot hanging: %s" % [state.to_string(), str(inventory.zoop), str(inventory.hanging)]
 
 func _camera_target() -> Vector2:
 	var oy: float = 0
@@ -79,12 +81,19 @@ func get_facing() -> int:
 		return 1
 
 func handle_action_input():
+	if inventory.zoop and _try_action_zoop(): return
+	if inventory.hanging and _try_action_hang(): return
+
+func _try_action_hang() -> bool:
 	var hooks = get_tree().get_nodes_in_group("hook_hanging")
 	for hook_any in hooks:
 		var hook: HookHanging = hook_any as HookHanging
-		if request_state_hanging(hook): return
+		if request_state_hanging(hook): return true
+	return false
 
+func _try_action_zoop():
 	var zoops = get_tree().get_nodes_in_group("zoop_points")
 	for zoop_any in zoops:
 		var zoop: ZoopPoint = zoop_any as ZoopPoint
-		if request_state_zooping(zoop): return
+		if request_state_zooping(zoop): return true
+	return false

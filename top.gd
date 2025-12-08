@@ -6,6 +6,7 @@ const ROOM_NEW_GAME: String = "res://room_test1.tscn"
 
 var active_room_name: String
 var pause_menu: PauseMenu
+var inventory: Inventory
 
 func _ready() -> void:
 	if not OS.is_debug_build():
@@ -62,6 +63,8 @@ const SAVE_PATH = "user://save_state.cfg"
 const SAVE_SECTION = "save"
 const SAVE_ACTIVE_ROOM_PATH = "ACTIVE_ROOM_PATH"
 const SAVE_LAST_DOOR_NAME   = "LAST_DOOR_NAME"
+const SAVE_GOT_ZOOP         = "GOT_ZOOP"
+const SAVE_GOT_HANG         = "GOT_HANG"
 
 func game_set(k: String, v: Variant):
 	save_state.set_value(SAVE_SECTION, k, v)
@@ -73,4 +76,9 @@ func game_load():
 	save_state.load(SAVE_PATH)
 	var save_active_room_path = save_state.get_value(SAVE_SECTION, SAVE_ACTIVE_ROOM_PATH, ROOM_NEW_GAME)
 	var save_last_door_name = save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME, "DoorLeft")
+
+	inventory = Inventory.new()
+	inventory.hanging = save_state.get_value(SAVE_SECTION, SAVE_GOT_HANG, false)
+	inventory.zoop = save_state.get_value(SAVE_SECTION, SAVE_GOT_ZOOP, false)
+
 	$TransitionPlayer.room_transition(null, save_active_room_path, save_last_door_name)

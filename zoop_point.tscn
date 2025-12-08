@@ -5,7 +5,6 @@
 
 [node name="ZoopPoint" type="Node2D" groups=["zoop_points"]]
 script = ExtResource("2_p0qu3")
-speed = 70.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5707964
