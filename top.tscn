@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=19 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://blwdf7vxrmw35" path="res://pause_menu_status.gd" id="7_u70i3"]
 [ext_resource type="Script" uid="uid://ckxfshqn3pxqr" path="res://pause_menu_system.gd" id="8_2tr3m"]
 [ext_resource type="Script" uid="uid://bwdk675n1q0dh" path="res://debug_info.gd" id="8_7c27k"]
+[ext_resource type="Texture2D" uid="uid://bhtovawtfqev3" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0006.png" id="8_fj57p"]
+[ext_resource type="Texture2D" uid="uid://byeb45lw6vpk3" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0012.png" id="9_ncwi2"]
+[ext_resource type="Texture2D" uid="uid://cb351iebr50so" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0280.png" id="10_csenk"]
 
 [sub_resource type="Animation" id="Animation_58ij3"]
 length = 0.001
@@ -201,12 +204,61 @@ metadata/_edit_use_anchors_ = true
 scale = Vector2(0.25, 0.25)
 script = ExtResource("7_u70i3")
 
-[node name="Label" type="Label" parent="PauseMenu/Status"]
-offset_left = 320.0
-offset_top = 192.0
-offset_right = 411.0
-offset_bottom = 215.0
-text = "Status page"
+[node name="Label1" type="Label" parent="PauseMenu/Status"]
+offset_left = 64.0
+offset_top = 52.0
+offset_right = 155.0
+offset_bottom = 75.0
+text = "Abilities"
+
+[node name="AbilityHang" type="Sprite2D" parent="PauseMenu/Status"]
+position = Vector2(80, 112)
+scale = Vector2(2, 2)
+texture = ExtResource("8_fj57p")
+
+[node name="AbilityZoop" type="Sprite2D" parent="PauseMenu/Status"]
+position = Vector2(136, 112)
+scale = Vector2(2, 2)
+texture = ExtResource("9_ncwi2")
+
+[node name="Label2" type="Label" parent="PauseMenu/Status"]
+offset_left = 68.0
+offset_top = 176.0
+offset_right = 209.0
+offset_bottom = 199.0
+text = "Rescued scientists"
+
+[node name="Scientist1" type="Sprite2D" parent="PauseMenu/Status"]
+modulate = Color(0.4, 1, 1, 1)
+position = Vector2(84, 236)
+scale = Vector2(2, 2)
+texture = ExtResource("10_csenk")
+
+[node name="Scientist2" type="Sprite2D" parent="PauseMenu/Status"]
+modulate = Color(0.28308722, 0.78247267, 0.80052066, 1)
+position = Vector2(136, 236)
+scale = Vector2(2, 2)
+texture = ExtResource("10_csenk")
+
+[node name="Scientist3" type="Sprite2D" parent="PauseMenu/Status"]
+modulate = Color(0.8463697, 0.6508468, 0.6529285, 1)
+position = Vector2(188, 236)
+scale = Vector2(2, 2)
+texture = ExtResource("10_csenk")
+
+[node name="Label3" type="Label" parent="PauseMenu/Status"]
+offset_left = 520.0
+offset_top = 52.0
+offset_right = 661.0
+offset_bottom = 75.0
+text = "Game progress"
+
+[node name="GameProgressP" type="Label" parent="PauseMenu/Status"]
+offset_left = 520.0
+offset_top = 100.0
+offset_right = 661.0
+offset_bottom = 123.0
+text = "0%"
 
 [node name="System" type="CanvasGroup" parent="PauseMenu"]
 scale = Vector2(0.25, 0.25)

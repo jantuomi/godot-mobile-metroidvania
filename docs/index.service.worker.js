@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1764931733|33107827033';
+const CACHE_VERSION = '1765227407|25192476318';
 /** @type {string} */
 const CACHE_PREFIX = 'MobileMetroidvan-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
