@@ -33,9 +33,9 @@ func _on_body_entered(_player: Player) -> void:
 	
 func _get_property_list() -> Array[Dictionary]:
 	var rooms: PackedStringArray = []
-	for res_name in ResourceLoader.list_directory("."):
-		if res_name.begins_with("room_") and res_name.ends_with(".tscn"):
-			rooms.append("res://" + res_name)
+	for res_name in ResourceLoader.list_directory("./rooms"):
+		if res_name.ends_with(".tscn"):
+			rooms.append("res://rooms/" + res_name)
 	
 	var props: Array[Dictionary] = [{
 		"name": "target_room",

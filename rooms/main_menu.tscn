@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=4 uid="uid://cjdhfl70fgt6m"]
 
-[ext_resource type="Script" uid="uid://dufnvsfxreqq8" path="res://room_main_menu.gd" id="1_rbk04"]
-[ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="2_ftmdk"]
-[ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="2_gpf47"]
+[ext_resource type="Script" uid="uid://dufnvsfxreqq8" path="res://rooms/main_menu.gd" id="1_gadwy"]
+[ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="2_wifgs"]
+[ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="3_w0oi3"]
 
 [node name="MainMenu" type="Node2D" groups=["debug_info"]]
 process_mode = 1
-script = ExtResource("1_rbk04")
+script = ExtResource("1_gadwy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2509804, 0.15686275, 0.34901962, 1)
 
-[node name="GameCamera" parent="." instance=ExtResource("2_gpf47")]
+[node name="GameCamera" parent="." instance=ExtResource("2_wifgs")]
 position = Vector2(96, 54)
 
 [node name="PlayButton" type="Button" parent="."]
@@ -50,4 +50,4 @@ horizontal_alignment = 1
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAABAAYAAQAPAAIAAAABAAUAAQAPAAEAAAABAAQAAQAPAAAAAAAKAAAAAQATAAAAAAAKAAEAAQATAAAAAAAKAAIAAQATAAEAAAAJAAYAAQARAAAAAAAIAAYAAQAQAAAAAAA=")
-tile_set = ExtResource("2_ftmdk")
+tile_set = ExtResource("3_w0oi3")

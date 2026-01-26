@@ -184,7 +184,7 @@ position = Vector2(-28, 88)
 scale = Vector2(1, 4)
 exit_towards = "RIGHT"
 enter_towards = "LEFT"
-target_room = "res://room_test1.tscn"
+target_room = "res://rooms/test1.tscn"
 target_door = "DoorMiddle"
 
 [node name="DoorUp" parent="." instance=ExtResource("6_0kik6")]
@@ -192,7 +192,7 @@ position = Vector2(111, -102)
 scale = Vector2(3, 1.6400006)
 exit_towards = "DROP"
 enter_towards = "JUMP"
-target_room = "res://room_test2.tscn"
+target_room = "res://rooms/test2.tscn"
 target_door = "DoorDown"
 
 [node name="DoorDown" parent="." instance=ExtResource("6_0kik6")]
@@ -200,7 +200,7 @@ position = Vector2(167.99998, 186.00002)
 scale = Vector2(4.5999975, 1.6400006)
 exit_towards = "JUMP_LEFT"
 enter_towards = "DROP"
-target_room = "res://room_test2.tscn"
+target_room = "res://rooms/test2.tscn"
 target_door = "DoorUp"
 
 [node name="TriggerButton" parent="." instance=ExtResource("7_vjuef")]
