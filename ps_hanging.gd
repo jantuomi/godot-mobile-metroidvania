@@ -33,6 +33,7 @@ func _init(pl: Player, h_target: HookHanging) -> void:
 	pl.anim_sp.flip_h = dx < 0
 
 	state = S.MLEMING
+	pl.anim_sp.play("jump")
 
 func _to_string() -> String:
 	return "PlayerStateHanging %s, θ₀ = %f, θ = %f" % [S.keys()[state], theta0, last_theta]
