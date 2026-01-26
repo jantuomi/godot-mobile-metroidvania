@@ -1,0 +1,257 @@
+[gd_scene load_steps=3 format=3 uid="uid://cseqghymhiyqo"]
+
+[ext_resource type="Script" uid="uid://cne4ie2ej80h6" path="res://pause_menu_map.gd" id="1_l6xmo"]
+[ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="2_wggt4"]
+
+[node name="Map" type="CanvasGroup"]
+script = ExtResource("1_l6xmo")
+
+[node name="Surface1" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 131.0
+offset_top = 38.0
+offset_right = 221.0
+offset_bottom = 49.0
+
+[node name="Surface12" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 96.0
+offset_top = 107.0
+offset_right = 173.0
+offset_bottom = 118.0
+
+[node name="Surface3" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 194.0
+offset_top = 88.0
+offset_right = 221.0
+offset_bottom = 98.0
+
+[node name="Surface4" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 194.0
+offset_top = 73.0
+offset_right = 221.0
+offset_bottom = 84.0
+
+[node name="Surface6" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 161.0
+offset_top = 52.0
+offset_right = 200.0
+offset_bottom = 63.0
+
+[node name="Surface17" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 211.0
+offset_top = 112.0
+offset_right = 250.0
+offset_bottom = 123.0
+
+[node name="Surface7" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 163.0
+offset_top = 66.0
+offset_right = 184.0
+offset_bottom = 77.0
+
+[node name="Surface9" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 114.0
+offset_top = 52.0
+offset_right = 141.0
+offset_bottom = 63.0
+
+[node name="Surface11" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 114.0
+offset_top = 93.0
+offset_right = 141.0
+offset_bottom = 104.0
+
+[node name="Surface5" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 206.0
+offset_top = 52.0
+offset_right = 218.0
+offset_bottom = 70.0
+
+[node name="Surface14" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 179.0
+offset_top = 85.0
+offset_right = 191.0
+offset_bottom = 118.0
+
+[node name="Surface8" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 144.0
+offset_top = 52.0
+offset_right = 156.0
+offset_bottom = 76.0
+
+[node name="Surface13" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 149.0
+offset_top = 80.0
+offset_right = 161.0
+offset_bottom = 104.0
+
+[node name="Surface15" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 164.0
+offset_top = 85.0
+offset_right = 176.0
+offset_bottom = 98.0
+
+[node name="Surface16" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 195.0
+offset_top = 111.0
+offset_right = 207.0
+offset_bottom = 124.0
+
+[node name="Surface10" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 114.0
+offset_top = 66.0
+offset_right = 140.0
+offset_bottom = 90.0
+
+[node name="Surface2" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 225.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 96.0
+
+[node name="RoomTest1" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 63.0
+offset_top = 41.0
+offset_right = 79.0
+offset_bottom = 51.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Line2D" type="Line2D" parent="RoomTest1"]
+z_index = -1
+points = PackedVector2Array(8, 19, 8, 5, 30, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="RoomTest2" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 83.0
+offset_top = 41.0
+offset_right = 99.0
+offset_bottom = 51.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RoomTest3" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 63.0
+offset_top = 55.0
+offset_right = 79.0
+offset_bottom = 65.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Line2D2" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(208, 40)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D6" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(191, 52)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D8" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(146, 52)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D10" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(130, 52)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D11" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(130, 66)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D9" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(146, 66)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D13" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(132, 80)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D14" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(183, 88)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D16" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(163, 107)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D18" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(197, 113)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D17" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(180, 109)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D15" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(165, 85)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D7" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(124, 90)
+points = PackedVector2Array(8, 5, 8, -2)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D12" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(110, 104)
+points = PackedVector2Array(8, 5, 8, -2)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D3" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(211, 87)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D4" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(196, 85)
+points = PackedVector2Array(8, 5, 8, -3)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D5" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(204, 70)
+points = PackedVector2Array(8, 5, 8, -3)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
