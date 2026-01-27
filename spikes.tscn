@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://wp0cs5nj823y"]
+
+[ext_resource type="Texture2D" uid="uid://c7ublkuurqtjv" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0122.png" id="1_s0g1x"]
+
+[sub_resource type="GDScript" id="GDScript_s0g1x"]
+script/source = "class_name Spikes
+extends Sprite2D
+
+
+func _on_area_2d_body_entered(player: Player) -> void:
+	player.request_state_dead()
+"
+
+[node name="Spikes" type="Sprite2D"]
+texture = ExtResource("1_s0g1x")
+script = SubResource("GDScript_s0g1x")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(4, 2, 7, 8, -7, 8, -4, 2, -1, 7, 1, 7)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

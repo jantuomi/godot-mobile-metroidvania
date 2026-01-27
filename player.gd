@@ -74,6 +74,11 @@ func request_state_zooping(target: ZoopPoint) -> bool:
 	state = PlayerStateZooping.new(self, target)
 	return true
 
+func request_state_dead():
+	if state is PlayerStateDead: return false
+	
+	state = PlayerStateDead.new(self)
+
 func get_facing() -> int:
 	if anim_sp.flip_h:
 		return -1

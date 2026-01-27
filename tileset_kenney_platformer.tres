@@ -353,7 +353,6 @@ texture = ExtResource("2_at7kb")
 1:9/0 = 0
 2:9/0 = 0
 3:9/0 = 0
-3:9/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:9/0 = 0
 5:9/0 = 0
 6:9/0 = 0
@@ -1226,8 +1225,6 @@ texture = ExtResource("2_at7kb")
 
 [resource]
 physics_layer_0/collision_layer = 1
-physics_layer_1/collision_layer = 128
-physics_layer_1/collision_mask = 0
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
