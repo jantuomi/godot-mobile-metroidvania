@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="2_wggt4"]
 
 [node name="Map" type="CanvasGroup"]
+z_index = 4
 script = ExtResource("1_l6xmo")
 
 [node name="Surface1" parent="." instance=ExtResource("2_wggt4")]
@@ -12,11 +13,11 @@ offset_top = 38.0
 offset_right = 221.0
 offset_bottom = 49.0
 
-[node name="Surface12" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 96.0
-offset_top = 107.0
-offset_right = 173.0
-offset_bottom = 118.0
+[node name="Surface2" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 225.0
+offset_top = 38.0
+offset_right = 238.0
+offset_bottom = 96.0
 
 [node name="Surface3" parent="." instance=ExtResource("2_wggt4")]
 offset_left = 194.0
@@ -36,12 +37,6 @@ offset_top = 52.0
 offset_right = 200.0
 offset_bottom = 63.0
 
-[node name="Surface17" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 211.0
-offset_top = 112.0
-offset_right = 250.0
-offset_bottom = 123.0
-
 [node name="Surface7" parent="." instance=ExtResource("2_wggt4")]
 offset_left = 163.0
 offset_top = 66.0
@@ -54,23 +49,11 @@ offset_top = 52.0
 offset_right = 141.0
 offset_bottom = 63.0
 
-[node name="Surface11" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 114.0
-offset_top = 93.0
-offset_right = 141.0
-offset_bottom = 104.0
-
 [node name="Surface5" parent="." instance=ExtResource("2_wggt4")]
 offset_left = 206.0
 offset_top = 52.0
 offset_right = 218.0
 offset_bottom = 70.0
-
-[node name="Surface14" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 179.0
-offset_top = 85.0
-offset_right = 191.0
-offset_bottom = 118.0
 
 [node name="Surface8" parent="." instance=ExtResource("2_wggt4")]
 offset_left = 144.0
@@ -78,11 +61,35 @@ offset_top = 52.0
 offset_right = 156.0
 offset_bottom = 76.0
 
+[node name="Surface10" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 114.0
+offset_top = 66.0
+offset_right = 140.0
+offset_bottom = 90.0
+
+[node name="Surface11" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 114.0
+offset_top = 93.0
+offset_right = 141.0
+offset_bottom = 104.0
+
+[node name="Surface12" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 96.0
+offset_top = 107.0
+offset_right = 173.0
+offset_bottom = 118.0
+
 [node name="Surface13" parent="." instance=ExtResource("2_wggt4")]
 offset_left = 149.0
 offset_top = 80.0
 offset_right = 161.0
 offset_bottom = 104.0
+
+[node name="Surface14" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 179.0
+offset_top = 85.0
+offset_right = 191.0
+offset_bottom = 118.0
 
 [node name="Surface15" parent="." instance=ExtResource("2_wggt4")]
 offset_left = 164.0
@@ -96,23 +103,29 @@ offset_top = 111.0
 offset_right = 207.0
 offset_bottom = 124.0
 
-[node name="Surface10" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 114.0
-offset_top = 66.0
-offset_right = 140.0
-offset_bottom = 90.0
+[node name="Surface17" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 211.0
+offset_top = 112.0
+offset_right = 250.0
+offset_bottom = 123.0
 
-[node name="Surface2" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 225.0
-offset_top = 38.0
-offset_right = 238.0
-offset_bottom = 96.0
+[node name="Surface18" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 241.0
+offset_top = 87.0
+offset_right = 259.0
+offset_bottom = 97.0
+
+[node name="Surface19" parent="." instance=ExtResource("2_wggt4")]
+offset_left = 263.0
+offset_top = 87.0
+offset_right = 281.0
+offset_bottom = 97.0
 
 [node name="RoomTest1" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 63.0
-offset_top = 41.0
-offset_right = 79.0
-offset_bottom = 51.0
+offset_left = -108.0
+offset_top = 20.0
+offset_right = -92.0
+offset_bottom = 30.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Line2D" type="Line2D" parent="RoomTest1"]
@@ -122,17 +135,17 @@ width = 2.0
 default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
 
 [node name="RoomTest2" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 83.0
-offset_top = 41.0
-offset_right = 99.0
-offset_bottom = 51.0
+offset_left = -88.0
+offset_top = 20.0
+offset_right = -72.0
+offset_bottom = 30.0
 metadata/_edit_use_anchors_ = true
 
 [node name="RoomTest3" parent="." instance=ExtResource("2_wggt4")]
-offset_left = 63.0
-offset_top = 55.0
-offset_right = 79.0
-offset_bottom = 65.0
+offset_left = -108.0
+offset_top = 34.0
+offset_right = -92.0
+offset_bottom = 44.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Line2D2" type="Line2D" parent="."]
@@ -236,6 +249,20 @@ default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
 [node name="Line2D3" type="Line2D" parent="."]
 z_index = -1
 position = Vector2(211, 87)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D19" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(229, 87)
+points = PackedVector2Array(8, 5, 16.90709, 5)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
+[node name="Line2D20" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(250, 87)
 points = PackedVector2Array(8, 5, 16.90709, 5)
 width = 2.0
 default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)

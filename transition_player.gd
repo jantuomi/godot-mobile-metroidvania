@@ -37,11 +37,12 @@ func _transition_start():
 
 	top.pause_menu.get_map().set_room_name(_transition_room.name)
 	top.replace_active_room(_transition_room, _on_room_changed)
-	
+
 func _on_room_changed():
 	var top: Top = get_tree().root.get_node("Top")
 	var room = top.get_node("ActiveRoom")
 	var player: Player = room.find_child("Player")
+	
 	if _transition_door_name:
 		var door: Door = room.find_child(_transition_door_name)
 		player.position = door.position

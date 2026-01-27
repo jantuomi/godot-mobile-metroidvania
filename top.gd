@@ -2,7 +2,8 @@ class_name Top
 extends Node2D
 
 const ROOM_MAIN_MENU: String = "res://rooms/main_menu.tscn"
-const ROOM_NEW_GAME: String = "res://rooms/test1.tscn"
+const ROOM_NEW_GAME: String = "res://rooms/surface1.tscn"
+const DOOR_NEW_GAME: String = "DoorEntry"
 
 var active_room_name: String
 var pause_menu: PauseMenu
@@ -75,7 +76,7 @@ func game_save():
 func game_load():
 	save_state.load(SAVE_PATH)
 	var save_active_room_path = save_state.get_value(SAVE_SECTION, SAVE_ACTIVE_ROOM_PATH, ROOM_NEW_GAME)
-	var save_last_door_name = save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME, "DoorLeft")
+	var save_last_door_name = save_state.get_value(SAVE_SECTION, SAVE_LAST_DOOR_NAME, DOOR_NEW_GAME)
 
 	inventory = Inventory.new()
 	inventory.hanging = save_state.get_value(SAVE_SECTION, SAVE_GOT_HANG, false)

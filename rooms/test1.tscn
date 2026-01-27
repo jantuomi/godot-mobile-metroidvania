@@ -59,6 +59,7 @@ scale = Vector2(4, 1)
 exit_towards = "JUMP_RIGHT"
 enter_towards = "DROP"
 target_room = "res://rooms/test3.tscn"
+target_door = "DoorUp"
 
 [node name="FgParallax" type="Parallax2D" parent="."]
 modulate = Color(0.5882353, 0.5882353, 0.5882353, 1)

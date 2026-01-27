@@ -1,19 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=18 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
 [ext_resource type="Script" uid="uid://cph2apstgper1" path="res://palette_shader.gd" id="5_ch5ua"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
-[ext_resource type="Script" uid="uid://cne4ie2ej80h6" path="res://pause_menu_map.gd" id="5_lnnys"]
+[ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://pause_menu_map.tscn" id="5_tk1sh"]
 [ext_resource type="Script" uid="uid://civ5a43u5151a" path="res://transition_player.gd" id="6_ch5ua"]
 [ext_resource type="Script" uid="uid://dh0b4xa4f8h1o" path="res://pause_menu.gd" id="6_ql50d"]
-[ext_resource type="PackedScene" uid="uid://clm2kocuhjqbb" path="res://map_room.tscn" id="7_ql50d"]
 [ext_resource type="Script" uid="uid://blwdf7vxrmw35" path="res://pause_menu_status.gd" id="7_u70i3"]
 [ext_resource type="Script" uid="uid://ckxfshqn3pxqr" path="res://pause_menu_system.gd" id="8_2tr3m"]
 [ext_resource type="Script" uid="uid://bwdk675n1q0dh" path="res://debug_info.gd" id="8_7c27k"]
-[ext_resource type="Texture2D" uid="uid://bhtovawtfqev3" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0006.png" id="8_fj57p"]
-[ext_resource type="Texture2D" uid="uid://byeb45lw6vpk3" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0012.png" id="9_ncwi2"]
-[ext_resource type="Texture2D" uid="uid://cb351iebr50so" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0280.png" id="10_csenk"]
+[ext_resource type="Texture2D" uid="uid://bhtovawtfqev3" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0006.png" id="8_fj57p"]
+[ext_resource type="Texture2D" uid="uid://byeb45lw6vpk3" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0012.png" id="9_ncwi2"]
+[ext_resource type="Texture2D" uid="uid://cb351iebr50so" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0280.png" id="10_csenk"]
 
 [sub_resource type="Animation" id="Animation_58ij3"]
 length = 0.001
@@ -170,35 +169,7 @@ offset_bottom = 108.0
 mouse_filter = 2
 color = Color(0, 0.019607844, 0.039215688, 0.88235295)
 
-[node name="Map" type="CanvasGroup" parent="PauseMenu"]
-script = ExtResource("5_lnnys")
-
-[node name="RoomTest1" parent="PauseMenu/Map" instance=ExtResource("7_ql50d")]
-offset_left = 63.0
-offset_top = 41.0
-offset_right = 79.0
-offset_bottom = 51.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Line2D" type="Line2D" parent="PauseMenu/Map/RoomTest1"]
-z_index = -1
-points = PackedVector2Array(8, 19, 8, 5, 30, 5)
-width = 2.0
-default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
-
-[node name="RoomTest2" parent="PauseMenu/Map" instance=ExtResource("7_ql50d")]
-offset_left = 83.0
-offset_top = 41.0
-offset_right = 99.0
-offset_bottom = 51.0
-metadata/_edit_use_anchors_ = true
-
-[node name="RoomTest3" parent="PauseMenu/Map" instance=ExtResource("7_ql50d")]
-offset_left = 63.0
-offset_top = 55.0
-offset_right = 79.0
-offset_bottom = 65.0
-metadata/_edit_use_anchors_ = true
+[node name="Map" parent="PauseMenu" instance=ExtResource("5_tk1sh")]
 
 [node name="Status" type="CanvasGroup" parent="PauseMenu"]
 scale = Vector2(0.25, 0.25)
@@ -304,5 +275,4 @@ offset_bottom = 23.0
 text = "debug info"
 
 [connection signal="tree_entered" from="PauseMenu" to="PauseMenu" method="_on_tree_entered"]
-[connection signal="tree_entered" from="PauseMenu/Map" to="PauseMenu/Map" method="_on_tree_entered"]
 [connection signal="tree_entered" from="PauseMenu/System" to="PauseMenu/System" method="_on_tree_entered"]
