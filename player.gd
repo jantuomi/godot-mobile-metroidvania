@@ -18,7 +18,7 @@ var state: PlayerState = PlayerStateInit.new(self)
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _debug_info():
-	return "%s\ngot zoop: %s\ngot hanging: %s" % [state.to_string(), str(inventory.zoop), str(inventory.hanging)]
+	return "%s\ngot zoop: %s\ngot hanging: %s\nrelics: %s" % [state.to_string(), str(inventory.zoop), str(inventory.hanging), str(inventory.relics)]
 
 func _camera_target() -> Vector2:
 	var oy: float = 0

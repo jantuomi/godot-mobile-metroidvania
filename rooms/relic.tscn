@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc6au2x7x3c5i"]
+
+[ext_resource type="Texture2D" uid="uid://chj76nr0mlfdi" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0022.png" id="1_v8p2h"]
+[ext_resource type="Script" uid="uid://bhkotkakm8i4i" path="res://relic.gd" id="2_2utpd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8p2h"]
+size = Vector2(8.535536, 8.535535)
+
+[node name="Relic" type="Sprite2D"]
+texture = ExtResource("1_v8p2h")
+script = ExtResource("2_2utpd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2.4689058e-08, -1.1920929e-07)
+rotation = 0.7853982
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_v8p2h")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

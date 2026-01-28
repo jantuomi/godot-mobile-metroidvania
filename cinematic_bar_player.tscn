@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq4bp0ntede7c"]
+
+[sub_resource type="Animation" id="Animation_vqfly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BottomBar:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 14)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TopBar:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 14)]
+}
+
+[sub_resource type="Animation" id="Animation_hh2nh"]
+resource_name = "cine_bars"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BottomBar:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(192, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TopBar:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(192, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o6xfm"]
+_data = {
+&"RESET": SubResource("Animation_vqfly"),
+&"cine_bars": SubResource("Animation_hh2nh")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="TopBar" type="ColorRect" parent="."]
+offset_bottom = 14.0
+color = Color(0, 0, 0, 1)
+
+[node name="BottomBar" type="ColorRect" parent="."]
+offset_left = 192.0
+offset_top = 108.0
+offset_right = 192.0
+offset_bottom = 122.0
+rotation = 3.1415927
+color = Color(0, 0, 0, 1)
+
+[node name="Player" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_o6xfm")
+}

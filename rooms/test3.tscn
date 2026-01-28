@@ -100,6 +100,7 @@ scale = Vector2(4, 1)
 exit_towards = "DROP"
 enter_towards = "JUMP"
 target_room = "res://rooms/test1.tscn"
+target_door = "DoorLeft"
 
 [node name="ComputerPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_bml3v")

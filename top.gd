@@ -57,6 +57,13 @@ func toggle_pause():
 	else:
 		add_child.call_deferred(pause_menu)
 
+func play_cine_bars():
+	$CinematicBars/Player.play("cine_bars")
+	await $CinematicBars/Player.animation_finished
+
+func clear_cine_bars():
+	$CinematicBars/Player.play("RESET")
+
 # Save state logic
 
 @onready var save_state: ConfigFile = ConfigFile.new()
@@ -66,11 +73,21 @@ const SAVE_ACTIVE_ROOM_PATH = "ACTIVE_ROOM_PATH"
 const SAVE_LAST_DOOR_NAME   = "LAST_DOOR_NAME"
 const SAVE_GOT_ZOOP         = "GOT_ZOOP"
 const SAVE_GOT_HANG         = "GOT_HANG"
+const SAVE_RELICS           = "RELICS"
 
 func game_set(k: String, v: Variant):
 	save_state.set_value(SAVE_SECTION, k, v)
 
 func game_save():
+	save_state.set_value(SAVE_SECTION, SAVE_GOT_HANG, inventory.hanging)
+	save_state.set_value(SAVE_SECTION, SAVE_GOT_ZOOP, inventory.zoop)
+
+	var relics_str: PackedStringArray = []
+	for relic in inventory.relics:
+		relics_str.push_back(str(relic))
+	var relics_csv = ",".join(relics_str)
+	save_state.set_value(SAVE_SECTION, SAVE_RELICS, relics_csv)
+
 	save_state.save(SAVE_PATH)
 
 func game_load():
@@ -81,5 +98,12 @@ func game_load():
 	inventory = Inventory.new()
 	inventory.hanging = save_state.get_value(SAVE_SECTION, SAVE_GOT_HANG, false)
 	inventory.zoop = save_state.get_value(SAVE_SECTION, SAVE_GOT_ZOOP, false)
+
+	inventory.relics = []
+	# COMMENTED OUT FOR DEV so that reloads/deaths reset relics
+	#var relics_csv: String = save_state.get_value(SAVE_SECTION, SAVE_RELICS, "")
+	#for relic in relics_csv.split(",", false):
+	#	var relic_int = int(relic)
+	#	inventory.relics.push_back(relic_int)
 
 	$TransitionPlayer.room_transition(null, save_active_room_path, save_last_door_name)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=19 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
+[ext_resource type="PackedScene" uid="uid://cq4bp0ntede7c" path="res://cinematic_bar_player.tscn" id="3_fj57p"]
 [ext_resource type="Script" uid="uid://cph2apstgper1" path="res://palette_shader.gd" id="5_ch5ua"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
 [ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://pause_menu_map.tscn" id="5_tk1sh"]
@@ -152,6 +153,8 @@ _data = {
 process_mode = 3
 material = ExtResource("1_edsjh")
 script = ExtResource("1_on2c2")
+
+[node name="CinematicBars" parent="." instance=ExtResource("3_fj57p")]
 
 [node name="TransitionPlayer" type="AnimationPlayer" parent="."]
 libraries = {

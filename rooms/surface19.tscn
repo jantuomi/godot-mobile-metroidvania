@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dr3ju5oehcjhx"]
+[gd_scene load_steps=9 format=4 uid="uid://dr3ju5oehcjhx"]
 
 [ext_resource type="Script" uid="uid://cbhily4o7e2r3" path="res://room.gd" id="1_vlhxe"]
 [ext_resource type="Texture2D" uid="uid://dkek11j5dh6as" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0338.png" id="2_ywagw"]
@@ -7,21 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="5_d5y4x"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_i631u"]
 [ext_resource type="Texture2D" uid="uid://tmcwkm2n5nrq" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0165.png" id="7_vlhxe"]
-[ext_resource type="Texture2D" uid="uid://chj76nr0mlfdi" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0022.png" id="8_ywagw"]
-
-[sub_resource type="GDScript" id="GDScript_lhrvv"]
-script/source = "extends Sprite2D
-
-var t: float = 0
-const w: float = 5
-const A: float = 1
-
-var oscing = true
-
-func _physics_process(delta: float) -> void:
-	if oscing: t += delta
-	offset.y = A * sin(w * t)
-"
+[ext_resource type="PackedScene" uid="uid://cc6au2x7x3c5i" path="res://rooms/relic.tscn" id="8_ywagw"]
 
 [node name="Surface19" type="Node2D" groups=["debug_info"]]
 process_mode = 1
@@ -57,7 +43,7 @@ position = Vector2(42, 54)
 scale = Vector2(1, 4)
 exit_towards = "RIGHT"
 enter_towards = "LEFT"
-target_room = "res://rooms/surface2.tscn"
+target_room = "res://rooms/surface18.tscn"
 target_door = "DoorRight"
 
 [node name="DoorRight" parent="." instance=ExtResource("6_i631u")]
@@ -72,7 +58,5 @@ target_door = "DoorCave"
 position = Vector2(288, 72)
 texture = ExtResource("7_vlhxe")
 
-[node name="Relic" type="Sprite2D" parent="."]
+[node name="Relic1" parent="." instance=ExtResource("8_ywagw")]
 position = Vector2(168, 56)
-texture = ExtResource("8_ywagw")
-script = SubResource("GDScript_lhrvv")
