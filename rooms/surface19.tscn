@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="4_a7b4r"]
 [ext_resource type="PackedScene" uid="uid://coxnsharboouu" path="res://player.tscn" id="5_d5y4x"]
 [ext_resource type="PackedScene" uid="uid://df0loiahar23o" path="res://door.tscn" id="6_i631u"]
-[ext_resource type="Texture2D" uid="uid://tmcwkm2n5nrq" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0165.png" id="7_vlhxe"]
+[ext_resource type="Texture2D" uid="uid://tmcwkm2n5nrq" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0165.png" id="7_vlhxe"]
 [ext_resource type="PackedScene" uid="uid://cc6au2x7x3c5i" path="res://rooms/relic.tscn" id="8_ywagw"]
 
 [node name="Surface19" type="Node2D" groups=["debug_info"]]

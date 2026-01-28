@@ -1,10 +1,11 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://0cd30n67d6k5"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://0cd30n67d6k5"]
 
+[ext_resource type="Texture2D" uid="uid://7glqoors5tpl" path="res://assets/kenney_1-bit-platformer-pack/Tilemap/tilemap_half_transparent.png" id="1_at7kb"]
 [ext_resource type="Texture2D" uid="uid://o0yy2jkyp0dy" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="2_at7kb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0e48y"]
 resource_name = "solid trans"
-texture = ExtResource("2_at7kb")
+texture = ExtResource("1_at7kb")
 1:0/0 = 0
 1:0/0/modulate = Color(0.84705883, 0.58431375, 0.26666668, 1)
 2:0/0 = 0
@@ -574,7 +575,6 @@ texture = ExtResource("2_at7kb")
 16:14/0 = 0
 16:14/0/modulate = Color(0.84705883, 0.58431375, 0.26666668, 1)
 16:14/0/terrain_set = 0
-16:14/0/terrain = 1
 16:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 16:14/0/terrains_peering_bit/right_side = 1
 16:14/0/terrains_peering_bit/bottom_side = 1
@@ -803,6 +803,7 @@ texture = ExtResource("2_at7kb")
 0:0/0/modulate = Color(0.84705883, 0.58431375, 0.26666668, 1)
 18:18/0 = 0
 18:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:6/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trxc0"]
 resource_name = "through trans"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://wp0cs5nj823y"]
 
-[ext_resource type="Texture2D" uid="uid://c7ublkuurqtjv" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0122.png" id="1_s0g1x"]
+[ext_resource type="Texture2D" uid="uid://bmotk6u4y0mep" path="res://assets/kenney_1-bit-platformer-pack/Tiles/spike_half_trans.png" id="1_s0g1x"]
 
 [sub_resource type="GDScript" id="GDScript_s0g1x"]
 script/source = "class_name Spikes
@@ -12,7 +12,9 @@ func _on_area_2d_body_entered(player: Player) -> void:
 "
 
 [node name="Spikes" type="Sprite2D"]
+modulate = Color(0.7372549, 0.69803923, 0.43529412, 1)
 texture = ExtResource("1_s0g1x")
+offset = Vector2(0, 1)
 script = SubResource("GDScript_s0g1x")
 
 [node name="Area2D" type="Area2D" parent="."]
