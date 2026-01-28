@@ -1,7 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://coxnsharboouu"]
+[gd_scene load_steps=16 format=3 uid="uid://coxnsharboouu"]
 
 [ext_resource type="Texture2D" uid="uid://brnx4rs335wb7" path="res://assets/kenney_player.png" id="2_i3pqv"]
 [ext_resource type="Script" uid="uid://cw711xwg5k1ym" path="res://player.gd" id="2_onrkg"]
+[ext_resource type="AudioStream" uid="uid://btoneq121u0gg" path="res://assets/sfx/walk1.wav" id="3_i3pqv"]
+[ext_resource type="AudioStream" uid="uid://mvmexnoreehn" path="res://assets/sfx/jump.wav" id="4_hqtel"]
+[ext_resource type="AudioStream" uid="uid://h2kpaaytmomh" path="res://assets/sfx/die.wav" id="5_sweqy"]
+[ext_resource type="AudioStream" uid="uid://dc8ybeb5tesg3" path="res://assets/sfx/fanfare.mp3" id="6_2hs0m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
 atlas = ExtResource("2_i3pqv")
@@ -114,9 +118,27 @@ camera_offset_jump = 14.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_rj586")
-animation = &"idle"
+animation = &"walk"
 autoplay = "walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="WalkAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_i3pqv")
+bus = &"SFX"
+
+[node name="JumpAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hqtel")
+bus = &"SFX"
+
+[node name="DieAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_sweqy")
+bus = &"SFX"
+
+[node name="FanfareAudio" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("6_2hs0m")
+volume_db = 13.0
+bus = &"SFX"

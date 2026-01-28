@@ -20,6 +20,7 @@ func _handle(_delta: float):
 		p.anim_sp.set_animation("jump")
 	elif abs(p.velocity.x) > 0.0:
 		p.anim_sp.set_animation("walk")
+		p.request_play_walk_sfx()
 	else:
 		p.anim_sp.set_animation("idle")
 
@@ -43,6 +44,7 @@ func _handle_physics(delta: float):
 		# Force coyote time to expire to forbid double jumps
 		coyote = p.coyote_max_ms
 		jump_was_released = false
+		p.request_play_jump_sfx()
 
 	if not Input.is_action_pressed("jump"):
 		jump_was_released = true

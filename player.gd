@@ -15,6 +15,11 @@ var state: PlayerState = PlayerStateInit.new(self)
 @onready var top: Top = tree.root.get_node("Top") as Top
 @onready var inventory: Inventory = top.inventory
 
+@onready var walk_audio: AudioStreamPlayer2D = $WalkAudio
+@onready var jump_audio: AudioStreamPlayer2D = $JumpAudio
+@onready var die_audio: AudioStreamPlayer2D = $DieAudio
+@onready var fanfare_audio: AudioStreamPlayer2D = $FanfareAudio
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _debug_info():
@@ -102,3 +107,22 @@ func _try_action_zoop():
 		var zoop: ZoopPoint = zoop_any as ZoopPoint
 		if request_state_zooping(zoop): return true
 	return false
+
+const walk_sfx_interval_ms = 300
+var last_walk_sfx_time = -INF
+func request_play_walk_sfx():
+	var now = Time.get_ticks_msec()
+	if now - last_walk_sfx_time > walk_sfx_interval_ms:
+		walk_audio.pitch_scale = 1 + 1 * randf()
+		walk_audio.volume_db = -3 + 0.5 * randf()
+		walk_audio.play()
+		last_walk_sfx_time = now
+
+func request_play_jump_sfx():
+	jump_audio.play()
+
+func request_play_die_sfx():
+	die_audio.play()
+
+func request_play_fanfare_sfx():
+	fanfare_audio.play()

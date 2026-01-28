@@ -9,6 +9,10 @@ func _init(relic: Node2D):
 	r = relic
 
 func _ready():
+	var mp: AudioStreamPlayer = top.get_node("MusicPlayer")
+	mp.stream_paused = true
+	player.request_play_fanfare_sfx()
+
 	get_tree().paused = true
 
 	await top.play_cine_bars()
@@ -17,3 +21,5 @@ func _ready():
 	
 	r.queue_free()
 	get_tree().paused = false
+	
+	mp.stream_paused = false

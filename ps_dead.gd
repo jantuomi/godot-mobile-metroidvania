@@ -10,6 +10,7 @@ func _init(pl: Player):
 	super(pl)
 
 	p.anim_sp.set_animation("dead")
+	p.request_play_die_sfx()
 
 	wait_respawn.call_deferred()
 	
