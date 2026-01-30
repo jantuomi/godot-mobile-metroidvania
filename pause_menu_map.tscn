@@ -274,6 +274,13 @@ points = PackedVector2Array(8, 5, 8, -3)
 width = 2.0
 default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
 
+[node name="Line2D21" type="Line2D" parent="."]
+z_index = -1
+position = Vector2(204, 85)
+points = PackedVector2Array(8, 5, 8, 0.95933914, 8, -3)
+width = 2.0
+default_color = Color(0.86000663, 0.84067386, 1.92523e-06, 1)
+
 [node name="Line2D5" type="Line2D" parent="."]
 z_index = -1
 position = Vector2(204, 70)

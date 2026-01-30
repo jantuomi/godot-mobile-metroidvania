@@ -119,6 +119,8 @@ func request_play_walk_sfx():
 		last_walk_sfx_time = now
 
 func request_play_jump_sfx():
+	jump_audio.pitch_scale = 0.95 + 0.1 * randf()
+	jump_audio.volume_db = -0.5 + 0.5 * randf()
 	jump_audio.play()
 
 func request_play_die_sfx():

@@ -27,6 +27,8 @@ func _ready() -> void:
 	room.name = "ActiveRoom"
 	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(room)
+	
+	$MusicPlayer.play()
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("menu"):
@@ -58,11 +60,11 @@ func toggle_pause():
 		add_child.call_deferred(pause_menu)
 
 func play_cine_bars():
-	$CinematicBars/Player.play("cine_bars")
-	await $CinematicBars/Player.animation_finished
+	$CinematicBars/AnimationPlayer.play("cine_bars")
+	await $CinematicBars/AnimationPlayer.animation_finished
 
 func clear_cine_bars():
-	$CinematicBars/Player.play("RESET")
+	$CinematicBars/AnimationPlayer.play("RESET")
 
 # Save state logic
 

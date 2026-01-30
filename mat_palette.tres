@@ -6,6 +6,6 @@
 
 [resource]
 shader = ExtResource("1_tt8pc")
-shader_parameter/brightness = 4.7499999933364734e-08
+shader_parameter/brightness = -0.03499995416250001
 shader_parameter/source_palette = ExtResource("2_wx43e")
 shader_parameter/target_palette = ExtResource("3_cppgj")

@@ -27,6 +27,8 @@ func room_transition(from_door: Door, to_room_path: String, door_name: Variant):
 	if to_room_path != Top.ROOM_MAIN_MENU:
 		top.game_set(Top.SAVE_ACTIVE_ROOM_PATH, to_room_path)
 		top.game_set(Top.SAVE_LAST_DOOR_NAME, door_name)
+		
+		$TransitionAudio.play()
 
 func _transition_start():
 	var top: Top = get_tree().root.get_node("Top")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=21 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
 [ext_resource type="PackedScene" uid="uid://cq4bp0ntede7c" path="res://cinematic_bar_player.tscn" id="3_fj57p"]
+[ext_resource type="AudioStream" uid="uid://cjbt8mviukuej" path="res://assets/sfx/walk_out.wav" id="4_csenk"]
 [ext_resource type="Script" uid="uid://cph2apstgper1" path="res://palette_shader.gd" id="5_ch5ua"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
 [ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://pause_menu_map.tscn" id="5_tk1sh"]
@@ -155,14 +156,16 @@ process_mode = 3
 material = ExtResource("1_edsjh")
 script = ExtResource("1_on2c2")
 
-[node name="CinematicBars" parent="." instance=ExtResource("3_fj57p")]
-
 [node name="TransitionPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_2exal")
 }
 speed_scale = 3.0
 script = ExtResource("6_ch5ua")
+
+[node name="TransitionAudio" type="AudioStreamPlayer" parent="TransitionPlayer"]
+stream = ExtResource("4_csenk")
+volume_db = -3.0
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("6_ql50d")
@@ -268,7 +271,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="CinematicBars" parent="." instance=ExtResource("3_fj57p")]
+layer = 10
+
 [node name="DebugInfo" type="CanvasLayer" parent="."]
+layer = 10
 scale = Vector2(0.125, 0.125)
 transform = Transform2D(0.125, 0, 0, 0.125, 0, 0)
 script = ExtResource("8_7c27k")
@@ -280,7 +287,6 @@ text = "debug info"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_ncwi2")
-autoplay = true
 bus = &"BGM"
 parameters/looping = false
 
