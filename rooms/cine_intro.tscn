@@ -1,0 +1,216 @@
+[gd_scene load_steps=13 format=4 uid="uid://b0ovj5ki7tg3s"]
+
+[ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="1_1pf6u"]
+[ext_resource type="Script" uid="uid://c1brkwqi07uem" path="res://rooms/cine_intro.gd" id="1_678l5"]
+[ext_resource type="Texture2D" uid="uid://dngaqobccmxtx" path="res://assets/redshipr.png" id="2_678l5"]
+[ext_resource type="Texture2D" uid="uid://dyg22seb4ktom" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0296.png" id="3_ig0ct"]
+[ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="4_bawvl"]
+[ext_resource type="Theme" uid="uid://bbeqwvwvbgyk" path="res://font_theme.tres" id="6_ig0ct"]
+
+[sub_resource type="Curve" id="Curve_nfjko"]
+_data = [Vector2(0, 0.6359999), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_sc8h3"]
+curve = SubResource("Curve_nfjko")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dfwsi"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 5, 1)
+angle_min = 1.0728835e-05
+angle_max = 720.0
+inherit_velocity_ratio = 1.0
+velocity_pivot = Vector3(-100, 0, 0)
+direction = Vector3(-150, 0, 0)
+spread = 20.604
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_sc8h3")
+
+[sub_resource type="Animation" id="Animation_ig0ct"]
+resource_name = "cine_intro"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TileMapLayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InLowOrbit:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AbovePlanet:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameCamera:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 9.333333, 17),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector2(96, -109), Vector2(96, -109), Vector2(96, 63)]
+}
+
+[sub_resource type="Animation" id="Animation_bawvl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TileMapLayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InLowOrbit:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AbovePlanet:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameCamera:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(96, -109)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nfjko"]
+_data = {
+&"RESET": SubResource("Animation_bawvl"),
+&"cine_intro": SubResource("Animation_ig0ct")
+}
+
+[node name="CineIntro" type="Node2D"]
+script = ExtResource("1_678l5")
+
+[node name="GameCamera" parent="." instance=ExtResource("1_1pf6u")]
+position = Vector2(96, -109)
+
+[node name="Redshipr" type="Sprite2D" parent="."]
+position = Vector2(100, 50)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_678l5")
+
+[node name="ExhaustParticles" type="GPUParticles2D" parent="Redshipr"]
+modulate = Color(1, 0.8980392, 0.7490196, 1)
+position = Vector2(-144, 0)
+scale = Vector2(8, 8)
+amount = 20
+texture = ExtResource("3_ig0ct")
+process_material = SubResource("ParticleProcessMaterial_dfwsi")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD//wYAAwANAAAAAAAAAAYAAwANAAAAAAABAAYAAwANAAAAAAADAAQAAwANAAAAAAAFAAUAAwANAAAAAAAGAAUAAwANAAAAAAAJAAMAAwANAAAAAAAKAAMAAwANAAAAAAALAAMAAwANAAAAAAAKAAQAAwANAAAAAAAKAAYAAwANAAAAAAALAAYAAwANAAAAAAAMAAYAAwANAAAAAAABAAMAAwANAAAAAAAAAAAAAwAAAAEAAAAGAP//AwAAAAEAAAAJAAAAAwAAAAEAAAAEAAAAAwAAAAEAAAABAAEAAwAAAAEAAAAMAP//AwAAAAEAAAABAP3/AwAAAAEAAAAEAP7/AwAAAAEAAAAIAPv/AwAAAAEAAAALAPz/AwAAAAEAAAALAPj/AwAAAAEAAAAHAPf/AwAAAAEAAAAGAPr/AwAAAAEAAAADAPz/AwAAAAEAAAD///n/AwAAAAEAAAD+//3/AwAAAAEAAAACAPf/AwAAAAEAAAAHAPX/AwAAAAEAAAAJAPb/AwAAAAEAAAADAPT/AwAAAAEAAAAAAPT/AwAAAAEAAAD///b/AwAAAAEAAAAMAPT/AwAAAAEAAAAMAPn/AwAAAAEAAAA=")
+tile_set = ExtResource("4_bawvl")
+
+[node name="InLowOrbit" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -121.0
+offset_right = 456.0
+offset_bottom = -70.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("6_ig0ct")
+text = "In low orbit"
+horizontal_alignment = 1
+
+[node name="AbovePlanet" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 456.0
+offset_bottom = -61.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("6_ig0ct")
+text = "Above planet AX8406..."
+horizontal_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -25.0
+offset_top = -201.0
+offset_right = 217.0
+offset_bottom = -65.0
+scale = Vector2(1, 4.4)
+color = Color(0.20784314, 0.21568628, 0.3882353, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -29.999998
+offset_top = 86.0
+offset_right = 212.0
+offset_bottom = 222.0
+scale = Vector2(1.0695796, 0.39368513)
+color = Color(0.84705883, 0.58431375, 0.26666668, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -29.999998
+offset_top = 93.0
+offset_right = 212.0
+offset_bottom = 229.0
+scale = Vector2(1.0695796, 0.39368513)
+color = Color(0.5529412, 0.5176471, 0.2901961, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nfjko")
+}

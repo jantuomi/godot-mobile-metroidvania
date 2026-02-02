@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://oamayrxaq6dw"]
 
 [ext_resource type="Script" uid="uid://cbhily4o7e2r3" path="res://room.gd" id="1_c4g0r"]
-[ext_resource type="Texture2D" uid="uid://c61h8al8nh8js" path="res://assets/kenney_1-bit-platformer-pack/Tiles/Default/tile_0019.png" id="2_bqu2q"]
+[ext_resource type="Texture2D" uid="uid://c61h8al8nh8js" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0019.png" id="2_bqu2q"]
 [ext_resource type="Texture2D" uid="uid://dngaqobccmxtx" path="res://assets/redshipr.png" id="3_qbpvu"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="3_xw1jp"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="4_174xj"]

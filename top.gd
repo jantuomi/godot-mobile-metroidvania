@@ -2,7 +2,7 @@ class_name Top
 extends Node2D
 
 const ROOM_MAIN_MENU: String = "res://rooms/main_menu.tscn"
-const ROOM_NEW_GAME: String = "res://rooms/surface1.tscn"
+const ROOM_NEW_GAME: String = "res://rooms/cine_intro.tscn"
 const DOOR_NEW_GAME: String = "DoorEntry"
 
 var active_room_name: String

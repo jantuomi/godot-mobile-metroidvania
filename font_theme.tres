@@ -1,13 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cjdhfl70fgt6m"]
-
-[ext_resource type="Script" uid="uid://dufnvsfxreqq8" path="res://rooms/main_menu.gd" id="1_gadwy"]
-[ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="2_wifgs"]
-[ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="3_w0oi3"]
-[ext_resource type="FontFile" uid="uid://bqpv52d6sxwtr" path="res://assets/m5x7.ttf" id="3_wifgs"]
-
-[sub_resource type="Theme" id="Theme_prn5b"]
-default_font = ExtResource("3_wifgs")
-default_font_size = 32
+[gd_resource type="Theme" load_steps=7 format=4 uid="uid://bbeqwvwvbgyk"]
 
 [sub_resource type="Image" id="Image_8iee6"]
 data = {
@@ -1002,73 +993,6 @@ cache/0/64/0/glyphs/90/size = Vector2(30, 22)
 cache/0/64/0/glyphs/90/uv_rect = Rect2(1, 65, 30, 22)
 cache/0/64/0/glyphs/90/texture_idx = 0
 
-[sub_resource type="Theme" id="Theme_wifgs"]
+[resource]
 default_font = SubResource("FontFile_onkyt")
-default_font_size = 64
-
-[node name="MainMenu" type="Node2D" groups=["debug_info"]]
-process_mode = 1
-script = ExtResource("1_gadwy")
-
-[node name="GameCamera" parent="." instance=ExtResource("2_wifgs")]
-position = Vector2(96, 54)
-
-[node name="PlayButton" type="Button" parent="."]
-custom_minimum_size = Vector2(120, 40)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 66.0
-offset_top = 54.0
-offset_right = 186.0
-offset_bottom = 94.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-theme = SubResource("Theme_prn5b")
-text = "PLAY"
-
-[node name="SettingsButton" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 45.0
-offset_top = 54.0
-offset_right = 81.0
-offset_bottom = 94.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-text = "⚙️"
-
-[node name="CreditsButton" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 130.0
-offset_top = 54.0
-offset_right = 166.0
-offset_bottom = 94.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-text = "📋"
-
-[node name="Label" type="Label" parent="."]
-offset_top = 24.0
-offset_right = 384.0
-offset_bottom = 47.0
-scale = Vector2(0.5, 0.5)
-theme = SubResource("Theme_wifgs")
-text = "Frogcorp"
-horizontal_alignment = 1
-
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAABAAYAAQAPAAIAAAABAAUAAQAPAAEAAAABAAQAAQAPAAAAAAAKAAAAAQATAAAAAAAKAAEAAQATAAAAAAAKAAIAAQATAAEAAAAJAAYAAQARAAAAAAAIAAYAAQAQAAAAAAA=")
-tile_set = ExtResource("3_w0oi3")
+default_font_size = 32

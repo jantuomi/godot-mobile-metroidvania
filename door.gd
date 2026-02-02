@@ -11,7 +11,7 @@ var _target_door: Variant
 func _set(property, val):
 	if property == "target_room":
 		_target_room = val
-		if not ResourceLoader.exists(_target_room):
+		if not _target_room or not ResourceLoader.exists(_target_room):
 			_target_door = null
 		update_configuration_warnings()
 		notify_property_list_changed()
@@ -30,6 +30,9 @@ func _on_body_entered(_player: Player) -> void:
 	if not Engine.is_editor_hint():
 		var top: Top = get_tree().root.get_node("Top")
 		top.get_transition_player().room_transition(self, _target_room, _target_door)
+
+		if enter_towards == "LEFT" or enter_towards == "RIGHT":
+			$TransitionAudio.play()
 	
 func _get_property_list() -> Array[Dictionary]:
 	var rooms: PackedStringArray = []

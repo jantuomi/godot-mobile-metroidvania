@@ -1,9 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=20 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
 [ext_resource type="PackedScene" uid="uid://cq4bp0ntede7c" path="res://cinematic_bar_player.tscn" id="3_fj57p"]
-[ext_resource type="AudioStream" uid="uid://cjbt8mviukuej" path="res://assets/sfx/walk_out.wav" id="4_csenk"]
 [ext_resource type="Script" uid="uid://cph2apstgper1" path="res://palette_shader.gd" id="5_ch5ua"]
 [ext_resource type="PackedScene" uid="uid://cciwccvljuuyq" path="res://touch_screen_ui.tscn" id="5_edsjh"]
 [ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://pause_menu_map.tscn" id="5_tk1sh"]
@@ -59,7 +58,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0, 0.19999999999999996]
+"values": [-1.0, 0.0]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -115,7 +114,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.19999999999999996, -1.0]
+"values": [0.0, -1.0]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -162,10 +161,6 @@ libraries = {
 }
 speed_scale = 3.0
 script = ExtResource("6_ch5ua")
-
-[node name="TransitionAudio" type="AudioStreamPlayer" parent="TransitionPlayer"]
-stream = ExtResource("4_csenk")
-volume_db = -3.0
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("6_ql50d")
