@@ -23,7 +23,7 @@ point_count = 6
 script/source = "extends Sprite2D
 
 func _on_player_entered(_p: Player) -> void:
-	var d = DialogueTest1.new()
+	var d = CinematicTest1.new()
 	get_parent().add_child(d)
 "
 
@@ -105,20 +105,20 @@ target_door = "DoorLeft"
 [node name="ComputerPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_bml3v")
 
-[node name="DialogueTestNPC" type="Sprite2D" parent="."]
+[node name="CinematicTestNPC" type="Sprite2D" parent="."]
 modulate = Color(0.30980393, 1, 1, 1)
 position = Vector2(-104, -56)
 texture = ExtResource("9_i0ft4")
 script = SubResource("GDScript_bplq6")
 
-[node name="Area2D" type="Area2D" parent="DialogueTestNPC"]
+[node name="Area2D" type="Area2D" parent="CinematicTestNPC"]
 collision_layer = 32
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTestNPC/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicTestNPC/Area2D"]
 position = Vector2(1, 1.75)
 shape = SubResource("RectangleShape2D_rlnij")
 
 [connection signal="body_entered" from="Computer1/Area2D" to="Computer1" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Computer2/Area2D" to="Computer2" method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="DialogueTestNPC/Area2D" to="DialogueTestNPC" method="_on_player_entered"]
+[connection signal="body_entered" from="CinematicTestNPC/Area2D" to="CinematicTestNPC" method="_on_player_entered"]

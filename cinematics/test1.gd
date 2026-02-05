@@ -1,10 +1,9 @@
-class_name DialogueTest1
-extends Dialogue
-
-@onready var player: Player = parent.get_node("Player")
-@onready var npc: Node2D = parent.get_node("DialogueTestNPC")
+class_name CinematicTest1
+extends Cinematic
 
 func _ready():
+	var player: Player = get_room_node("Player")
+	var npc: Node2D = get_room_node("CinematicTestNPC")
 	player.request_state_forced("DROP")
 
 	await say(player, "hello")

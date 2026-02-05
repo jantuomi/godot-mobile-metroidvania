@@ -31,6 +31,6 @@ func _on_area_2d_body_entered(player: Player) -> void:
 	if already_got:
 		queue_free()
 	else:
-		var dia = DialogueRelicGet.new(self)
+		var dia = CineRelicGet.new(self)
 		dia.process_mode = Node.PROCESS_MODE_ALWAYS
-		get_parent().add_child(dia)
+		top.add_child(dia)

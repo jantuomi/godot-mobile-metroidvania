@@ -103,10 +103,10 @@ func _physics_process(delta: float) -> void:
 
 func _on_player_entered(_player: Player) -> void:
 	oscing = false
-	var dia = DialogueGotAbilities.new(self)
+	var dia = CinematicGotAbilities.new(self)
 	get_parent().add_child(dia)
 
-class DialogueGotAbilities extends Dialogue:
+class CinematicGotAbilities extends Cinematic:
 	@onready var player: Player = parent.get_node(\"Player\")
 	@onready var top: Top = get_tree().root.get_node(\"Top\")
 

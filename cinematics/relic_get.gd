@@ -1,14 +1,13 @@
-class_name DialogueRelicGet
-extends Dialogue
+class_name CineRelicGet
+extends Cinematic
 
-@onready var top: Top = get_tree().root.get_node("Top")
-@onready var player: Player = parent.get_node("Player")
 var r: Node2D
 
 func _init(relic: Node2D):
 	r = relic
 
 func _ready():
+	var player: Player = get_room_node("Player")
 	var mp: AudioStreamPlayer = top.get_node("MusicPlayer")
 	mp.stream_paused = true
 	player.request_play_fanfare_sfx()
@@ -23,3 +22,5 @@ func _ready():
 	get_tree().paused = false
 	
 	mp.stream_paused = false
+
+	queue_free()

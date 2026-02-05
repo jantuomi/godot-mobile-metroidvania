@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://b0ovj5ki7tg3s"]
 
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="1_1pf6u"]
-[ext_resource type="Script" uid="uid://c1brkwqi07uem" path="res://rooms/cine_intro.gd" id="1_678l5"]
+[ext_resource type="Script" uid="uid://smifdf5yqj8r" path="res://rooms/cine_intro.gd" id="1_678l5"]
 [ext_resource type="Texture2D" uid="uid://dngaqobccmxtx" path="res://assets/redshipr.png" id="2_678l5"]
 [ext_resource type="Texture2D" uid="uid://dyg22seb4ktom" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0296.png" id="3_ig0ct"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="4_bawvl"]
@@ -42,7 +42,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -54,7 +54,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -159,10 +159,12 @@ texture = ExtResource("3_ig0ct")
 process_material = SubResource("ParticleProcessMaterial_dfwsi")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+modulate = Color(1, 1, 1, 0)
 tile_map_data = PackedByteArray("AAD//wYAAwANAAAAAAAAAAYAAwANAAAAAAABAAYAAwANAAAAAAADAAQAAwANAAAAAAAFAAUAAwANAAAAAAAGAAUAAwANAAAAAAAJAAMAAwANAAAAAAAKAAMAAwANAAAAAAALAAMAAwANAAAAAAAKAAQAAwANAAAAAAAKAAYAAwANAAAAAAALAAYAAwANAAAAAAAMAAYAAwANAAAAAAABAAMAAwANAAAAAAAAAAAAAwAAAAEAAAAGAP//AwAAAAEAAAAJAAAAAwAAAAEAAAAEAAAAAwAAAAEAAAABAAEAAwAAAAEAAAAMAP//AwAAAAEAAAABAP3/AwAAAAEAAAAEAP7/AwAAAAEAAAAIAPv/AwAAAAEAAAALAPz/AwAAAAEAAAALAPj/AwAAAAEAAAAHAPf/AwAAAAEAAAAGAPr/AwAAAAEAAAADAPz/AwAAAAEAAAD///n/AwAAAAEAAAD+//3/AwAAAAEAAAACAPf/AwAAAAEAAAAHAPX/AwAAAAEAAAAJAPb/AwAAAAEAAAADAPT/AwAAAAEAAAAAAPT/AwAAAAEAAAD///b/AwAAAAEAAAAMAPT/AwAAAAEAAAAMAPn/AwAAAAEAAAA=")
 tile_set = ExtResource("4_bawvl")
 
 [node name="InLowOrbit" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
 offset_left = -24.0
 offset_top = -121.0
 offset_right = 456.0

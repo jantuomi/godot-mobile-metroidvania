@@ -52,6 +52,9 @@ func replace_active_room(new_room: Node, on_changed: Callable):
 	new_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(new_room)
 
+func get_active_room() -> Room:
+	return get_node("ActiveRoom")
+
 func get_transition_player() -> TransitionPlayer:
 	return $TransitionPlayer
 

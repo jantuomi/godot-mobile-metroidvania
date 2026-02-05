@@ -1,6 +1,9 @@
 class_name TransitionPlayer
 extends AnimationPlayer
 
+signal transition_finished
+signal room_changed
+
 var _transition_room: Node
 var _transition_door_name: Variant # String or null
 var _override_player_fn: Variant # Callable or null
@@ -33,6 +36,8 @@ func room_transition(from_door: Door,
 		top.game_set(Top.SAVE_ACTIVE_ROOM_PATH, to_room_path)
 		top.game_set(Top.SAVE_LAST_DOOR_NAME, door_name)
 
+	await transition_finished
+
 func _transition_start():
 	var top: Top = get_tree().root.get_node("Top")
 
@@ -55,6 +60,7 @@ func _on_room_changed():
 		top.game_save()
 
 	play("room_trans_end")
+	room_changed.emit()
 	
 func _transition_end():
 	var top: Top = get_tree().root.get_node("Top")
@@ -69,3 +75,5 @@ func _transition_end():
 		player.request_state_normal()
 	
 	_override_player_fn = null
+
+	transition_finished.emit()

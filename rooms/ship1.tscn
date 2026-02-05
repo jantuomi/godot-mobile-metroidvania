@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://d1cs3f3is4ueq"]
 
-[ext_resource type="Script" uid="uid://u860i6080apx" path="res://rooms/ship1.gd" id="1_b0bog"]
+[ext_resource type="Script" uid="uid://cxclie8hu2iei" path="res://rooms/ship1.gd" id="1_b0bog"]
 [ext_resource type="Texture2D" uid="uid://7hiwc37lcc7e" path="res://assets.untracked/kenney_1-bit-platformer-pack/Tiles/Default/tile_0011.png" id="2_b0bog"]
 [ext_resource type="TileSet" uid="uid://0cd30n67d6k5" path="res://tileset_kenney_platformer.tres" id="3_vy3ys"]
 [ext_resource type="PackedScene" uid="uid://dfyvkc2qlcdac" path="res://game_camera.tscn" id="4_k7i86"]

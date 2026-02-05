@@ -1,10 +1,9 @@
-class_name Dialogue
+class_name Cinematic
 extends Node
 
 signal next(arg: Variant)
 
-@onready var parent: Node2D = get_parent()
-@onready var cam: GameCamera = parent.get_node("GameCamera")
+@onready var top: Top = get_tree().root.get_node("Top")
 
 enum Type { SAY, ASK }
 var type: Type
@@ -15,10 +14,11 @@ func say(who: Object, text: String):
 	if who is Node2D:
 		tb.global_position = who.global_position + Vector2(0, -20)
 	else:
-		tb.global_position = cam.global_position
+		var room = top.get_active_room()
+		tb.global_position = room.get_node("GameCamera").global_position
 
 	tb.add_to_group("text_bubbles")
-	parent.add_child(tb)
+	top.add_child(tb)
 	type = Type.SAY
 	await next
 
@@ -30,10 +30,11 @@ func ask(who: Object, text: String, options: Array[String]) -> String:
 	if who is Node2D:
 		tb.global_position = who.global_position + Vector2(0, -20)
 	else:
-		tb.global_position = cam.global_position
+		var room = top.get_active_room()
+		tb.global_position = room.get_node("GameCamera").global_position
 
 	tb.add_to_group("text_bubbles")
-	parent.add_child(tb)
+	top.add_child(tb)
 	type = Type.ASK
 	return await next
 
