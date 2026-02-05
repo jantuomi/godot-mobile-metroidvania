@@ -17,7 +17,7 @@ func _ready():
 
 	await top.play_cine_bars()
 	await say(r, "You found a mysterious relic!")
-	top.clear_cine_bars()
+	await top.clear_cine_bars()
 	
 	r.queue_free()
 	get_tree().paused = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cey3jxnpmommt"]
+[gd_scene load_steps=21 format=3 uid="uid://cey3jxnpmommt"]
 
 [ext_resource type="Material" uid="uid://bb4b8jm2tyy81" path="res://mat_palette.tres" id="1_edsjh"]
 [ext_resource type="Script" uid="uid://dxbspy72bg0db" path="res://top.gd" id="1_on2c2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cseqghymhiyqo" path="res://pause_menu_map.tscn" id="5_tk1sh"]
 [ext_resource type="Script" uid="uid://civ5a43u5151a" path="res://transition_player.gd" id="6_ch5ua"]
 [ext_resource type="Script" uid="uid://dh0b4xa4f8h1o" path="res://pause_menu.gd" id="6_ql50d"]
+[ext_resource type="Theme" uid="uid://bbeqwvwvbgyk" path="res://font_theme.tres" id="7_csenk"]
 [ext_resource type="Script" uid="uid://blwdf7vxrmw35" path="res://pause_menu_status.gd" id="7_u70i3"]
 [ext_resource type="Script" uid="uid://ckxfshqn3pxqr" path="res://pause_menu_system.gd" id="8_2tr3m"]
 [ext_resource type="Script" uid="uid://bwdk675n1q0dh" path="res://debug_info.gd" id="8_7c27k"]
@@ -182,6 +183,7 @@ offset_left = 64.0
 offset_top = 52.0
 offset_right = 155.0
 offset_bottom = 75.0
+theme = ExtResource("7_csenk")
 text = "Abilities"
 
 [node name="AbilityHang" type="Sprite2D" parent="PauseMenu/Status"]
@@ -199,6 +201,7 @@ offset_left = 68.0
 offset_top = 176.0
 offset_right = 209.0
 offset_bottom = 199.0
+theme = ExtResource("7_csenk")
 text = "Rescued scientists"
 
 [node name="Scientist1" type="Sprite2D" parent="PauseMenu/Status"]
@@ -224,6 +227,7 @@ offset_left = 520.0
 offset_top = 52.0
 offset_right = 661.0
 offset_bottom = 75.0
+theme = ExtResource("7_csenk")
 text = "Game progress"
 
 [node name="GameProgressP" type="Label" parent="PauseMenu/Status"]
@@ -231,6 +235,7 @@ offset_left = 520.0
 offset_top = 100.0
 offset_right = 661.0
 offset_bottom = 123.0
+theme = ExtResource("7_csenk")
 text = "0%"
 
 [node name="System" type="CanvasGroup" parent="PauseMenu"]
@@ -238,17 +243,27 @@ scale = Vector2(0.25, 0.25)
 script = ExtResource("8_2tr3m")
 
 [node name="QuitButton" type="Button" parent="PauseMenu/System"]
-offset_left = 300.0
-offset_top = 172.0
-offset_right = 455.0
-offset_bottom = 203.0
+custom_minimum_size = Vector2(240, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 256.0
+offset_top = 176.0
+offset_right = 496.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_csenk")
 text = "Quit to main menu"
 
 [node name="AutosavedAgoText" type="Label" parent="PauseMenu/System"]
-offset_left = 296.0
-offset_top = 208.0
-offset_right = 460.0
-offset_bottom = 231.0
+offset_left = 272.0
+offset_top = 216.0
+offset_right = 482.0
+offset_bottom = 242.0
+theme = ExtResource("7_csenk")
 text = "Autosaved TODO ago"
 
 [node name="TouchScreenUI" parent="." instance=ExtResource("5_edsjh")]

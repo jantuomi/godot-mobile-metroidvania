@@ -36,6 +36,10 @@ debug_info=""
 camera_target=""
 zoop_points=""
 
+[gui]
+
+theme/custom_font="uid://bqpv52d6sxwtr"
+
 [input]
 
 ui_left={

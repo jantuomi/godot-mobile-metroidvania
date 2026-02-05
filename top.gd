@@ -3,11 +3,13 @@ extends Node2D
 
 const ROOM_MAIN_MENU: String = "res://rooms/main_menu.tscn"
 const ROOM_NEW_GAME: String = "res://rooms/cine_intro.tscn"
-const DOOR_NEW_GAME: String = "DoorEntry"
+const DOOR_NEW_GAME: Variant = null #"DoorEntry"
 
 var active_room_name: String
 var pause_menu: PauseMenu
 var inventory: Inventory
+
+@onready var cine_bars_player: AnimationPlayer = $CinematicBars/AnimationPlayer;
 
 func _ready() -> void:
 	if not OS.is_debug_build():
@@ -60,11 +62,12 @@ func toggle_pause():
 		add_child.call_deferred(pause_menu)
 
 func play_cine_bars():
-	$CinematicBars/AnimationPlayer.play("cine_bars")
-	await $CinematicBars/AnimationPlayer.animation_finished
+	cine_bars_player.play("cine_bars")
+	await cine_bars_player.animation_finished
 
 func clear_cine_bars():
-	$CinematicBars/AnimationPlayer.play("RESET")
+	cine_bars_player.play_backwards("cine_bars")
+	await cine_bars_player.animation_finished
 
 # Save state logic
 
@@ -76,6 +79,7 @@ const SAVE_LAST_DOOR_NAME   = "LAST_DOOR_NAME"
 const SAVE_GOT_ZOOP         = "GOT_ZOOP"
 const SAVE_GOT_HANG         = "GOT_HANG"
 const SAVE_RELICS           = "RELICS"
+const SAVE_CINE_INTRO_DONE  = "CINE_INTRO_DONE"
 
 func game_set(k: String, v: Variant):
 	save_state.set_value(SAVE_SECTION, k, v)
@@ -89,6 +93,8 @@ func game_save():
 		relics_str.push_back(str(relic))
 	var relics_csv = ",".join(relics_str)
 	save_state.set_value(SAVE_SECTION, SAVE_RELICS, relics_csv)
+	
+	save_state.set_value(SAVE_SECTION, SAVE_CINE_INTRO_DONE, inventory.cine_intro_done)
 
 	save_state.save(SAVE_PATH)
 
@@ -107,5 +113,7 @@ func game_load():
 	#for relic in relics_csv.split(",", false):
 	#	var relic_int = int(relic)
 	#	inventory.relics.push_back(relic_int)
+	
+	inventory.cine_intro_done = save_state.get_value(SAVE_SECTION, SAVE_CINE_INTRO_DONE, false)
 
 	$TransitionPlayer.room_transition(null, save_active_room_path, save_last_door_name)
